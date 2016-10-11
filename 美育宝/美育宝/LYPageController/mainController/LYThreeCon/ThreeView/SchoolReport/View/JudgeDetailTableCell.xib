@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="113" id="KGk-i7-Jjw" customClass="JudgeDetailTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="老师评语：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGV-T2-FvB">
+                        <rect key="frame" x="10" y="5" width="105" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="105" id="NBs-EV-sii"/>
+                            <constraint firstAttribute="height" constant="21" id="zxo-CH-PIZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你是个好孩子，学校的好学生，社会的好青年，日后一定大有作为，祝你好运" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aha-w5-0IX">
+                        <rect key="frame" x="10" y="31" width="300" height="41"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PGV-T2-FvB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="YaQ-9W-hNz"/>
+                    <constraint firstItem="Aha-w5-0IX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aTg-He-GKk"/>
+                    <constraint firstItem="Aha-w5-0IX" firstAttribute="top" secondItem="PGV-T2-FvB" secondAttribute="bottom" constant="5" id="bXK-A7-y6U"/>
+                    <constraint firstAttribute="trailing" secondItem="Aha-w5-0IX" secondAttribute="trailing" constant="10" id="iV3-31-rFQ"/>
+                    <constraint firstItem="PGV-T2-FvB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="kX0-bc-YVh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="judgementLb" destination="Aha-w5-0IX" id="9wm-QT-3Vm"/>
+                <outlet property="teacher" destination="PGV-T2-FvB" id="fHB-9p-VQA"/>
+            </connections>
+            <point key="canvasLocation" x="369" y="276.5"/>
+        </tableViewCell>
+    </objects>
+</document>

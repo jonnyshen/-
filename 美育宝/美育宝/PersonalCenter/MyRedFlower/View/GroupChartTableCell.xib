@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GroupChartTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="335" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S90-hq-8LZ">
+                        <rect key="frame" x="168" y="12" width="0.0" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="7Me-g3-kxV"/>
+                            <constraint firstAttribute="width" constant="60" id="Q1g-1O-TZf"/>
+                            <constraint firstAttribute="height" constant="20" id="vr3-kL-7dN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7Me-g3-kxV"/>
+                                <exclude reference="Q1g-1O-TZf"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3U-b2-zfl">
+                        <rect key="frame" x="250" y="13" width="60" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="W2Y-71-YZb"/>
+                            <constraint firstAttribute="width" constant="60" id="jID-1T-32R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H12-mR-mxs">
+                        <rect key="frame" x="25" y="12" width="30" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Jjf-Vt-yeF"/>
+                            <constraint firstAttribute="height" constant="20" id="oZB-3l-ZUc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="S90-hq-8LZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0LF-Cu-wUx"/>
+                    <constraint firstItem="S90-hq-8LZ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="1NG-JZ-Akd"/>
+                    <constraint firstItem="w3U-b2-zfl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7UH-Uz-xXO"/>
+                    <constraint firstItem="H12-mR-mxs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HIS-Pj-fkz"/>
+                    <constraint firstItem="S90-hq-8LZ" firstAttribute="leading" secondItem="H12-mR-mxs" secondAttribute="trailing" constant="10" id="HWp-Z6-hSl"/>
+                    <constraint firstAttribute="trailing" secondItem="w3U-b2-zfl" secondAttribute="trailing" constant="25" id="Yul-Ob-A6A"/>
+                    <constraint firstItem="H12-mR-mxs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="klc-k0-Xa6"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="HWp-Z6-hSl"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="flower" destination="w3U-b2-zfl" id="xc3-DD-VBd"/>
+                <outlet property="name" destination="S90-hq-8LZ" id="8a0-FF-ztx"/>
+                <outlet property="number" destination="H12-mR-mxs" id="MPJ-P3-FB1"/>
+            </connections>
+            <point key="canvasLocation" x="408.5" y="242"/>
+        </tableViewCell>
+    </objects>
+</document>

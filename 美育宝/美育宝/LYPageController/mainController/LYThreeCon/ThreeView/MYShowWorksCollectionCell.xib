@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MYShowWorksCollectionCell" id="gTV-IL-0wX" customClass="MYShowWorksCollectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vnX-Pa-tLs"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="299-AO-pZz">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="vnX-Pa-tLs" secondAttribute="bottom" constant="20" id="1O6-Fk-2o9"/>
+                <constraint firstItem="299-AO-pZz" firstAttribute="top" secondItem="vnX-Pa-tLs" secondAttribute="bottom" id="F9o-Mi-L8E"/>
+                <constraint firstAttribute="trailing" secondItem="299-AO-pZz" secondAttribute="trailing" id="HbU-6V-qwZ"/>
+                <constraint firstItem="vnX-Pa-tLs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JF2-Ea-kXF"/>
+                <constraint firstItem="vnX-Pa-tLs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Vc0-zn-jYe"/>
+                <constraint firstAttribute="bottom" secondItem="299-AO-pZz" secondAttribute="bottom" id="liO-v1-cd2"/>
+                <constraint firstAttribute="trailing" secondItem="vnX-Pa-tLs" secondAttribute="trailing" id="mFG-7x-RJI"/>
+                <constraint firstItem="299-AO-pZz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ycS-cX-Psa"/>
+            </constraints>
+            <size key="customSize" width="106" height="106"/>
+            <connections>
+                <outlet property="imageView" destination="vnX-Pa-tLs" id="X59-eH-RDm"/>
+                <outlet property="titleLabel" destination="299-AO-pZz" id="lEL-0L-12a"/>
+            </connections>
+            <point key="canvasLocation" x="270" y="285"/>
+        </collectionViewCell>
+    </objects>
+</document>

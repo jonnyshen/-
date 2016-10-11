@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MYCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner05.png" translatesAutoresizingMaskIntoConstraints="NO" id="pg0-bI-uaj">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="90"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="nO8-nF-5hk"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="沙画第一教程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMp-R8-Gis">
+                        <rect key="frame" x="160" y="10" width="102" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="JHl-l6-wZd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行到1/4课时" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrI-uM-NFD">
+                        <rect key="frame" x="160" y="51" width="96" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="NPW-s9-hkY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZE-Zf-dd7">
+                        <rect key="frame" x="160" y="69" width="30" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="9sp-cf-X88"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.22605091553826948" green="0.84440445026178013" blue="0.44085513162253293" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="pg0-bI-uaj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1Uu-yq-FE9"/>
+                <constraint firstItem="zMp-R8-Gis" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="2iX-x7-ezG"/>
+                <constraint firstItem="fZE-Zf-dd7" firstAttribute="leading" secondItem="pg0-bI-uaj" secondAttribute="trailing" constant="10" id="430-fe-g73"/>
+                <constraint firstAttribute="bottom" secondItem="pg0-bI-uaj" secondAttribute="bottom" id="Cc1-zU-HCs"/>
+                <constraint firstItem="zMp-R8-Gis" firstAttribute="leading" secondItem="pg0-bI-uaj" secondAttribute="trailing" constant="10" id="MPU-XL-r8h"/>
+                <constraint firstItem="xrI-uM-NFD" firstAttribute="leading" secondItem="pg0-bI-uaj" secondAttribute="trailing" constant="10" id="OGB-1q-Hbx"/>
+                <constraint firstItem="pg0-bI-uaj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="YxQ-GM-j1D"/>
+                <constraint firstAttribute="bottom" secondItem="fZE-Zf-dd7" secondAttribute="bottom" id="gex-be-LFT"/>
+                <constraint firstItem="xrI-uM-NFD" firstAttribute="top" secondItem="zMp-R8-Gis" secondAttribute="bottom" constant="20" id="pAi-Wr-OLj"/>
+            </constraints>
+            <size key="customSize" width="320" height="90"/>
+            <connections>
+                <outlet property="imgUrl" destination="pg0-bI-uaj" id="2me-rp-XIx"/>
+                <outlet property="subTitle" destination="xrI-uM-NFD" id="jNN-fG-h0H"/>
+                <outlet property="title" destination="zMp-R8-Gis" id="gX4-WT-Ffh"/>
+            </connections>
+            <point key="canvasLocation" x="252" y="244"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="banner05.png" width="640" height="267"/>
+    </resources>
+</document>

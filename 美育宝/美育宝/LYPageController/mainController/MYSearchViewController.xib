@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MYSearchViewController">
+            <connections>
+                <outlet property="contentScrollView" destination="QfL-Ke-CXO" id="khh-5H-taJ"/>
+                <outlet property="searchBar" destination="dj0-pq-mZs" id="ZWC-Fg-IdI"/>
+                <outlet property="searchDisplayController" destination="OwY-hB-xKf" id="2I1-59-Fme"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" placeholder="请输入课程关键字" translatesAutoresizingMaskIntoConstraints="NO" id="dj0-pq-mZs">
+                    <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="YU8-AX-2A2"/>
+                    </constraints>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Mpd-e6-ghA"/>
+                    </connections>
+                </searchBar>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QfL-Ke-CXO">
+                    <rect key="frame" x="0.0" y="108" width="320" height="460"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="QfL-Ke-CXO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ApU-T8-9wy"/>
+                <constraint firstAttribute="trailing" secondItem="QfL-Ke-CXO" secondAttribute="trailing" id="SVk-kg-NFf"/>
+                <constraint firstAttribute="trailing" secondItem="dj0-pq-mZs" secondAttribute="trailing" id="Set-Bd-4Oj"/>
+                <constraint firstItem="dj0-pq-mZs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="biC-Pe-dOb"/>
+                <constraint firstItem="dj0-pq-mZs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="gNw-ua-KcM"/>
+                <constraint firstAttribute="bottom" secondItem="QfL-Ke-CXO" secondAttribute="bottom" id="oU0-4c-J1E"/>
+                <constraint firstItem="QfL-Ke-CXO" firstAttribute="top" secondItem="dj0-pq-mZs" secondAttribute="bottom" id="ved-rR-h1n"/>
+            </constraints>
+            <point key="canvasLocation" x="396" y="213"/>
+        </view>
+        <searchDisplayController id="OwY-hB-xKf">
+            <connections>
+                <outlet property="delegate" destination="-1" id="Map-0C-sie"/>
+                <outlet property="searchContentsController" destination="-1" id="nws-wm-NYW"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="DT2-bk-0j0"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="jUU-hW-zTI"/>
+            </connections>
+        </searchDisplayController>
+    </objects>
+</document>
