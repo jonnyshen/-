@@ -1,39 +1,35 @@
 //
-//  ClassifiedCatalogueController.m
+//  ClassifiedWorksUploadCon.m
 //  美育宝
 //
-//  Created by iOS程序员 on 2016/10/10.
+//  Created by iOS程序员 on 2016/10/11.
 //  Copyright © 2016年 Yonghang Liu. All rights reserved.
 //
 
-#import "ClassifiedCatalogueController.h"
+#import "ClassifiedWorksUploadCon.h"
 #import "AFNetworking.h"
 #import "MYToolsModel.h"
-#import "EducationStage.h"
 #import "FirstInDefault.h"
+#import "EducationStage.h"
 #import "GradeEducation.h"
 #import "SubjectModel.h"
 #import "TeachingMaterial.h"
 #import "UnitsModel.h"
 #import "PeriodClass.h"
-
+#import "ClassNumber.h"
+#import "GroupNameModel.h"
+#import "MembersModel.h"
 #import "ValuePickerView.h"
 
 
+@interface ClassifiedWorksUploadCon ()
 
-@interface ClassifiedCatalogueController ()<UIGestureRecognizerDelegate>
-{
-   
-    UILabel *titleLabel;
-}
-@property (weak, nonatomic) IBOutlet UIButton *oneBtn;
-@property (weak, nonatomic) IBOutlet UIButton *twoBtn;
-@property (weak, nonatomic) IBOutlet UIButton *threeBtn;
-@property (weak, nonatomic) IBOutlet UIButton *fourBtn;
-@property (weak, nonatomic) IBOutlet UIButton *fiveBtn;
-@property (weak, nonatomic) IBOutlet UIButton *sixBtn;
-@property (weak, nonatomic) IBOutlet UIButton *moreCatalogueBtn;
-@property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (weak, nonatomic) IBOutlet UIView *lowUploadView;
+@property (weak, nonatomic) IBOutlet UIButton *lowOneBtn;
+@property (weak, nonatomic) IBOutlet UIButton *lowTwoBtn;
+@property (weak, nonatomic) IBOutlet UIButton *lowUploadBtn;
+@property (weak, nonatomic) IBOutlet UIButton *highViewBtn;
+
 
 @property (nonatomic, strong) NSMutableArray *defaultArray;
 @property (nonatomic, strong) NSMutableArray *stageArr;
@@ -45,6 +41,15 @@
 @property (nonatomic, strong) NSMutableArray *kemuID;
 @property (nonatomic, strong) NSMutableArray *danyuanID;
 @property (nonatomic, strong) NSMutableArray *keshiID;
+@property (nonatomic, strong) NSMutableArray *classNumArr;
+@property (nonatomic, strong) NSMutableArray *classIDArr;
+@property (nonatomic, strong) NSMutableArray *classidentyArr;
+
+@property (nonatomic, strong) NSMutableArray *groupIDArr;
+@property (nonatomic, strong) NSMutableArray *groupNameArr;
+
+@property (nonatomic, strong) NSMutableArray *membersIDArr;
+@property (nonatomic, strong) NSMutableArray *membersNameArr;
 
 @property (nonatomic, strong) NSMutableArray *teachMaterialArr;
 @property (nonatomic, strong) NSMutableArray *unitsArr;
@@ -57,50 +62,58 @@
 @property (nonatomic, strong) NSMutableArray *fourDataArr;
 @property (nonatomic, strong) NSMutableArray *fiveDataArr;
 @property (nonatomic, strong) NSMutableArray *sixDataArr;
+@property (nonatomic, strong) NSMutableArray *highEightDataArr;
+@property (nonatomic, strong) NSMutableArray *highNineDataArr;
+
 @property (nonatomic, strong) ValuePickerView *pickerView;
+
 @end
 
-@implementation ClassifiedCatalogueController
-
-
+@implementation ClassifiedWorksUploadCon
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self getFirstSightMessage];
+    [self getDefaultFirstSightMessage];
+    [self getGroupNameAndID];
     
     self.pickerView = [[ValuePickerView alloc] init];
     
+    [self.highViewBtn addTarget:self action:@selector(highViewLoading) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.oneBtn addTarget:self action:@selector(oneBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.twoBtn addTarget:self action:@selector(twoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.threeBtn addTarget:self action:@selector(threeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.fourBtn addTarget:self action:@selector(fourBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.fiveBtn addTarget:self action:@selector(fiveBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.sixBtn addTarget:self action:@selector(sixBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-   
-    
+    [self.highOneBtn addTarget:self action:@selector(highoneBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highTwoBtn addTarget:self action:@selector(hightwoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highThreeBtn addTarget:self action:@selector(highthreeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highFourBtn addTarget:self action:@selector(highfourBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highFiveBtn addTarget:self action:@selector(highfiveBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highSixBtn addTarget:self action:@selector(highsixBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highSevenBtn addTarget:self action:@selector(highSevenBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.highEightBtn addTarget:self action:@selector(highEightBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.hightNineBtn addTarget:self action:@selector(highNineBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - 默认两个条件的上传
 
+- (void)highViewLoading
+{
+    self.highView.hidden = NO;
+    self.lowUploadView.hidden = YES;
+}
 
-
-
-- (void)oneBtnClick:(UIButton *)button
+#pragma mark - highViewButtonAction
+- (void)highoneBtnClick:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (EducationStage *data in self.stageArr) {
-            [dataArr addObject:data.stageName];
-        }
+    for (EducationStage *data in self.stageArr) {
+        [dataArr addObject:data.stageName];
+    }
     
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"教育阶段";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.oneBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highOneBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
@@ -108,18 +121,18 @@
     
 }
 
-- (void)twoBtnAction:(UIButton *)button
+- (void)hightwoBtnAction:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (GradeEducation *data in self.gradeArr) {
-            [dataArr addObject:data.njbm];
-        }
+    for (GradeEducation *data in self.gradeArr) {
+        [dataArr addObject:data.njbm];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"年级";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.twoBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highTwoBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
@@ -127,39 +140,39 @@
     
 }
 
-- (void)threeBtnClickAction:(UIButton *)button
+- (void)highthreeBtnClickAction:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (SubjectModel *data in self.subjectArr) {
-            [dataArr addObject:data.kcmc];
-        }
+    for (SubjectModel *data in self.subjectArr) {
+        [dataArr addObject:data.kcmc];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"科目";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.threeBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highThreeBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
     
-
     
-   
+    
+    
 }
 
-- (void)fourBtnClickAction:(UIButton *)button
+- (void)highfourBtnClickAction:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (TeachingMaterial *data in self.teachMaterialArr) {
-            [dataArr addObject:data.jcmc];
-        }
+    for (TeachingMaterial *data in self.teachMaterialArr) {
+        [dataArr addObject:data.jcmc];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"教材版本";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.fourBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highFourBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
@@ -168,51 +181,110 @@
     
 }
 
-- (void)fiveBtnClickAction:(UIButton *)button
+- (void)highfiveBtnClickAction:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (UnitsModel *data in self.unitsArr) {
-            [dataArr addObject:data.bt];
-        }
+    for (UnitsModel *data in self.unitsArr) {
+        [dataArr addObject:data.bt];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"单元";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.fiveBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highFiveBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
     
-   
+    
 }
 
-- (void)sixBtnClickAction:(UIButton *)button
+- (void)highsixBtnClickAction:(UIButton *)button
 {
     
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (PeriodClass *data in self.periodArr) {
-            [dataArr addObject:data.bt];
-        }
+    for (PeriodClass *data in self.periodArr) {
+        [dataArr addObject:data.bt];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"课时";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
-        [weakSelf.sixBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf.highSixBtn setTitle:stateArr[0] forState:UIControlStateNormal];
     };
     
     [self.pickerView show];
-
     
-   
+    
+    
 }
 
-- (void)getFirstSightMessage
+- (void)highSevenBtnClickAction:(UIButton *)button
+{
+    
+    NSMutableArray *dataArr = [NSMutableArray array];
+    for (ClassNumber *data in self.classNumArr) {
+        [dataArr addObject:data.bjmc];
+    }
+    self.pickerView.dataSource = dataArr;
+    self.pickerView.pickerTitle = @"班级";
+    __weak typeof(self) weakSelf = self;
+    self.pickerView.valueDidSelect = ^(NSString *value){
+        NSArray * stateArr = [value componentsSeparatedByString:@"/"];
+        [weakSelf.highSevenBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+    };
+    
+    [self.pickerView show];
+    
+}
+- (void)highEightBtnClickAction:(UIButton *)button
+{
+    
+    NSMutableArray *dataArr = [NSMutableArray array];
+    for (GroupNameModel *data in self.highEightDataArr) {
+        [dataArr addObject:data.name];
+    }
+    self.pickerView.dataSource = dataArr;
+    self.pickerView.pickerTitle = @"小组";
+    __weak typeof(self) weakSelf = self;
+    self.pickerView.valueDidSelect = ^(NSString *value){
+        NSArray * stateArr = [value componentsSeparatedByString:@"/"];
+        [weakSelf.highEightBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+    };
+    
+    [self.pickerView show];
+    
+}
+- (void)highNineBtnClickAction:(UIButton *)button
+{
+    
+    NSMutableArray *dataArr = [NSMutableArray array];
+    for (MembersModel *data in self.highNineDataArr) {
+        [dataArr addObject:data.xm];
+    }
+    self.pickerView.dataSource = dataArr;
+    self.pickerView.pickerTitle = @"成员";
+    __weak typeof(self) weakSelf = self;
+    self.pickerView.valueDidSelect = ^(NSString *value){
+        NSArray * stateArr = [value componentsSeparatedByString:@"/"];
+        [weakSelf.hightNineBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+    };
+    
+    [self.pickerView show];
+    
+}
+
+
+#pragma mark - 默认九个条件的上传
+
+- (void)getDefaultFirstSightMessage
 {
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
     NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
+    NSString *userName = [tools sendFileString:@"LoginData.plist" andNumber:0];
     
     NSString *firstUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getuseractionrecord&ucode=%@",userCode];
     
@@ -242,9 +314,9 @@
                 EducationStage *stage = [EducationStage dataWithDict:education];
                 [self.stageArr addObject:stage];
             }
-            [self.oneBtn setTitle:self.oneDataArr.firstObject forState:UIControlStateNormal];
+            [self.highOneBtn setTitle:self.oneDataArr.firstObject forState:UIControlStateNormal];
         }
-     
+        
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
@@ -265,7 +337,7 @@
                 [self.gradeArr addObject:stage];
             }
             
-            [self.twoBtn setTitle:self.twoDataArr.firstObject forState:UIControlStateNormal];
+            [self.highTwoBtn setTitle:self.twoDataArr.firstObject forState:UIControlStateNormal];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -288,7 +360,7 @@
             }
             
             [self teachingMaterial];
-            [self.threeBtn setTitle:self.threeDataArr.firstObject forState:UIControlStateNormal];
+            [self.highThreeBtn setTitle:self.threeDataArr.firstObject forState:UIControlStateNormal];
             
         }
         
@@ -296,7 +368,30 @@
         
     }];
     
-
+    //获取班级小学一（1）班
+    
+    NSString *classNumberURL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getmyclass&logincode=%@",userName];
+    [manager GET:classNumberURL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
+            
+        } else {
+            for (NSDictionary *grade in responseObject[@"data"]) {
+                [self.classIDArr addObject:grade[@"BJH"]];
+                [self.classidentyArr addObject:grade[@"BJMC"]];
+                ClassNumber *stage = [ClassNumber dataWithDict:grade];
+                [self.classNumArr addObject:stage];
+            }
+            
+            
+            [self.highSevenBtn setTitle:self.classidentyArr.firstObject forState:UIControlStateNormal];
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+    
 }
 
 - (void)teachingMaterial
@@ -305,7 +400,7 @@
     NSString *teaching_Material_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getjclist&nj=1&km=150101"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
+    
     [manager GET:teaching_Material_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
@@ -321,7 +416,7 @@
             //            获取到教材代码再执行获取单元目录
             [self getUnits];
             
-            [self.fourBtn setTitle:self.fourDataArr.firstObject forState:UIControlStateNormal];
+            [self.highFourBtn setTitle:self.fourDataArr.firstObject forState:UIControlStateNormal];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -351,7 +446,7 @@
             //获取到zbh后再执行获取课时
             [self periodClass];
             
-            [self.fiveBtn setTitle:self.fiveDataArr.firstObject forState:UIControlStateNormal];
+            [self.highFiveBtn setTitle:self.fiveDataArr.firstObject forState:UIControlStateNormal];
         }
         
         
@@ -360,7 +455,7 @@
     }];
 }
 
-//
+//获取课时
 - (void)periodClass
 {
     NSString *period_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getkcksml&zbh=%@",self.keshiID.firstObject];
@@ -377,13 +472,80 @@
                 PeriodClass *stage = [PeriodClass dataWithDict:grade];
                 [self.periodArr addObject:stage];
             }
-            [self.sixBtn setTitle:self.sixDataArr.firstObject forState:UIControlStateNormal];
+            [self.highSixBtn setTitle:self.sixDataArr.firstObject forState:UIControlStateNormal];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
 }
+
+//获取小组名
+- (void)getGroupNameAndID
+{
+    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbjxiaozu&bjbh=gz01020101&jsgh=1015010"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
+            
+        } else {
+            for (NSDictionary *grade in responseObject[@"data"]) {
+                [self.groupIDArr addObject:grade[@"Id"]];
+                [self.groupNameArr addObject:grade[@"Name"]];
+                GroupNameModel *groupName = [GroupNameModel dataWithDict:grade];
+                [self.highEightDataArr addObject:groupName];
+            }
+            
+            //获取到group后再执行获取课时
+            
+            [self getMemberName:nil];
+            
+            [self.highEightBtn setTitle:self.groupNameArr.firstObject forState:UIControlStateNormal];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+}
+
+//获取小组成员
+- (void)getMemberName:(NSString *)group
+{
+    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxiaozuxuesheng&xzbh=%@",@"702"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
+            
+        } else {
+            for (NSDictionary *grade in responseObject[@"data"]) {
+                [self.membersIDArr addObject:grade[@"StudentCode"]];
+                [self.membersNameArr addObject:grade[@"XM"]];
+                MembersModel *members = [MembersModel dataWithDict:grade];
+                [self.highNineDataArr addObject:members];
+            }
+            
+            
+            
+            [self.hightNineBtn setTitle:self.membersNameArr.firstObject forState:UIControlStateNormal];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+}
+
+
+
+
+
 
 
 
@@ -530,5 +692,69 @@
     }
     return _sixDataArr;
 }
+- (NSMutableArray *)classIDArr
+{
+    if (!_classIDArr) {
+        _classIDArr = [[NSMutableArray alloc] init];
+    }
+    return _classIDArr;
+}
+- (NSMutableArray *)classidentyArr
+{
+    if (!_classidentyArr) {
+        _classidentyArr = [[NSMutableArray alloc] init];
+    }
+    return _classidentyArr;
+}
+- (NSMutableArray *)classNumArr
+{
+    if (!_classNumArr) {
+        _classNumArr = [[NSMutableArray alloc] init];
+    }
+    return _classNumArr;
+}
+- (NSMutableArray *)groupIDArr
+{
+    if (!_groupIDArr) {
+        _groupIDArr = [[NSMutableArray alloc] init];
+    }
+    return _groupIDArr;
+}
+- (NSMutableArray *)groupNameArr
+{
+    if (!_groupNameArr) {
+        _groupNameArr = [[NSMutableArray alloc] init];
+    }
+    return _groupNameArr;
+}
+- (NSMutableArray *)membersIDArr
+{
+    if (!_membersIDArr) {
+        _membersIDArr = [[NSMutableArray alloc] init];
+    }
+    return _membersIDArr;
+}
+- (NSMutableArray *)membersNameArr
+{
+    if (!_membersNameArr) {
+        _membersNameArr = [[NSMutableArray alloc] init];
+    }
+    return _membersNameArr;
+}
+- (NSMutableArray *)highEightDataArr
+{
+    if (!_highEightDataArr) {
+        _highEightDataArr = [[NSMutableArray alloc] init];
+    }
+    return _highEightDataArr;
+}
+- (NSMutableArray *)highNineDataArr
+{
+    if (!_highNineDataArr) {
+        _highNineDataArr = [[NSMutableArray alloc] init];
+    }
+    return _highNineDataArr;
+}
+
 
 @end

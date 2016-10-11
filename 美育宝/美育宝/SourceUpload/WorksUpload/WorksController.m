@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "MYToolsModel.h"
 #import "SkimController.h"
+#import "ClassifiedWorksUploadCon.h"
 
 
 @interface WorksController ()<UITableViewDelegate, UITableViewDataSource>
@@ -161,11 +162,18 @@
 
 - (void)uploadTasksData
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"请选择获取资源方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"选择上传方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
+    
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     UIAlertAction *phoneAlbum = [UIAlertAction actionWithTitle:@"手机相册" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         
+        
+        
+        
+        ClassifiedWorksUploadCon *worksUpload = [[ClassifiedWorksUploadCon alloc] init];
+        [self.navigationController pushViewController:worksUpload animated:YES];
     }];
     
     UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
