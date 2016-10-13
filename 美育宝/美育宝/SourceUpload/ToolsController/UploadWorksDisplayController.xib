@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UploadWorksDisplayController">
+            <connections>
+                <outlet property="detailTextField" destination="dhp-Op-wEY" id="Ki6-AZ-GqB"/>
+                <outlet property="headerImageView" destination="Fmw-HI-ABR" id="Xu1-7P-UWI"/>
+                <outlet property="uploadBtn" destination="2Cj-qr-0FX" id="Btw-Nr-J7w"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fmw-HI-ABR">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="0Yj-15-IwT"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dr-OF-UGg">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="guO-C6-w9n"/>
+                        <constraint firstAttribute="height" constant="21" id="uTI-Gx-OrD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dhp-Op-wEY">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="aqU-Fl-SF2"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-qr-0FX">
+                    <color key="backgroundColor" red="0.52209648480000004" green="0.73099925529999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="NXs-ZA-wz5"/>
+                        <constraint firstAttribute="height" constant="50" id="Pl5-ck-X43"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <state key="normal" title="上传">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1Dr-OF-UGg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="6yZ-xJ-STO"/>
+                <constraint firstItem="1Dr-OF-UGg" firstAttribute="top" secondItem="Fmw-HI-ABR" secondAttribute="bottom" constant="20" id="6zX-1x-HVJ"/>
+                <constraint firstItem="dhp-Op-wEY" firstAttribute="top" secondItem="Fmw-HI-ABR" secondAttribute="bottom" constant="15" id="MFp-1K-Hyb"/>
+                <constraint firstAttribute="trailing" secondItem="2Cj-qr-0FX" secondAttribute="trailing" constant="20" id="Ne5-rF-TlF"/>
+                <constraint firstItem="dhp-Op-wEY" firstAttribute="leading" secondItem="1Dr-OF-UGg" secondAttribute="trailing" constant="10" id="Qca-kL-PDi"/>
+                <constraint firstAttribute="trailing" secondItem="dhp-Op-wEY" secondAttribute="trailing" constant="10" id="UEU-Hd-61Y"/>
+                <constraint firstItem="Fmw-HI-ABR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="Uly-FQ-CDK"/>
+                <constraint firstItem="Fmw-HI-ABR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZXj-S0-36i"/>
+                <constraint firstAttribute="trailing" secondItem="Fmw-HI-ABR" secondAttribute="trailing" id="ffn-BW-MhJ"/>
+                <constraint firstItem="2Cj-qr-0FX" firstAttribute="top" secondItem="dhp-Op-wEY" secondAttribute="bottom" constant="20" id="q0g-S3-DUk"/>
+            </constraints>
+            <point key="canvasLocation" x="-19.5" y="73.5"/>
+        </view>
+    </objects>
+</document>

@@ -21,4 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *hightNineBtn;
 @property (weak, nonatomic) IBOutlet UIButton *highUploadBtn;
 
+- (instancetype)initWithImageData:(NSString *)imageDataString classDecribe:(NSString *)descrbe;
+
 @end

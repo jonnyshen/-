@@ -166,7 +166,7 @@
         //压缩图片
         NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
         //保存图片至相册
-//        UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
         //        上传图片
         if (_delegate && [_delegate respondsToSelector:@selector(upLoadImageWithData:)]) {
             [_delegate upLoadImageWithData:fileData];

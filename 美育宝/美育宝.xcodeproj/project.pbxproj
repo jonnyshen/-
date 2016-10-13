@@ -514,6 +514,8 @@
 		6E0B1D111DAD0C81005E26F1 /* ClassNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B1D101DAD0C81005E26F1 /* ClassNumber.m */; };
 		6E0B1D141DAD113F005E26F1 /* GroupNameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B1D131DAD113F005E26F1 /* GroupNameModel.m */; };
 		6E0B1D171DAD1170005E26F1 /* MembersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B1D161DAD1170005E26F1 /* MembersModel.m */; };
+		6E3DA45D1DAF34B100C68E36 /* UploadWorksDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DA45B1DAF34B100C68E36 /* UploadWorksDisplayController.m */; };
+		6E3DA45E1DAF34B100C68E36 /* UploadWorksDisplayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E3DA45C1DAF34B100C68E36 /* UploadWorksDisplayController.xib */; };
 		6E9130141DAA15B9007D0CA1 /* SourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9130131DAA15B9007D0CA1 /* SourceController.m */; };
 		6E9130171DAA15CA007D0CA1 /* WorksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9130161DAA15CA007D0CA1 /* WorksController.m */; };
 		6E9130201DAA1A24007D0CA1 /* UploadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E91301E1DAA1A24007D0CA1 /* UploadController.m */; };
@@ -1375,6 +1377,9 @@
 		6E0B1D131DAD113F005E26F1 /* GroupNameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupNameModel.m; sourceTree = "<group>"; };
 		6E0B1D151DAD1170005E26F1 /* MembersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MembersModel.h; sourceTree = "<group>"; };
 		6E0B1D161DAD1170005E26F1 /* MembersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MembersModel.m; sourceTree = "<group>"; };
+		6E3DA45A1DAF34B100C68E36 /* UploadWorksDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadWorksDisplayController.h; sourceTree = "<group>"; };
+		6E3DA45B1DAF34B100C68E36 /* UploadWorksDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadWorksDisplayController.m; sourceTree = "<group>"; };
+		6E3DA45C1DAF34B100C68E36 /* UploadWorksDisplayController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadWorksDisplayController.xib; sourceTree = "<group>"; };
 		6E9130121DAA15B9007D0CA1 /* SourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceController.h; sourceTree = "<group>"; };
 		6E9130131DAA15B9007D0CA1 /* SourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceController.m; sourceTree = "<group>"; };
 		6E9130151DAA15CA007D0CA1 /* WorksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksController.h; sourceTree = "<group>"; };
@@ -3330,6 +3335,9 @@
 				6E0B1D051DACCF45005E26F1 /* ClassifiedWorksUploadCon.h */,
 				6E0B1D061DACCF45005E26F1 /* ClassifiedWorksUploadCon.m */,
 				6E0B1D071DACCF45005E26F1 /* ClassifiedWorksUploadCon.xib */,
+				6E3DA45A1DAF34B100C68E36 /* UploadWorksDisplayController.h */,
+				6E3DA45B1DAF34B100C68E36 /* UploadWorksDisplayController.m */,
+				6E3DA45C1DAF34B100C68E36 /* UploadWorksDisplayController.xib */,
 			);
 			path = ToolsController;
 			sourceTree = "<group>";
@@ -3750,6 +3758,7 @@
 				18A6CFE71D23D3DA009F3D82 /* button01.png in Resources */,
 				1899F3241CD33C6900845E8B /* no_checked.png in Resources */,
 				1899F2881CCF040300845E8B /* FirstTableViewCell.xib in Resources */,
+				6E3DA45E1DAF34B100C68E36 /* UploadWorksDisplayController.xib in Resources */,
 				1849E1851CEC3EE900AEF18B /* DetailTextViewController.xib in Resources */,
 				1899F12A1CC7763F00845E8B /* MJRefresh.bundle in Resources */,
 				1899F2A71CCF542B00845E8B /* RecommandCollectionViewCell.xib in Resources */,
@@ -3988,6 +3997,7 @@
 				18D8129B1CE5B6D10018EF24 /* TRCommentModel.m in Sources */,
 				18485E831D7D1563009DA47D /* JWShareView.m in Sources */,
 				1849E2721CF42A9300AEF18B /* MYCollectController.m in Sources */,
+				6E3DA45D1DAF34B100C68E36 /* UploadWorksDisplayController.m in Sources */,
 				180D7DFA1D4892EE00321650 /* CoolNavi.m in Sources */,
 				18243DFB1CC8957D004C9015 /* MASCompositeConstraint.m in Sources */,
 				1899F29D1CCF4F7700845E8B /* hotCollectionViewCell.m in Sources */,

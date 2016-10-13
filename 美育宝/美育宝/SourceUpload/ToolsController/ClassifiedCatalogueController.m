@@ -19,7 +19,7 @@
 #import "PeriodClass.h"
 
 #import "ValuePickerView.h"
-
+#import "SourceController.h"
 
 
 @interface ClassifiedCatalogueController ()<UIGestureRecognizerDelegate,NSURLSessionDelegate>
@@ -171,6 +171,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.threeBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        
         NSString *subjectCode = [mutableDict objectForKey:stateArr[0]];
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:subjectCode,@"subjectcode", nil];
         NSNotification *notic = [NSNotification notificationWithName:@"SUBJECT_CHANGE" object:nil userInfo:dict];
@@ -460,49 +461,13 @@
 {
 //    http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=R000000003&jyjd=004002&kch=150101&nj=1&zbh=131&zymc=161012175945434.jpg&filename=161012175945434.jpg&filesize=1613797&zyms=
     
-    [self createFieldName:_imageName];
-    
-    //
-    MYToolsModel *tools = [[MYToolsModel alloc] init];
-    NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
-    
-    NSString *imgData_Length = [NSString stringWithFormat:@"%ld",_imageDataString.length];
-    
-    NSString *nj = nil;
-    NSString *jyjd = nil;
-    NSString *zbh = nil;
-    
-    for (FirstInDefault *paramter in self.defaultArray) {
-        nj = paramter.nj;
-        jyjd = paramter.jyjd;
-        zbh = paramter.zbh;
+    if (!_imageDataString) {
+        [FormValidator showAlertWithStr:@"请选择上传的资源"];
+        return;
     }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        
-        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=%@&kch=%@&nj=%@&zbh=%@&zymc=%@&filename=%@&filesize=%@&zyms=%@",userCode,jyjd,self.kemuID.firstObject,nj,zbh,_imageName,_imageName,imgData_Length,_kcms];
-        
-        NSString *codeUrl  = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        [manager POST:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
-            if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-                [FormValidator showAlertWithStr:@"保存成功"];
-            } else {
-                [FormValidator showAlertWithStr:@"保存失败"];
-            }
-            
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-        }];
-        
-        
-        
-    });
+    [self createFieldName:_imageName];
+    
 }
 
 
@@ -574,6 +539,7 @@
             if (error)
                 NSLog(@"Error: %@", error);
             else
+                [self uploadMessageToContextWithServiseSource];
                 NSLog(@"%@",response);
             
             
@@ -590,7 +556,55 @@
 }
 
 
+- (void)uploadMessageToContextWithServiseSource
+{
+    //
+    MYToolsModel *tools = [[MYToolsModel alloc] init];
+    NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
+    
+    NSString *imgData_Length = [NSString stringWithFormat:@"%ld",_imageDataString.length];
+    
+    NSString *nj = nil;
+    NSString *jyjd = nil;
+    NSString *zbh = nil;
+    
+    for (FirstInDefault *paramter in self.defaultArray) {
+        nj = paramter.nj;
+        jyjd = paramter.jyjd;
+        zbh = paramter.zbh;
+    }
+    __block typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        
+        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=%@&kch=%@&nj=%@&zbh=%@&zymc=%@&filename=%@&filesize=%@&zyms=%@",userCode,jyjd,_kch,nj,zbh,_imageName,_imageName,imgData_Length,_kcms];
+        
+        NSString *codeUrl  = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        [manager POST:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            
+            if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
+                [FormValidator showAlertWithStr:@"保存成功"];
+                
+                //                SourceController *source = [[SourceController alloc] init];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                
+            } else {
+                [FormValidator showAlertWithStr:@"保存失败，请重试"];
+            }
+            
+            
+        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+            
+        }];
+        
+        
+        
+    });
 
+}
 
 
 
