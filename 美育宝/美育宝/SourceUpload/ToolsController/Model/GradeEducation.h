@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface GradeEducation : NSObject
-@property (nonatomic, strong) NSString *njjd;
+@property (nonatomic, strong) NSString *bh;
 
 @property (nonatomic, strong) NSString *njbm;
 

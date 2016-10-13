@@ -10,4 +10,6 @@
 
 @interface ClassifiedCatalogueController : UIViewController
 
+- (instancetype)initWithImage:(NSString *)imageName andImageData:(NSString *)imageData classDecribe:(NSString *)descrbe;
+
 @end

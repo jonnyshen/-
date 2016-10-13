@@ -75,12 +75,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self getDefaultFirstSightMessage];
-    [self getGroupNameAndID];
+    [self getGroupNameAndID:nil];
+    [self teachingMaterial:nil];
     
     self.pickerView = [[ValuePickerView alloc] init];
     
-    [self.highViewBtn addTarget:self action:@selector(highViewLoading) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     刚进入页面默认的两个条件上传button action
+     */
+    [self.lowOneBtn addTarget:self action:@selector(highEightBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.lowTwoBtn addTarget:self action:@selector(highNineBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    [self.highViewBtn addTarget:self action:@selector(highViewLoading) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     高级设置条件上传的九个button action
+     */
     [self.highOneBtn addTarget:self action:@selector(highoneBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.highTwoBtn addTarget:self action:@selector(hightwoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.highThreeBtn addTarget:self action:@selector(highthreeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -103,9 +113,11 @@
 #pragma mark - highViewButtonAction
 - (void)highoneBtnClick:(UIButton *)button
 {
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (EducationStage *data in self.stageArr) {
         [dataArr addObject:data.stageName];
+        [mutableDict setValue:data.stageIdentifier forKey:data.stageName];
     }
     
     self.pickerView.dataSource = dataArr;
@@ -114,6 +126,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highOneBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        
     };
     
     [self.pickerView show];
@@ -123,9 +136,11 @@
 
 - (void)hightwoBtnAction:(UIButton *)button
 {
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (GradeEducation *data in self.gradeArr) {
         [dataArr addObject:data.njbm];
+        [mutableDict setValue:data.bh forKey:data.njbm];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"年级";
@@ -133,6 +148,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highTwoBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf teachingMaterial:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
@@ -163,9 +179,11 @@
 
 - (void)highfourBtnClickAction:(UIButton *)button
 {
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (TeachingMaterial *data in self.teachMaterialArr) {
         [dataArr addObject:data.jcmc];
+        [mutableDict setValue:data.jcdm forKey:data.jcmc];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"教材版本";
@@ -173,6 +191,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highFourBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf getUnits:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
@@ -183,9 +202,11 @@
 
 - (void)highfiveBtnClickAction:(UIButton *)button
 {
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (UnitsModel *data in self.unitsArr) {
         [dataArr addObject:data.bt];
+        [mutableDict setValue:data.zbh forKey:data.bt];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"单元";
@@ -193,6 +214,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highFiveBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf periodClass:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
@@ -202,10 +224,11 @@
 
 - (void)highsixBtnClickAction:(UIButton *)button
 {
-    
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (PeriodClass *data in self.periodArr) {
         [dataArr addObject:data.bt];
+        [mutableDict setValue:data.zbh forKey:data.bt];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"课时";
@@ -213,6 +236,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highSixBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        
     };
     
     [self.pickerView show];
@@ -225,8 +249,11 @@
 {
     
     NSMutableArray *dataArr = [NSMutableArray array];
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    
     for (ClassNumber *data in self.classNumArr) {
         [dataArr addObject:data.bjmc];
+        [mutableDict setValue:data.bjh forKey:data.bjmc];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"班级";
@@ -234,6 +261,8 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highSevenBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        NSLog(@"---->>%@",[mutableDict objectForKey:stateArr[0]]);
+        [weakSelf getGroupNameAndID:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
@@ -241,10 +270,11 @@
 }
 - (void)highEightBtnClickAction:(UIButton *)button
 {
-    
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (GroupNameModel *data in self.highEightDataArr) {
         [dataArr addObject:data.name];
+        [mutableDict setValue:data.identifier forKey:data.name];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"小组";
@@ -252,6 +282,7 @@
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.highEightBtn setTitle:stateArr[0] forState:UIControlStateNormal];
+        [weakSelf getMemberName:[mutableDict objectForKey:dataArr[0]]];
     };
     
     [self.pickerView show];
@@ -259,10 +290,11 @@
 }
 - (void)highNineBtnClickAction:(UIButton *)button
 {
-    
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
     for (MembersModel *data in self.highNineDataArr) {
         [dataArr addObject:data.xm];
+        [mutableDict setValue:data.StudentCode forKey:data.xm];
     }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"成员";
@@ -331,7 +363,7 @@
             
         } else {
             for (NSDictionary *grade in responseObject[@"data"]) {
-                [self.nianjiID addObject:grade[@"NJJD"]];
+                [self.nianjiID addObject:grade[@"NJ"]];
                 [self.twoDataArr addObject:grade[@"NJBM"]];
                 GradeEducation *stage = [GradeEducation dataWithDict:grade];
                 [self.gradeArr addObject:stage];
@@ -359,7 +391,7 @@
                 [self.subjectArr addObject:stage];
             }
             
-            [self teachingMaterial];
+            
             [self.highThreeBtn setTitle:self.threeDataArr.firstObject forState:UIControlStateNormal];
             
         }
@@ -367,8 +399,6 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
-    
-    //获取班级小学一（1）班
     
     NSString *classNumberURL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getmyclass&logincode=%@",userName];
     [manager GET:classNumberURL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -392,16 +422,28 @@
         
     }];
     
+    
+    
 }
 
-- (void)teachingMaterial
+- (void)teachingMaterial:(NSString *)grade
 {
     //获取教材上下册
-    NSString *teaching_Material_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getjclist&nj=1&km=150101"];
+    NSString *teaching_Material_URL = nil;
+    if (grade == nil) {
+        teaching_Material_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getjclist&nj=1&km=150101"];
+    } else {
+        teaching_Material_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getjclist&nj=%@&km=150101",grade];
+    }
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:teaching_Material_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        [self.danyuanID removeAllObjects];
+        [self.fourDataArr removeAllObjects];
+        [self.teachMaterialArr removeAllObjects];
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
@@ -414,7 +456,11 @@
             }
             
             //            获取到教材代码再执行获取单元目录
-            [self getUnits];
+            if (grade == nil) {
+                [self getUnits:nil];
+            } else {
+                [self getUnits:self.danyuanID.firstObject];
+            }
             
             [self.highFourBtn setTitle:self.fourDataArr.firstObject forState:UIControlStateNormal];
         }
@@ -425,13 +471,17 @@
 }
 
 //获取单元目录
-- (void)getUnits
+- (void)getUnits:(NSString *)material
 {
-    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getkcdyml&jcdm=%@",self.danyuanID.firstObject];
+    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getkcdyml&jcdm=%@",material];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        [self.keshiID removeAllObjects];
+        [self.fiveDataArr removeAllObjects];
+        [self.unitsArr removeAllObjects];
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
@@ -444,7 +494,12 @@
             }
             
             //获取到zbh后再执行获取课时
-            [self periodClass];
+            if (material == nil) {
+                [self periodClass:nil];
+            } else {
+                [self periodClass:self.keshiID.firstObject];
+            }
+            
             
             [self.highFiveBtn setTitle:self.fiveDataArr.firstObject forState:UIControlStateNormal];
         }
@@ -456,13 +511,16 @@
 }
 
 //获取课时
-- (void)periodClass
+- (void)periodClass:(NSString *)units
 {
-    NSString *period_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getkcksml&zbh=%@",self.keshiID.firstObject];
+    NSString *period_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getkcksml&zbh=%@",units];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:period_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        [self.sixDataArr removeAllObjects];
+        [self.periodArr removeAllObjects];
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
@@ -480,14 +538,29 @@
     }];
 }
 
+
+
 //获取小组名
-- (void)getGroupNameAndID
+- (void)getGroupNameAndID:(NSString *)bjbh
 {
-    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbjxiaozu&bjbh=gz01020101&jsgh=1015010"];
+    
+    MYToolsModel *tools = [[MYToolsModel alloc] init];
+    NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
+    NSString *units_URL = nil;
+    if (bjbh == nil) {
+        units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbjxiaozu&bjbh=gz01020101&jsgh=1015010"];
+    } else {
+        units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbjxiaozu&bjbh=%@&jsgh=%@",bjbh,relationCode];
+    }
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+//    __block UIViewController *weakSelf = self;
     [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        [self.groupIDArr removeAllObjects];
+        [self.groupNameArr removeAllObjects];
+        [self.highEightDataArr removeAllObjects];
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
@@ -500,10 +573,15 @@
             }
             
             //获取到group后再执行获取课时
+            if (!bjbh) {
+                [self getMemberName:nil];
+            } else {
+                [self getMemberName:self.groupIDArr.firstObject];
+            }
             
-            [self getMemberName:nil];
             
             [self.highEightBtn setTitle:self.groupNameArr.firstObject forState:UIControlStateNormal];
+            [self.lowOneBtn setTitle:self.groupNameArr.firstObject forState:UIControlStateNormal];
         }
         
         
@@ -515,11 +593,23 @@
 //获取小组成员
 - (void)getMemberName:(NSString *)group
 {
-    NSString *units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxiaozuxuesheng&xzbh=%@",@"702"];
+    NSString *units_URL = nil;
+    if (group == nil) {
+       units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxiaozuxuesheng&xzbh=%@",@"702"];
+    } else {
+        units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxiaozuxuesheng&xzbh=%@",group];
+    }
+    
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        
+        [self.membersIDArr removeAllObjects];
+        [self.membersNameArr removeAllObjects];
+        [self.highNineDataArr removeAllObjects];
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
@@ -532,8 +622,9 @@
             }
             
             
-            
+            [self.lowTwoBtn setTitle:self.membersNameArr.firstObject forState:UIControlStateNormal];
             [self.hightNineBtn setTitle:self.membersNameArr.firstObject forState:UIControlStateNormal];
+            
         }
         
         

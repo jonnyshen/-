@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSString *km;
 @property (nonatomic, strong) NSString *dy;
-
+@property (nonatomic, strong) NSString *zbh;
 @property (nonatomic, strong) NSString *bh;
 
 -(instancetype)initWithDict:(NSDictionary*)dict;

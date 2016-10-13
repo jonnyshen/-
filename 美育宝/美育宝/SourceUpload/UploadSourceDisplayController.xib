@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uba-gy-PrM">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="001.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="uba-gy-PrM">
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="Uwn-0A-P95"/>
                     </constraints>
@@ -87,4 +87,7 @@
             <point key="canvasLocation" x="-138" y="126"/>
         </view>
     </objects>
+    <resources>
+        <image name="001.jpg" width="267" height="200"/>
+    </resources>
 </document>

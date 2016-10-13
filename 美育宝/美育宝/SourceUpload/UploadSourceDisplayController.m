@@ -13,12 +13,12 @@
 #import "FormValidator.h"
 #import "ClassifiedCatalogueController.h"
 
-@interface UploadSourceDisplayController ()<NSURLSessionDelegate>
+@interface UploadSourceDisplayController ()<NSURLSessionDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     UIImage *_headerImage;
     NSData *_imageData;
     NSString *_imageDataString;
-    NSString *imageName;
+    NSString *_imageName;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -46,7 +46,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     self.headerImageView.image = _headerImage;
     
-    _imageDataString = [_imageData base64EncodedStringWithOptions:0];
+    
     
     [self.uploadBtn addTarget:self action:@selector(setUploadBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -54,16 +54,91 @@
     NSDate *dateTime = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYYMMddhhmmssSS"];
-    imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
-    self.titleLabel.text = imageName;
+    _imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
+    self.titleLabel.text = _imageName;
     
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(clickBackBtn)];
-    [addBtn setImage:[UIImage imageNamed:@"gobackBtn"]];
-    [addBtn setImageInsets:UIEdgeInsetsMake(0, -15, 0, 15)];
-    addBtn.tintColor=[UIColor colorWithRed:248/255.0f green:144/255.0f blue:34/255.0f alpha:1];
-    [self.navigationItem setLeftBarButtonItem:addBtn];
+//    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(clickBackBtn)];
+//    [addBtn setImage:[UIImage imageNamed:@"gobackBtn"]];
+//    [addBtn setImageInsets:UIEdgeInsetsMake(0, -15, 0, 15)];
+//    addBtn.tintColor=[UIColor colorWithRed:248/255.0f green:144/255.0f blue:34/255.0f alpha:1];
+//    [self.navigationItem setLeftBarButtonItem:addBtn];
+    
+    self.headerImageView.image = [UIImage imageNamed:@"001.jpg"];
+    self.headerImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];
+    tapGR.cancelsTouchesInView = YES;
+    tapGR.delaysTouchesBegan = NO;
+    tapGR.delaysTouchesEnded = NO;
+    tapGR.numberOfTapsRequired = 1;
+    tapGR.numberOfTouchesRequired = 1;
+    [tapGR addTarget:self action:@selector(handleTapViewWithAction:)];
+    [self.headerImageView addGestureRecognizer:tapGR];
     
 }
+
+- (void)handleTapViewWithAction:(UIGestureRecognizer *)gestureRecognizer
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"请选择获取资源方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
+    UIAlertAction *phoneAlbum = [UIAlertAction actionWithTitle:@"手机相册" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+        [self getPhotoFromBlum];
+    }];
+    
+    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *phoneRecord = [UIAlertAction actionWithTitle:@"录制视频" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:phoneAlbum];
+    [alertController addAction:takePhoto];
+    [alertController addAction:phoneRecord];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+-(void)getPhotoFromBlum
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.allowsEditing = YES;
+    picker.sourceType    = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    picker.delegate      = self;
+    
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark -
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+    //压缩图片
+    NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+    _imageDataString = [fileData base64EncodedStringWithOptions:0];
+    
+    self.headerImageView.image = image;
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+   
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+
+
 
 - (void)clickBackBtn
 {
@@ -97,10 +172,12 @@
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     UIAlertAction *temporaryUploadAction = [UIAlertAction actionWithTitle:@"上传临时空间" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        
+        [self uploadTemporarySpace];
+
     }];
+    
     UIAlertAction *detailMessageAction = [UIAlertAction actionWithTitle:@"选定目录上传" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        ClassifiedCatalogueController *catalogue = [[ClassifiedCatalogueController alloc] init];
+        ClassifiedCatalogueController *catalogue = [[ClassifiedCatalogueController alloc] initWithImage:_imageName andImageData:_imageDataString classDecribe:self.detailTextField.text];
         [self.navigationController pushViewController:catalogue animated:YES];
     }];
     
@@ -114,7 +191,7 @@
 //上传临时空间
 - (void)uploadTemporarySpace
 {
-    [self uploadMessage];
+     [self createFieldName:_imageName];
     
 //
     MYToolsModel *tools = [[MYToolsModel alloc] init];
@@ -125,22 +202,16 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         
-        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=&kch=&nj=&zbh=&zymc=%@&filename=%@&filesize=%@&zyms=&zybh=",userCode,imageName,imageName,imgData_Length];
+        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=&kch=&nj=&zbh=&zymc=%@&filename=%@&filesize=%@&zyms=&zybh=",userCode,_imageName,_imageName,imgData_Length];
         
-        
-        
-        
-        
-        
+    
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         [manager POST:saveUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             
             if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-                //                [self.activeView stopAnimating];
                 [FormValidator showAlertWithStr:@"保存成功"];
             } else {
-                //                [self.activeView stopAnimating];
                 [FormValidator showAlertWithStr:@"保存失败"];
             }
             
@@ -155,56 +226,9 @@
 
 }
 
-//选定目录上传
-- (void)chooseClassifiedcCatalogue
-{
-    
-}
 
-- (void)uploadMessage
-{
-    [self createFieldName:imageName];
-    
-    
-    MYToolsModel *tools = [[MYToolsModel alloc] init];
-    NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
-    //    NSString *userPass = [tools sendFileString:@"LoginData.plist" andNumber:1];
-    NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        /*
-        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&bjbh=%@&xscode=%@&relationcode=%@&dxid=%@&zbh=%@&zpmc=%@&wjmc=%@&wjlx=.png&wjdx=1024",class_Number,userCode,relationCode,_periodID,_materail,self.detailTextField.text,imageName];
-        
-        
-        NSString *codeUrl = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        
-        
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        [manager POST:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
-            if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-                //                [self.activeView stopAnimating];
-                [FormValidator showAlertWithStr:@"保存成功"];
-            } else {
-                //                [self.activeView stopAnimating];
-                [FormValidator showAlertWithStr:@"保存失败"];
-            }
-            
-            
-        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
-        }];
-        
-        */
-        
-    });
-    
 
-}
-
+//发起上传请求，创建文件夹
 - (void)createFieldName:(NSString *)timeString
 {
     
@@ -243,14 +267,14 @@
     [dataTask resume];
 }
 
+//上传数据
 - (void)imageName:(NSString *)name
 {
     
     NSString *file_Name_Url = @"http://192.168.3.254:8082/FileUp.asmx";
     
     
-    NSString *appendingStr = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><AppendToFile xmlns=\"http://tempuri.org/\"><fileName>%@</fileName><buffer>%@</buffer><type>%@</type></AppendToFile></soap:Body></soap:Envelope>",name,_imageData,@"2"];
-    //        NSLog(@"------->%@",appendingStr);
+    NSString *appendingStr = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><AppendToFile xmlns=\"http://tempuri.org/\"><fileName>%@</fileName><buffer>%@</buffer><type>%@</type></AppendToFile></soap:Body></soap:Envelope>",name,_imageDataString,@"2"];
     
     NSString *appending_File_Length = [NSString stringWithFormat:@"%ld",appendingStr.length];
     
@@ -266,23 +290,24 @@
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSURLSessionUploadTask *appendDataTask = [manager uploadTaskWithRequest:appendRequest fromData:[appendingStr dataUsingEncoding:NSUTF8StringEncoding] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
+            if (error)
+                NSLog(@"Error: %@", error);
+            else
+                NSLog(@"%@",response);
+            
+            
+            NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            
+        }];
+        [appendDataTask resume];
+        
+    });
     
-    NSURLSessionUploadTask *appendDataTask = [manager uploadTaskWithRequest:appendRequest fromData:[appendingStr dataUsingEncoding:NSUTF8StringEncoding] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
-        if (error)
-            NSLog(@"Error: %@", error);
-        else
-            NSLog(@"%@",response);
-        
-        
-        NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-        
-    }];
-    [appendDataTask resume];
     
-    if (appendDataTask) {
-        NSLog(@"success----------");
-        
-    }
+    
     
 }
 

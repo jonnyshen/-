@@ -17,6 +17,7 @@
     stage.dy = dict[@"DY"];
     stage.jyjd = dict[@"JYJD"];
     stage.bh = dict[@"BH"];
+    stage.zbh = dict[@"ZBH"];
     stage.jcdm = dict[@"JCDM"];
     return stage;
 }

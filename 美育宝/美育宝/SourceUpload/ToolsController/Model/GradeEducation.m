@@ -13,7 +13,7 @@
 {
     GradeEducation *stage = [[GradeEducation alloc] init];
     stage.njbm = dict[@"NJBM"];
-    stage.njjd = dict[@"NJJD"];
+    stage.bh = dict[@"BH"];
     return stage;
 }
 

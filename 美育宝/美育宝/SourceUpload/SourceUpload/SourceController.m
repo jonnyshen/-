@@ -23,7 +23,6 @@
 }
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *worksDataArr;
-@property (nonatomic, strong) UINavigationController *myNavigation;
 @end
 
 @implementation SourceController
@@ -31,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"资源";
+    
      [self httpRequest];
     
     
@@ -185,64 +186,13 @@
 
 - (void)uploadTasksData
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"请选择获取资源方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
-    UIAlertAction *phoneAlbum = [UIAlertAction actionWithTitle:@"手机相册" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        
-       
-        [self getPhotoFromBlum];
-    }];
+    UploadSourceDisplayController *sourceDisplay = [[UploadSourceDisplayController alloc] init];
+    [self.navigationController pushViewController:sourceDisplay animated:YES];
     
-    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    
-    UIAlertAction *phoneRecord = [UIAlertAction actionWithTitle:@"录制视频" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    
-    [alertController addAction:phoneAlbum];
-    [alertController addAction:takePhoto];
-    [alertController addAction:phoneRecord];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
--(void)getPhotoFromBlum
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.allowsEditing = YES;
-    picker.sourceType    = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    picker.delegate      = self;
-    
-    [self.navigationController presentViewController:picker animated:YES completion:nil];
-}
-
-#pragma mark -
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
-{
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
-    //压缩图片
-    NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
-    UploadSourceDisplayController *sourceDisplay = [[UploadSourceDisplayController alloc] initWithImage:image andImageData:fileData];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:sourceDisplay];
-    [self.myNavigation presentViewController:navi animated:YES completion:nil];
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    self.myNavigation = navigationController;
-}
 
 
 

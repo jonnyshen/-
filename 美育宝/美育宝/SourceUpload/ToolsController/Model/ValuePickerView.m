@@ -2,7 +2,7 @@
 //  ValuePickerView.m
 //  CustomPickerViewDemol
 //
-//  Created by QianZhang on 16/9/5.
+//  Created by 沈嘉勇 on 16/10/09.
 //  Copyright © 2016年 . All rights reserved.
 //
 
@@ -127,7 +127,12 @@
     }
     
     //设置返回默认值
-    self.stateStr = [NSString stringWithFormat:@"%@/%@",_dataSource[0],@(1)];
+    if (_dataSource.count > 0) {
+        self.stateStr = [NSString stringWithFormat:@"%@/%@",_dataSource[0],@(1)];
+    } else {
+        self.stateStr = @"";
+    }
+    
     
     //刷新布局
     [self layoutSelfSubviews];
