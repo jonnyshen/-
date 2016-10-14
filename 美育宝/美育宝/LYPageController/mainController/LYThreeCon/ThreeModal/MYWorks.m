@@ -22,6 +22,9 @@
     for (NSDictionary *params in imageArr) {
         MYWorkImage *image = [MYWorkImage workModelWithDictionary:params];
         [arr addObject:image];
+        
+        works.imageStr = params[@""];
+        
     }
     works.imageStr = arr;
     

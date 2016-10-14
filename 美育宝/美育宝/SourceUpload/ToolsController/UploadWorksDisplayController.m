@@ -3,11 +3,12 @@
 //  美育宝
 //
 //  Created by iOS程序员 on 2016/10/13.
-//  Copyright © 2016年 Yonghang Liu. All rights reserved.
+//  Copyright © 2016年 JiaYong Shen. All rights reserved.
 //
 
 #import "UploadWorksDisplayController.h"
 #import "ClassifiedWorksUploadCon.h"
+#import "FormValidator.h"
 
 @interface UploadWorksDisplayController ()<NSURLSessionDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
@@ -140,12 +141,9 @@
     
     self.headerImageView.image = image;
     
-    
-    
-    
-    NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     /*
-    //判断资源类型[mediaType isEqualToString:(NSString *)kUTTypeImage]
+    NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
+    //判断资源类型
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]){
         //如果是图片
         //压缩图片
@@ -178,7 +176,10 @@
         //视频上传
         _imageDataString = [videoData base64EncodedStringWithOptions:0];
     }
+
      */
+    
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -224,7 +225,9 @@
 
 - (void)setUploadWorksBtnAction:(UIButton *)button
 {
-    
+    if ([self.detailTextField.text isEqualToString:@""] || self.detailTextField.text == nil) {
+        [FormValidator showAlertWithStr:@"请对作品进行一定的说明"];
+    }
     ClassifiedWorksUploadCon *worksUpload = [[ClassifiedWorksUploadCon alloc] initWithImageData:_imageDataString classDecribe:self.detailTextField.text];
     [self.navigationController pushViewController:worksUpload animated:YES];
 }

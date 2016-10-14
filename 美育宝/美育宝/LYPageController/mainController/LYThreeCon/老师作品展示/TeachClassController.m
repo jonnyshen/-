@@ -18,7 +18,7 @@
 #import "FormValidator.h"
 
 #define ScreenWidth  [UIScreen mainScreen].bounds.size.width
-#define kCollectionViewFrame CGRectMake(0, 40+64, self.view.frame.size.width, self.view.frame.size.height-49-40)
+#define kCollectionViewFrame CGRectMake(0, 40+64, self.view.frame.size.width, self.view.frame.size.height-49-40-64)
 #define kWORKSURL @"http://192.168.3.254:8082/GetDataToApp.aspx?action=getzplistbyday&pagesize=10&pageindex=1&xh=&bh=&isgood=0"
 
 @interface TeachClassController ()<UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource,LrdSuperMenuDelegate,LrdSuperMenuDataSource>
@@ -112,7 +112,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return sumcount;
+    return self.worksArr.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

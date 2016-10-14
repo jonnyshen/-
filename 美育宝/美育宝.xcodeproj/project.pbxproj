@@ -3517,7 +3517,7 @@
 			attributes = {
 				CLASSPREFIX = MY;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "Yonghang Liu";
+				ORGANIZATIONNAME = "JiaYong Shen";
 				TargetAttributes = {
 					D1E2A0691C93E050009F6EBF = {
 						CreatedOnToolsVersion = 7.2.1;

@@ -3,7 +3,7 @@
 //  美育宝
 //
 //  Created by iOS程序员 on 2016/10/9.
-//  Copyright © 2016年 Yonghang Liu. All rights reserved.
+//  Copyright © 2016年 JiaYong Shen. All rights reserved.
 //
 
 #import "UploadSourceDisplayController.h"
@@ -114,13 +114,11 @@
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.allowsEditing = YES;
-//    picker.sourceType    = UIImagePickerControllerSourceTypeCamera;
     picker.delegate      = self;
 //
-//    [self.navigationController presentViewController:picker animated:YES completion:nil];
     
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //录制视频时长，默认10s
+    //录制视频时长，默认15s
     picker.videoMaximumDuration = 15;
     
     //相机类型（拍照、录像...）字符串需要做相应的类型转换
