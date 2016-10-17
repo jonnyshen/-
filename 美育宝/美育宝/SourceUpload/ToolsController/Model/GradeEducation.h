@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface GradeEducation : NSObject
-@property (nonatomic, strong) NSString *bh;
 
-@property (nonatomic, strong) NSString *njbm;
+//年级model
+@property (nonatomic, strong) NSString *bh;//年级编号
+
+@property (nonatomic, strong) NSString *njbm;//年级名称
 
 -(instancetype)initWithDict:(NSDictionary*)dict;
 +(instancetype)dataWithDict:(NSDictionary*)dict;

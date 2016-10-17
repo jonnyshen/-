@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface TeachingMaterial : NSObject
-@property (nonatomic, strong) NSString *jcmc;
+//教材版本
+@property (nonatomic, strong) NSString *jcmc;//教材名称
 
-@property (nonatomic, strong) NSString *jcdm;
+@property (nonatomic, strong) NSString *jcdm;//教材代码
 
 -(instancetype)initWithDict:(NSDictionary*)dict;
 +(instancetype)dataWithDict:(NSDictionary*)dict;

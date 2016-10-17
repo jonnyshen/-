@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ 点击资源和作品，跳转浏览的控制器
+ */
+
 @interface SkimController : UIViewController
 
 - (instancetype)initWithHeaderPicture:(NSString *)imageStr title:(NSString *)title identifier:(NSString *)identy;

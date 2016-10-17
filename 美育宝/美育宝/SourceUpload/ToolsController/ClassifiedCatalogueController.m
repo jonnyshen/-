@@ -84,8 +84,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+//    获取固定不联动的条件数据
     [self getFirstSightMessage];
+//    获取联动数据
     [self teachingMaterial:nil];
     
     self.pickerView = [[ValuePickerView alloc] init];
@@ -112,7 +113,7 @@
 }
 
 
-//资源上传所有button点击事件
+#pragma mark - 资源上传所有button点击事件
 - (void)oneBtnClick:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
@@ -465,7 +466,7 @@
         [FormValidator showAlertWithStr:@"请选择上传的资源"];
         return;
     }
-    
+//    后台创建文件名
     [self createFieldName:_imageName];
     
 }

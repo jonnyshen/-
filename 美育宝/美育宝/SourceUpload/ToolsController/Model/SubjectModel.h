@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface SubjectModel : NSObject
-@property (nonatomic, strong) NSString *kch;
 
-@property (nonatomic, strong) NSString *kcmc;
+//科目
+@property (nonatomic, strong) NSString *kch;//课程号
+
+@property (nonatomic, strong) NSString *kcmc;//课程名称
 
 -(instancetype)initWithDict:(NSDictionary*)dict;
 +(instancetype)dataWithDict:(NSDictionary*)dict;

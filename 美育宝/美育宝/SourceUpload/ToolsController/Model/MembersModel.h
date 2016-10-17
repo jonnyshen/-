@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface MembersModel : NSObject
+//小组成员
+//成员ID
 @property (nonatomic, strong) NSString *StudentCode;
-
+//姓名
 @property (nonatomic, strong) NSString *xm;
 
 -(instancetype)initWithDict:(NSDictionary*)dict;

@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface MYToolsModel : NSObject
+/**
+ 把数据保存到plist文件
+ */
+
 
 //保存数据到plist文件
 - (void)saveDataToPlistWithPlistName:(NSString *)fileName andData:(NSArray *)data;

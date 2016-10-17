@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface ClassNumber : NSObject
+//班级
+//班级号
 @property (nonatomic, strong) NSString *bjh;
-
+//班级名称
 @property (nonatomic, strong) NSString *bjmc;
 
 -(instancetype)initWithDict:(NSDictionary*)dict;

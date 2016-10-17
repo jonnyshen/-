@@ -61,7 +61,7 @@
                 <outlet property="titleLb" destination="yVa-3K-9cK" id="D5a-eC-mcB"/>
                 <outlet property="workImage" destination="n3x-Vr-WXL" id="IYw-6i-Frw"/>
             </connections>
-            <point key="canvasLocation" x="-86" y="85"/>
+            <point key="canvasLocation" x="7" y="56"/>
         </tableViewCell>
     </objects>
 </document>

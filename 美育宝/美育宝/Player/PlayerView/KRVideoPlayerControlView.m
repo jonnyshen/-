@@ -45,6 +45,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
         [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
+        //横竖屏的按钮 点击
         [self.bottomBar addSubview:self.shrinkScreenButton];
         self.shrinkScreenButton.hidden = YES;
         [self.bottomBar addSubview:self.progressSlider];

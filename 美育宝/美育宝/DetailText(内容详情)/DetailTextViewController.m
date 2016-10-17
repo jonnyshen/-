@@ -247,6 +247,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     [WXApi sendReq:sendReq];
 }
 
+//头部视图增加手势
 -(void)setUpHeaderImages
 {
     
@@ -269,6 +270,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     [self.imageView addGestureRecognizer:tapGR];
 }
 
+
 - (void)handleTapView:(UIGestureRecognizer *)gestureRecognizer
 {
     UIWindow *windows = [UIApplication sharedApplication].keyWindow;
@@ -276,15 +278,17 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     [PreviewImageView showPreviewImage:self.imageView.image startImageFrame:startRect inView:windows viewFrame:self.view.bounds];
 }
 
-
+//评论确定按钮
 - (IBAction)clickCommentButton:(id)sender
 {
     if ([LoginState isLogin]) {
         self.commentText.text = nil;
+//        确定评论发送网络请求
         [self saveJudgeHttpRequest];
         
         [self.tableView footerEndRefreshing];
     } else {
+        //没有登陆调转到登录界面
         [LoginViewController login:self loginType:LoginType_Normal];
     }
     
@@ -307,7 +311,6 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     if (self.commArr.count > 0) {
         CommListModel *listModel = self.commArr[indexPath.row];
         cell.obj = listModel;
-//        [cell setTableViewCellModel:listModel];
     }
     
     return cell;
@@ -326,12 +329,15 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     return UITableViewAutomaticDimension;
 }
 
-
+//将评论发送到服务器
 - (void)saveJudgeHttpRequest
 {
-    
+//    http://192.168.3.254:8082/GetDataToApp.aspx?action=savepl&ucode=R000000003&upwd=90816DF2F42985A4&infoid=F642A7DB-0FC4-43D3-9C47-641A458BCA12&pjdj=3&pjnr=不错，值得学习&type=2
+    //将评论数据拼接到借口
     NSString *saveJudgeUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savepl&ucode=%@&upwd=%@&infoid=%@&pjdj=3&pjnr=%@&type=1", _userCode, _PassWord, _classID, self.commentText.text];
+//    特殊字符串转换方法
     NSString *text = [saveJudgeUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:text parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
@@ -353,9 +359,11 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     
 }
 
+//从服务器获取数据
 - (void)getJudgeHttpRequest
 {
     NSString *detailUrl = nil;
+    
     if ([_fromVC isEqualToString:@"THREE"]) {
         detailUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getpllist&infoid=%@&type=1&pagesize=100&pageindex=1",_commentID];
     } else {

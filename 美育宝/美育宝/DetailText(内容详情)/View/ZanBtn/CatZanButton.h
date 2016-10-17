@@ -14,6 +14,10 @@ typedef NS_ENUM(NSInteger, CatZanButtonType) {
     CatZanButtonTypeFocus
 };
 
+/**
+ 点赞
+ */
+
 @interface CatZanButton : UIControl
 
 /**

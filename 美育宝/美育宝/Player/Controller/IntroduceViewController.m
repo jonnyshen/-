@@ -161,7 +161,7 @@
 
 - (void)httpRequest
 {
-    self.playerId = [self getDataFilePath];
+    self.playerId = [self getDataFilePath];//课程ID已经在上一个页面点击的时候存到plist文件了
     NSString *url = nil;
     if (self.playerId) {
         url = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxbkcinfo&kcid=%@", self.playerId];
@@ -191,7 +191,6 @@
         detail.detailLb = [dic objectForKey:@"KCJS"];
         [self.detailArr addObject:detail];
         
-        NSLog(@"player---%@%@",self.introArr,self.detailArr);
         [self.tableView reloadData];
         [self.dataDic setValue:self.introArr forKey:@"introduce"];
         [self.dataDic setObject:self.detailArr forKey:@"detail"];

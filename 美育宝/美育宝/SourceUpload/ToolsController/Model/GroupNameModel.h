@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface GroupNameModel : NSObject
+//小组
+//小组ID
 @property (nonatomic, strong) NSString *identifier;
-
+//小组名
 @property (nonatomic, strong) NSString *name;
 
 -(instancetype)initWithDict:(NSDictionary*)dict;

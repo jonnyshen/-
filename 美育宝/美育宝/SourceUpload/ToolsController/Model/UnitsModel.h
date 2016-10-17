@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface UnitsModel : NSObject
-@property (nonatomic, strong) NSString *bt;
+//单元
+@property (nonatomic, strong) NSString *bt;//标题
 
-@property (nonatomic, strong) NSString *zbh;
+@property (nonatomic, strong) NSString *zbh;//单元ID
 
 -(instancetype)initWithDict:(NSDictionary*)dict;
 +(instancetype)dataWithDict:(NSDictionary*)dict;

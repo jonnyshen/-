@@ -73,11 +73,13 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"MYPlayerNotesTableCell" bundle:nil] forCellReuseIdentifier:@"MYPlayerNotesTableCell"];
     
+//    添加笔记的view
     UIView *addView = [[UIView alloc] initWithFrame:CGRectMake(0, kAddViewX, kView_W, 50)];
     self.addView = addView;
     self.addView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.addView];
     
+//    点击添加笔记的button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.addView addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,7 +87,7 @@
         make.size.mas_equalTo(CGSizeMake(kView_W / 4, 50));
     }];
     [button addTarget:self action:@selector(clickAddNotesBtn) forControlEvents:UIControlEventTouchUpInside];
-    
+//    button的图片
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"append_btn.png"]];
     [button addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,6 +97,8 @@
     
 }
 
+
+//点击添加笔记tableview和承载添加笔记按钮的view隐藏 保存笔记的view不隐藏
 - (void)clickAddNotesBtn
 {
     self.tableView.hidden = YES;
@@ -102,12 +106,13 @@
     self.saveNotesView.hidden = NO;
     
 }
+//点击保存笔记 tableview和增加笔记的按钮不隐藏，保存笔记的view隐藏
 - (void)clickSaveNotesBtn
 {
     self.saveNotesView.hidden = YES;
     self.tableView.hidden = NO;
     self.addView.hidden = NO;
-    
+//    保存笔记
     [self saveNotesRequest];
 }
 
@@ -144,12 +149,10 @@
     [self getDataFilePath];
     //http://192.168.3.254:8082/GetDataToApp.aspx?action=getxbkcxxbj&ucode=R000000003&upwd=90816DF2F42985A4&kcid=8787AE95-1127-404E-8F79-44048F8EEDE5&ksh=
     NSString *kNotesUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxbkcxxbj&ucode=%@&upwd=%@&kcid=%@&ksh=",self.userCode, self.pwd,self.playerID];
-//    NSLog(@"------------------------%@",kNotesUrl);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:kNotesUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
-//        NSLog(@"-------------------------------------%@",responseObject);
         if (![responseObject[@"XXBJ"] isKindOfClass:[NSArray class]]) {
             return;
         }
@@ -161,7 +164,6 @@
             notes.notes = dic[@"BJMS"];
             [self.tempArr addObject:notes];
         }
-        //NSLog(@"---savenote--%@",self.tempArr);
         [self.tableView reloadData];
        
         
@@ -181,7 +183,9 @@
         [FormValidator showAlertWithStr:@"请输入笔记内容"];
         return;
     }
+//    获取登录数据
     [self getDataFilePath];
+    
     NSString *saveNotesUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savexbkcbj&ucode=%@&upwd=%@&kcid=%@&ksh=27&bjnr=%@",self.userCode, self.pwd, self.playerID, self.notesTextView.text];
     NSString *testUrl = [saveNotesUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     

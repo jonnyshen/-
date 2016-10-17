@@ -42,7 +42,7 @@
     
     
     
-    
+//    头部视图添加点击事件
     self.headerImageView.image = [UIImage imageNamed:@"001.jpg"];
     self.headerImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];

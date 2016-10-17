@@ -15,6 +15,7 @@
 #import "UploadController.h"
 #import "UploadSourceDisplayController.h"
 #import "ClassifiedWorksUploadCon.h"
+#import "MJRefresh.h"
 
 
 @interface SourceController ()<UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -32,39 +33,22 @@
     // Do any additional setup after loading the view.
     self.title = @"资源";
     
+//    获取网络资源数据
      [self httpRequest];
     
-    
+//    setup UITableView
     [self setUpTableView];
     
-   
-    
+    [self.tableView addHeaderWithTarget:self action:@selector(httpRequest)];
+    [self.tableView headerBeginRefreshing];
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemReply) target:self action:@selector(uploadTasksData)];
     self.navigationItem.rightBarButtonItem = rightBtn;
     
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(clickBackBtn)];
-    [addBtn setImage:[UIImage imageNamed:@"gobackBtn"]];
-    [addBtn setImageInsets:UIEdgeInsetsMake(0, -15, 0, 15)];
-    addBtn.tintColor=[UIColor colorWithRed:248/255.0f green:144/255.0f blue:34/255.0f alpha:1];
-//    [self.navigationItem setLeftBarButtonItem:addBtn];
+    
     
 }
 
-- (void)clickBackBtn
-{
-//    UploadController *source = [[UploadController alloc] init];
-    
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-        NSArray *array = self.navigationController.viewControllers;
-    
-        for (UIViewController *controller in array) {
-            if ([controller isKindOfClass:[UploadController class]]) {
-                UploadController *source = (UploadController *)controller;
-                [self.navigationController popToViewController:source animated:YES];
-            }
-        }
 
-}
 
 
 - (void)setUpTableView
@@ -84,7 +68,13 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    [manager GET:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getzylist&jd=&nj=1&km=150101&jcdm=&dybh=&zbh=&ucode=&lb=&orderBy=&pageindex=&pagesize=" parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    MYToolsModel *tools = [[MYToolsModel alloc] init];
+    NSString * userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
+    NSString *source_Url = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getzylist&jd=&nj=&km=&jcdm=&dybh=&zbh=&ucode=%@&lb=&orderBy=3&pageindex=1&pagesize=10",userCode];
+    
+    [manager GET:source_Url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        [self.worksDataArr removeAllObjects];
         
         imgurl = responseObject[@"imgurl"];
         
@@ -95,8 +85,9 @@
             SourceData *model = [SourceData dataWithDict:params];
             [self.worksDataArr addObject:model];
         }
-        [self.tableView reloadData];
         
+        [self.tableView reloadData];
+        [self.tableView headerEndRefreshing];
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
@@ -104,6 +95,8 @@
     
 }
 
+
+#pragma mark - UITableDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.worksDataArr.count;
@@ -172,6 +165,8 @@
     [self.navigationController pushViewController:skit animated:YES];
 }
 
+
+//拼接图片路径字符串
 - (NSString *)pieceOfString:(NSString*)imageStr
 {
     

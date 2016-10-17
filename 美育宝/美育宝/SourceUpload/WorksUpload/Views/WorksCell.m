@@ -20,13 +20,8 @@
     if ([self pieceOfString:worksData.imgPath]) {
         [self.workImage sd_setImageWithURL:[NSURL URLWithString:[self pieceOfString:worksData.imgPath]] placeholderImage:[UIImage imageNamed:@"loading"]];
     }
-//    NSDateFormatter *detailFormatter = [[NSDateFormatter alloc] init];
-//    [detailFormatter setLocale:[NSLocale currentLocale]];
-//    [detailFormatter setDateFormat:@"yyyyMMdd"];
-//    NSDate *date = [detailFormatter dateFromString:worksData.scsj];
-//    
-//    NSString *time = [NSString stringWithFormat:@"%@", date];
-    
+
+    /*
     long long time=[worksData.scsj longLongValue];
     
     NSDate *d = [[NSDate alloc]initWithTimeIntervalSince1970:time/1000.0];
@@ -38,8 +33,18 @@
     [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"] ];
     
     NSString * timeStr =[df stringFromDate:d];
+     */
     
-    self.timeLb.text = timeStr;
+    NSString *timeString = [worksData.scsj substringWithRange:NSMakeRange(0, 8)];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    [formatter setLocale:[NSLocale currentLocale]];
+    NSDate *date = [formatter dateFromString:timeString];
+    
+    NSString *likeTitle = [[NSString stringWithFormat:@"%@",date] substringWithRange:NSMakeRange(0, 10)];
+    
+    
+    self.timeLb.text = likeTitle;
     self.titleLb.text = worksData.fjmc;
     
 }

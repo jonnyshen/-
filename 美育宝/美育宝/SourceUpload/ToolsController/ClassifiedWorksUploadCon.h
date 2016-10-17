@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ClassifiedWorksUploadCon : UIViewController
-@property (weak, nonatomic) IBOutlet UIView *highView;
+
+//点击了高级之后隐藏的九个联动条件按钮
+@property (weak, nonatomic) IBOutlet UIView *highView;//放置九个按钮的view
 @property (weak, nonatomic) IBOutlet UIButton *highOneBtn;
 @property (weak, nonatomic) IBOutlet UIButton *highTwoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *highThreeBtn;
@@ -19,7 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *highSevenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *highEightBtn;
 @property (weak, nonatomic) IBOutlet UIButton *hightNineBtn;
-@property (weak, nonatomic) IBOutlet UIButton *highUploadBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *highUploadBtn;//最后确定上传的按钮
 
 - (instancetype)initWithImageData:(NSString *)imageDataString classDecribe:(NSString *)descrbe;
 

@@ -66,9 +66,9 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 @interface LYPlayerViewController ()<UIScrollViewDelegate,CDPVideoPlayerDelegate, VMediaPlayerDelegate>
 {
-    NSString *_classID;
-    NSString *_fromVC;
-    NSString *_videoURL;
+    NSString *_classID;//课程ID
+    NSString *_fromVC;//来自哪一个控制器
+    NSString *_videoURL;//URLpath
     CDPVideoPlayer *_player;
     
     VMediaPlayer *mplayer;
@@ -89,7 +89,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     NSString *pwd;
     
     UIButton *button;
-    NSString *videoTitle;
+    NSString *videoTitle;//视频名字
     
 }
 
@@ -167,7 +167,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor whiteColor];
+    //    self.view.backgroundColor = [UIColor whiteColor];
     
     
     
@@ -180,14 +180,14 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     //设置分页按钮
     [self setupPageButton];
     
-   
+    
     
     [self bottomBarUIAction];
     
     //播放器
     [self createUI];
     //[_player player];
-   
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"WSTableView_FILE_PATH" object:nil];
     [self bottomBarUIAction];
     
@@ -202,7 +202,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     if ([[NSFileManager defaultManager] fileExistsAtPath:fileName]) {
         NSArray *path = [[NSArray alloc] initWithContentsOfFile:fileName];
         _classID = [path objectAtIndex:0];
-       
+        
     }
     
     return _classID;
@@ -220,7 +220,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     } else {
         url = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxbkcinfo&kcid=%@", _classID];
     }
-//    NSLog(@"^^^^^^%@",url);
+    //    NSLog(@"^^^^^^%@",url);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         if (self.dataDic) {
@@ -240,28 +240,28 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
             return;
             
         } else {
-        for (NSDictionary *dic in responseObject[@"ZJML"]) {
-            directionModel *direction = [[directionModel alloc] init];
-            
-            NSArray *arrParam = dic[@"KS"];
-            for (NSDictionary *param in arrParam) {
+            for (NSDictionary *dic in responseObject[@"ZJML"]) {
+                directionModel *direction = [[directionModel alloc] init];
                 
-                direction.videoFilePath = param[@"filePath"];
+                NSArray *arrParam = dic[@"KS"];
+                for (NSDictionary *param in arrParam) {
+                    
+                    direction.videoFilePath = param[@"filePath"];
+                    
+                }
                 
+                [self.tempArrB addObject:direction];
             }
             
-            [self.tempArrB addObject:direction];
-        }
-        
-
-        
-//        NSLog(@"player---%@",self.tempArrB);
-        
-        [self.dataDic setValue:self.tempArrB forKey:@"B"];
+            
+            
+            //        NSLog(@"player---%@",self.tempArrB);
+            
+            [self.dataDic setValue:self.tempArrB forKey:@"B"];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-//        NSLog(@"PLAYER--%@",error.userInfo);
+        //        NSLog(@"PLAYER--%@",error.userInfo);
     }];
 }
 
@@ -272,13 +272,13 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [self.collectBtn addTarget:self action:@selector(collectGoodClass) forControlEvents:UIControlEventTouchUpInside];
     
     [self.shareBtn addTarget:self action:@selector(shareBtnClick) forControlEvents:UIControlEventTouchUpInside];
-   
+    
 }
 
 - (void)collectGoodClass
 {
     [self getLoginDataFilePath];
-//    MYHttpRequestTools *httptools = [[MYHttpRequestTools alloc]init];
+    //    MYHttpRequestTools *httptools = [[MYHttpRequestTools alloc]init];
     NSString *toolsString = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savesc&ucode=%@&upwd=%@&sjid=%@&type=1",userCode, pwd, _classID];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -288,43 +288,44 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
             
             self.collectBtn.backgroundColor = [UIColor blueColor];
         } else {
-          
+            
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
     
-
+    
 }
 
 - (void)clickJoinClass
 {
     self.joinClass.backgroundColor = self.joinClass.selected?[UIColor blueColor]:[UIColor whiteColor];
-     [self getLoginDataFilePath];
+    [self getLoginDataFilePath];
     NSString *joinClassUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=joincourse&ucode=%@&upwd=%@&kcid=%@&ksh=%@&state=%@&sjlx=%@",userCode, pwd, _classID, @"", @"0", @"0"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager GET:joinClassUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-
+            
             self.joinClass.backgroundColor = [UIColor blueColor];
         } else {
-
+            
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
     
-
+    
     
 }
 
+//分享的点击
 - (void)shareBtnClick
 {
-
+    
     NSArray *contentArray = @[@{@"name":@"新浪微博",@"icon":@"sns_icon_3"},
                               @{@"name":@"QQ空间 ",@"icon":@"sns_icon_5"},
                               @{@"name":@"QQ",@"icon":@"sns_icon_4"},
@@ -335,7 +336,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [shareView addShareItems:self.view shareItems:contentArray selectShareItem:^(NSInteger tag, NSString *title) {
         NSLog(@"%ld --- %@", tag, title);
     }];
-
+    
 }
 
 - (void)getLoginDataFilePath
@@ -352,7 +353,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
         userCode = [path objectAtIndex:2];
         pwd = [path objectAtIndex:1];
     }
-  
+    
 }
 
 -(void)dealloc{
@@ -376,8 +377,6 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 -(void)createUI{
     
     //播放器
-
-
     self.playerView = [[KRVideoPlayerControlView alloc] initWithFrame:CGRectMake(0, kPlayerY,kView_W, kPlayerH)];
     self.playerView.titleLabel.text = videoTitle;
     [self.view addSubview:self.playerView];
@@ -405,13 +404,13 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (void)tongzhi:(NSNotification *)notic
 {
-//    NSString *videoPath = notic.userInfo[@"videoPath"];
-//    [mplayer pause];
-//    [mplayer reset];
+    //    NSString *videoPath = notic.userInfo[@"videoPath"];
+    //    [mplayer pause];
+    //    [mplayer reset];
     
-//    [mplayer setDataSource:[NSURL URLWithString:videoPath]];
-//    [mplayer prepareAsync];
-
+    //    [mplayer setDataSource:[NSURL URLWithString:videoPath]];
+    //    [mplayer prepareAsync];
+    
     [mplayer isPlaying];
 }
 
@@ -483,7 +482,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     self.hasPreparedToPlay = NO;
     
     [mplayer pause];
-//    [mplayer reset];
+    //    [mplayer reset];
     [mplayer unSetupPlayer];
     
 }
@@ -504,21 +503,21 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     
     [player start];
     
-//    NSLog(@"mediaPlayer:didPrepared");
+    //    NSLog(@"mediaPlayer:didPrepared");
     self.hasPreparedToPlay = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:VPVCPlayerItemReadyToPlayNotification object:self];
-//
+    //
     self.currentVideoItemDuration = [player getDuration];
-//    NSLog(@"----->>>%ld",self.currentVideoItemDuration);
-//    NSString *text = [DurationFormat durationTextForDuration:(self.currentVideoItemDuration/1000.f)];
-   
+    //    NSLog(@"----->>>%ld",self.currentVideoItemDuration);
+    //    NSString *text = [DurationFormat durationTextForDuration:(self.currentVideoItemDuration/1000.f)];
+    
     if (self.playAfterPrepared) {
         [UIApplication sharedApplication].idleTimerDisabled = YES;
         [mplayer start];
         dispatch_async(dispatch_get_main_queue(), ^{
-//            //[self dismissPlayerNavAndControlPanel];
-//            //[self setPlayButttonPaused];
+            //            //[self dismissPlayerNavAndControlPanel];
+            //            //[self setPlayButttonPaused];
             [self stopActivityLoading];
             [self refreshCurrentPlayProgress];
             
@@ -527,7 +526,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
                                                                          target:self
                                                                        selector:@selector(pulledVideoStatus:)
                                                                        userInfo:nil
-                                                                         repeats:YES];
+                                                                        repeats:YES];
         });
     }
     
@@ -535,8 +534,8 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (void)mediaPlayer:(VMediaPlayer *)player error:(id)arg
 {
-//    NSLog(@"%@",arg);
-//    NSLog(@"play failed, err: %@", arg);
+    //    NSLog(@"%@",arg);
+    //    NSLog(@"play failed, err: %@", arg);
     self.hasPreparedToPlay = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self stopActivityLoading];
@@ -547,7 +546,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 - (void)mediaPlayer:(VMediaPlayer *)player playbackComplete:(id)arg
 {
     
-//    NSLog(@"playbackComplete");
+    //    NSLog(@"playbackComplete");
     
     self.hasPreparedToPlay = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -583,7 +582,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (void)mediaPlayer:(VMediaPlayer *)player seekComplete:(id)arg
 {
-//    NSLog(@"seekComplete");
+    //    NSLog(@"seekComplete");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self stopActivityLoading];
     });
@@ -591,7 +590,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (void)mediaPlayer:(VMediaPlayer *)player notSeekable:(id)arg
 {
-//    NSLog(@"notSeekable");
+    //    NSLog(@"notSeekable");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self stopActivityLoading];
     });
@@ -615,11 +614,11 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     doubleGR.numberOfTouchesRequired = 1;
     doubleGR.numberOfTapsRequired = 2;
     [self.playerView addGestureRecognizer:doubleGR];
-    
+    //全屏按钮点击
     [self.playerView.fullScreenButton addTarget:self action:@selector(playerViewFullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [self.playerView.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    
+     //小屏
     [self.playerView.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [self.playerView.playButton addTarget:self action:@selector(playerViewPlayerButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -651,10 +650,10 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     if (self.isFullscreenMode) {
         return;
     }
-//    NSLog(@"=================");
+    //    NSLog(@"=================");
     
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
+    //    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     self.btn.hidden = YES;
     self.scroll.hidden = YES;
     CGFloat height = [[UIScreen mainScreen] bounds].size.width;
@@ -695,7 +694,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     }
     self.btn.hidden = NO;
     self.scroll.hidden = NO;
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [UIView animateWithDuration:0.3f animations:^{
         [self.view setTransform:CGAffineTransformIdentity];
         self.frame = self.originFrame;
@@ -724,7 +723,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (void)playerViewPlayerButtonClick
 {
-//    NSLog(@"-----------------------");
+    //    NSLog(@"-----------------------");
     [mplayer pause];
     self.playerView.playButton.hidden = YES;
     self.playerView.pauseButton.hidden = NO;
@@ -745,7 +744,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 }
 
 - (void)progressSliderTouchBegan:(UISlider *)slider {
-//    NSLog(@"========2222=========");
+    //    NSLog(@"========2222=========");
     [mplayer pause];
     [self.playerView cancelAutoFadeOutControlBar];
 }
@@ -812,13 +811,13 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 {
     CGFloat currentTime = [self currentVideoPlayPosition]/1000.f;
     CGFloat videoDur = self.currentVideoItemDuration/1000.f;
-//    NSLog(@"-------->_<%f",videoDur);
+    //    NSLog(@"-------->_<%f",videoDur);
     
     NSString *nowTime = [DurationFormat durationTextForDuration:currentTime];
     NSString *videoTime = [DurationFormat durationTextForDuration:videoDur];
     
     self.playerView.timeLabel.text = [NSString stringWithFormat:@"%@/%@",nowTime, videoTime];
-//    NSLog(@"%@",self.playerView.timeLabel.text);
+    //    NSLog(@"%@",self.playerView.timeLabel.text);
     
     if (!self.videoProgressSliderOnTouched) {
         if (videoDur > 0) {
@@ -831,7 +830,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 
 - (CGFloat)currentVideoPlayPosition
 {
-//    NSLog(@"getCurrentPosition===%ld",[mplayer getCurrentPosition]);
+    //    NSLog(@"getCurrentPosition===%ld",[mplayer getCurrentPosition]);
     return [mplayer getCurrentPosition];
 }
 
@@ -867,14 +866,14 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 //一开始的屏幕旋转方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-//    NSLog(@"11222111111");
+    //    NSLog(@"11222111111");
     
     return UIInterfaceOrientationMaskLandscapeLeft;
 }
 
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-//    NSLog(@"11111111");
+    //    NSLog(@"11111111");
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     __weak typeof(self) weakself = self;
     [UIView animateWithDuration:0 animations:^{
@@ -969,7 +968,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
         int index = (int)dy;
         if(index>0){
             if(index%5==0){//每10个像素声音减一格
-//                NSLog(@"%.2f",_systemVolume);
+                //                NSLog(@"%.2f",_systemVolume);
                 if(_systemVolume>0.1){
                     _systemVolume = _systemVolume-0.05;
                     [_volumeViewSlider setValue:_systemVolume animated:YES];
@@ -978,8 +977,8 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
             }
         }else{
             if(index%5==0){//每10个像素声音增加一格
-//                NSLog(@"+x ==%d",index);
-//                NSLog(@"%.2f",_systemVolume);
+                //                NSLog(@"+x ==%d",index);
+                //                NSLog(@"%.2f",_systemVolume);
                 if(_systemVolume>=0 && _systemVolume<1){
                     _systemVolume = _systemVolume+0.05;
                     [_volumeViewSlider setValue:_systemVolume animated:YES];
@@ -1021,7 +1020,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     self.four = [[NotesViewController alloc] init];
     self.first = [[UIStoryboard storyboardWithName:@"Player" bundle:nil]instantiateViewControllerWithIdentifier:@"IntroduceViewController"];
     self.second = [[UIStoryboard storyboardWithName:@"Player" bundle:nil]instantiateViewControllerWithIdentifier:@"DirectionViewController"];
-
+    
     self.four = [[UIStoryboard storyboardWithName:@"Player" bundle:nil]instantiateViewControllerWithIdentifier:@"NotesViewController"];
     
     //指定该控制器为其子控制器
@@ -1035,7 +1034,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [_scroll addSubview:_four.view];
     
     //设置两个控制器的尺寸
-//    _four.view.frame = CGRectMake(kView_W * 3, 0, kView_W, kView_H - CGRectGetMinY(self.pageLine.frame));
+    //    _four.view.frame = CGRectMake(kView_W * 3, 0, kView_W, kView_H - CGRectGetMinY(self.pageLine.frame));
     _four.view.frame = CGRectMake(kView_W * 2, 0, kView_W, kAddViewX);
     _second.view.frame = CGRectMake(kView_W, 0, kView_W, kAddViewX);
     _first.view.frame = CGRectMake(0, 0, kView_W, kAddViewX);
@@ -1048,7 +1047,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     //button的index值应当从0开始
     UIButton * btn = [self setupButtonWithTitle:self.titleArr[0] imageName:self.imageArr[0] Index:0];
     self.selectBtn = btn;
-//    [self.btn setBackgroundColor:[UIColor whiteColor]];
+    //    [self.btn setBackgroundColor:[UIColor whiteColor]];
     [self setupButtonWithTitle:self.titleArr[1] imageName:self.imageArr[1] Index:1];
     [self setupButtonWithTitle:self.titleArr[2] imageName:self.imageArr[2] Index:2];
     [self setupButtonWithTitle:self.titleArr[3] imageName:self.imageArr[2] Index:3];
@@ -1107,7 +1106,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
         CommentViewController *three = [[CommentViewController alloc] init];
         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:three];
         navi = [[UIStoryboard storyboardWithName:@"Player" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentNavi"];
-//        [self.navigationController pushViewController:navi animated:YES];
+        //        [self.navigationController pushViewController:navi animated:YES];
         [self presentViewController:navi animated:YES completion:nil];
         
     }
@@ -1145,7 +1144,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat pageWidth = _scroll.frame.size.width;
     self.currentPages = floor((_scroll.contentOffset.x - pageWidth/2)/pageWidth) + 1;
-
+    
 }
 
 
@@ -1190,6 +1189,14 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
         _dataDic = [[NSMutableDictionary alloc] init];
     }
     return _dataDic;
+}
+-(UIScrollView *)scroll
+{
+    if(_scroll == nil)
+    {
+        _scroll =[[UIScrollView alloc] init];
+    }
+    return _scroll;
 }
 
 

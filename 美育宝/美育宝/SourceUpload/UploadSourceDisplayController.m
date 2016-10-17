@@ -58,7 +58,7 @@
     _imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
     self.titleLabel.text = _imageName;
     
-    
+//    头部视图添加点击事件
     self.headerImageView.image = [UIImage imageNamed:@"001.jpg"];
     self.headerImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];
@@ -74,6 +74,8 @@
 
 - (void)handleTapViewWithAction:(UIGestureRecognizer *)gestureRecognizer
 {
+    [self.detailTextField resignFirstResponder];
+    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"请选择获取资源方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];

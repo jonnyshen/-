@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface EducationStage : NSObject
+//教育阶段
+@property (nonatomic, strong) NSString *stageName;//阶段名称
 
-@property (nonatomic, strong) NSString *stageName;
-
-@property (nonatomic, strong) NSString *stageIdentifier;
+@property (nonatomic, strong) NSString *stageIdentifier;//阶段ID
 
 -(instancetype)initWithDict:(NSDictionary*)dict;
 +(instancetype)dataWithDict:(NSDictionary*)dict;

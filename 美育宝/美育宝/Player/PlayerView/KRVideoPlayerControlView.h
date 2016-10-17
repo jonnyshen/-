@@ -10,17 +10,17 @@
 
 @interface KRVideoPlayerControlView : UIView
 
-@property (nonatomic, strong, readonly) UIView *topBar;
-@property (nonatomic, strong, readonly) UIView *bottomBar;
-@property (nonatomic, strong, readonly) UIButton *playButton;
-@property (nonatomic, strong, readonly) UIButton *pauseButton;
-@property (nonatomic, strong, readonly) UIButton *fullScreenButton;
-@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
-@property (nonatomic, strong, readonly) UISlider *progressSlider;
-@property (nonatomic, strong, readonly) UIButton *closeButton;
-@property (nonatomic, strong, readonly) UILabel *timeLabel;
+@property (nonatomic, strong, readonly) UIView *topBar;//头部视图
+@property (nonatomic, strong, readonly) UIView *bottomBar;//底部视图
+@property (nonatomic, strong, readonly) UIButton *playButton;//播放
+@property (nonatomic, strong, readonly) UIButton *pauseButton;//暂停
+@property (nonatomic, strong, readonly) UIButton *fullScreenButton;//全屏
+@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;//小屏
+@property (nonatomic, strong, readonly) UISlider *progressSlider;//播放进度条
+@property (nonatomic, strong, readonly) UIButton *closeButton;//关闭 退出播放页面
+@property (nonatomic, strong, readonly) UILabel *timeLabel;//视频时间
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel;//视频名称
 
 - (void)animateHide;
 - (void)animateShow;

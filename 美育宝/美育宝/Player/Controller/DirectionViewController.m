@@ -25,6 +25,7 @@
 
 @interface DirectionViewController ()<WSTableViewDelegate>
 {
+//    课程ID
     NSString *_classID;
     NSString *_open;
 }
@@ -33,7 +34,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSourceArrM;
 
-@property (nonatomic, strong) WSTableView *tableView;
+@property (nonatomic, strong) WSTableView *tableView;//伸缩的tableview
 
 @property (nonatomic, strong)NSMutableArray *tempArr;
 
@@ -188,42 +189,21 @@
 
 - (void)sendTitleArray:(NSArray *)titleArr andSubTitleArr:(NSArray *)subTitleArr
 {
-    NSLog(@"%@<--------->%@",titleArr,subTitleArr);
-    /*
-    _dataSourceArrM = [NSMutableArray array];
-    for (int i = 0; i < titleArr.count; i++) {
-        WSTableviewDataModel *dataModel2 = [[WSTableviewDataModel alloc] init];
-        directionModel *direct  = titleArr[i];
-        dataModel2.firstLevelStr = @"111";
-        NSLog(@"%@",direct.directionName);
-        dataModel2.shouldExpandSubRows = NO;
-        for (int j = 0; j < subTitleArr.count; j++) {
-            MYSubTitle *subTitle = subTitleArr[j];
-            [dataModel2 object_add_toSecondLevelArrM:@"222"];
-            NSLog(@"%@",subTitle.directionNickName);
-            
-        }
-        [_dataSourceArrM addObject:dataModel2];
-        
-        
-//        MYToolsModel *tools = [[MYToolsModel alloc] init];
-//        [tools saveDataToPlistWithPlistName:@"DirecionCon.plist" andData:_dataSourceArrM];
-        
-    }
-    */
-    
         
         if (!_classID) {
+//            如果课程ID为空，从plist文件获取
             _classID = [self getDataFilePath];
         }
     NSString *url = nil;
+    /**
+     open是一个标示，主要用来标示不同的获取视频信息的方法
+     */
     if ([_open isEqualToString:@"OPEN"]) {
         url = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getgkkcinfo&kcid=%@",_classID];
     } else {
         url  = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getxbkcinfo&kcid=%@", _classID];
     }
-        NSLog(@"dorectionviewcontroller===%@",url);
-        
+    
         NSString *codeStr = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL *urlString = [NSURL URLWithString:codeStr];
         
@@ -257,7 +237,9 @@
     }
     
    
-    
+    /**
+     把上面获取到的数据，赋值到WSTableview
+     */
     
     _dataSourceArrM = [NSMutableArray array];
     NSMutableArray *filePathArr = [NSMutableArray array];
@@ -346,6 +328,7 @@
     return 60.0f;
 }
 
+#pragma mark - WSTableview 的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     

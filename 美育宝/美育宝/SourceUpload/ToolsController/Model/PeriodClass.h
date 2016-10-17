@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface PeriodClass : NSObject
+//课时
+//标题
 @property (nonatomic, strong) NSString *bt;
-
+//编号
 @property (nonatomic, strong) NSString *zbh;
-
+//教材代码
 @property (nonatomic, strong) NSString *jcdm;
 
 -(instancetype)initWithDict:(NSDictionary*)dict;

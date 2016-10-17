@@ -10,10 +10,10 @@
 #import "WorkTwoMode.h"
 
 @interface WorksOneMode : NSObject
-
+//所有获取的作品信息数组
 @property (nonatomic, strong) NSArray *workeData;
 @property (nonatomic, strong) NSString *fjmc;
-@property (nonatomic , strong) NSString *imgPath;
+@property (nonatomic , strong) NSString *imgPath;//图片路径
 @property (nonatomic, strong) NSString * zylx;
 @property (nonatomic , strong) NSString *mxdm;
 @property (nonatomic, strong) NSString * scsj;

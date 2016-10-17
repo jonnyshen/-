@@ -17,8 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
-@property(nonatomic, strong) CommListModel *obj;
+@property(nonatomic, strong) CommListModel *obj;//利用model set 方法给cell赋值
 
+//利用统一定义的方法赋值
 -(void)setTableViewCellModel:(id)obj;
 
 @end

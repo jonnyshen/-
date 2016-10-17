@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface SourceData : NSObject
-@property (nonatomic, strong) NSString *fjmc;
-@property (nonatomic , strong) NSString *imgPath;
-@property (nonatomic, strong) NSString * zylx;
-@property (nonatomic , strong) NSString *mxdm;
-@property (nonatomic, strong) NSString * scsj;
+//
+@property (nonatomic, strong) NSString *fjmc;//title
+@property (nonatomic , strong) NSString *imgPath;//图片路径
+@property (nonatomic, strong) NSString * zylx;//资源类型
+@property (nonatomic , strong) NSString *mxdm;//cell ID
+@property (nonatomic, strong) NSString * scsj;//time
 @property (nonatomic, strong) NSString * zylj;
 
 

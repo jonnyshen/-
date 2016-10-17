@@ -26,9 +26,9 @@
 
 {
     NSString *_imageDataString;//图片，视频data base64转为字符串
-    NSString *_imageName;//
-    NSString *_kch;//
-    NSString *_bjbh;//
+    NSString *_imageName;//图片名
+    NSString *_kch;//课程号
+    NSString *_bjbh;//班级编号
     NSString *bookEdition;//
     
     NSString *sourceDesribe;//课程描述
@@ -702,6 +702,7 @@
     
 //    http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=R000000003&relationcode=401061992121470000&jyjd=004002&nj=1&kch=150101&zbh=131&bjbh=gz01020101&zpmc=161012180105791.jpg&wjmc=161012180108252.jpg&wjdx=1358730&zyms=&wjlx=.jpg&dxid=0&zply=3
     
+//    在服务器创建上传资源的文件名
     [self createFieldName:_imageName];
     
     //
@@ -743,6 +744,7 @@
         NSString *datastr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSLog(@"======>>%@",datastr);
+//        创建文件名成功后上传data
         [self imageName:timeString];
     }];
     
@@ -778,6 +780,7 @@
             if (error)
                 NSLog(@"Error: %@", error);
             else
+//                上传完数据再上传资源的信息
                 [self uploadMessageContextWithSource];
                 NSLog(@"%@",response);
             

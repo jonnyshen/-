@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+//播放评论页面
 @interface CommentViewController : UIViewController
 
 @end
