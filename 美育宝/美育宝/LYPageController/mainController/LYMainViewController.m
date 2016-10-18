@@ -26,7 +26,7 @@
 #import "NavigationItemView.h"
 #import "MYSearchViewController.h"
 
-//#import "UIImage+JZ.h
+#import "UIImage+JZ.h"
 
 @interface LYMainViewController ()<UIScrollViewDelegate>
 
@@ -82,7 +82,7 @@
 //导航栏
 - (void)setupItems{
     
-    UIImageView *header = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Naviheader"]];
+//    UIImageView *header = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Naviheader"]];
 //    self.navigationItem.titleView = header;
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search.png"] style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftButton)];

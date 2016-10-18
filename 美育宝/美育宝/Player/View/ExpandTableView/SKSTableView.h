@@ -18,6 +18,8 @@
 
 @class SKSTableView;
 
+
+
 #pragma mark - SKSTableViewDelegate
 
 @protocol SKSTableViewDelegate <UITableViewDataSource, UITableViewDelegate>

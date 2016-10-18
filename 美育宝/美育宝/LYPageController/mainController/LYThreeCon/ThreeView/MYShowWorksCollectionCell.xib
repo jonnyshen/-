@@ -37,7 +37,7 @@
                 <outlet property="imageView" destination="vnX-Pa-tLs" id="X59-eH-RDm"/>
                 <outlet property="titleLabel" destination="299-AO-pZz" id="lEL-0L-12a"/>
             </connections>
-            <point key="canvasLocation" x="270" y="285"/>
+            <point key="canvasLocation" x="48" y="108"/>
         </collectionViewCell>
     </objects>
 </document>

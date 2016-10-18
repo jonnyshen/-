@@ -53,6 +53,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:fileName]) {
         dataArr = [[NSDictionary alloc] initWithContentsOfFile:fileName];
     }
+    
     return dataArr;
 }
 
@@ -85,7 +86,7 @@
 
 }
 
-
+//   保存 路经（图片。。。）
 - (void)saveToPlistWithPlistName:(NSString *)fileName andData:(NSString *)data
 {
     if (!data) {

@@ -43,6 +43,8 @@
     }
     [self.headerImage sd_setImageWithURL:[NSURL URLWithString:obj.imageUrl]];
     
+    
+    
     NSString *str = [obj.time substringWithRange:NSMakeRange(0, 12)];
     NSDateFormatter *detailFormatter = [[NSDateFormatter alloc] init];
     [detailFormatter setLocale:[NSLocale currentLocale]];
@@ -58,19 +60,20 @@
     
     
     //starRateView4.userInteractionEnabled = NO;
+    //self.starView是cell里的星星view
     [self.starView addSubview:starRateView];
     self.starView.userInteractionEnabled = NO;
 
 }
 
 -(void)setTableViewCellModel:(TRCommentModel *)obj{
-    
+//    评论人名字
     if (!obj.teacherName || [obj.teacherName isKindOfClass:[NSNull class]]) {
         self.teacherName.text = @"";
     } else {
         self.teacherName.text = obj.teacherName;
     }
-    
+//    删除键
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userName  = [tools sendFileString:@"LoginData.plist" andNumber:6];
     if ([obj.teacherName isEqualToString:userName]) {
@@ -79,7 +82,7 @@
         self.deleCommentBtn.hidden = YES;
     }
     
-    
+//    评论内容
     self.commentDetail.text = obj.detailComment;
     
     self.headerImage.layer.cornerRadius = 8;
@@ -94,17 +97,17 @@
     [detailFormatter setLocale:[NSLocale currentLocale]];
     [detailFormatter setDateFormat:@"yyyyMMddHHmm"];
     NSDate *date = [detailFormatter dateFromString:str];
-//    NSLog(@"%@----date---%@",str,date);
+//    评论时间
     self.time.text = [[NSString stringWithFormat:@"%@",date] substringWithRange:NSMakeRange(0, 16)];
     
     
     CGFloat numberOfStar = [obj.rank floatValue];;
-    //numberOfStar =
+    //numberOfStar 服务器返回的星星数
     HUStarView *starRateView = [[HUStarView alloc] initWithFrame:CGRectMake(0, 0, self.starView.frame.size.width, self.starView.frame.size.height) numberOfStars:5 stars:numberOfStar];
     
     
     //starRateView4.userInteractionEnabled = NO;
-    [self.starView addSubview:starRateView];
+//    [self.starView addSubview:starRateView];
     self.starView.userInteractionEnabled = NO;
 }
 

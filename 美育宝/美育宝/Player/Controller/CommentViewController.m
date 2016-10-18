@@ -62,10 +62,10 @@
     
     
 
-    [self.tableView addFooterWithTarget:self action:@selector(httpRequest)];
+//    [self.tableView addFooterWithTarget:self action:@selector(httpRequest)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCommentNotificationRefresh:) name:@"comment" object:nil];
     
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickBackBtn)];
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(clickBackBtn)];
     [addBtn setImage:[UIImage imageNamed:@"gobackBtn"]];
     [addBtn setImageInsets:UIEdgeInsetsMake(0, -15, 0, 15)];
     addBtn.tintColor=[UIColor colorWithRed:248/255.0f green:144/255.0f blue:34/255.0f alpha:1];
@@ -224,7 +224,7 @@
                 [self.tempArrA addObject:commModel];
             }
             [self.tableView reloadData];
-            [self.tableView footerEndRefreshing];
+//            [self.tableView footerEndRefreshing];
         }
     }];
     [dataTask resume];

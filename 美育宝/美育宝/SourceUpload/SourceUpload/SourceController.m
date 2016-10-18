@@ -79,6 +79,7 @@
         imgurl = responseObject[@"imgurl"];
         
         MYToolsModel *tools = [[MYToolsModel alloc] init];
+        //存储图片
         [tools saveToPlistWithPlistName:@"WorksUpload.plist" andData:imgurl];
         
         for (NSDictionary *params in responseObject[@"data"]) {

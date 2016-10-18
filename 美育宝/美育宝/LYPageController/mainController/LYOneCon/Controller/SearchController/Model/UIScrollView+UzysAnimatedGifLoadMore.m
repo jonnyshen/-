@@ -2,8 +2,8 @@
 //  UIScrollView+UzysAnimatedGifLoadMore.m
 //  UzysAnimatedGifLoadMore
 //
-//  Created by Uzysjung on 2014. 9. 25..
-//  Copyright (c) 2014년 Uzys. All rights reserved.
+//  Created by apple on 2016. 9. 25..
+//  Copyright (c) Jiayong Shen. All rights reserved.
 //
 
 #import "UIScrollView+UzysAnimatedGifLoadMore.h"

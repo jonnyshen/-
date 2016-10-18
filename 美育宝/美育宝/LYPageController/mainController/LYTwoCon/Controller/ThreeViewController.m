@@ -311,10 +311,11 @@
     NSString *playerID   = recommand.playerID;
     
     if ([recommand.sourseType isEqualToString:@".png"] || [recommand.sourseType isEqualToString:@".jpg"]) {
+        //如果是图片则推出图片浏览的DetailTextViewController
         DetailTextViewController *detailVC = [[DetailTextViewController alloc]initWithImageString:recommand.imgUrl commemtID:recommand.sourseID from:@"THREE" title:recommand.className];
         [self.navigationController pushViewController:detailVC animated:YES];
     } else {
-        
+//        如果不是图片则推出视频播放界面。THREE只作为一个标示符号
         LYPlayerViewController *player = [[LYPlayerViewController alloc] initWithVideoId:playerID andComeFromWhichVC:@"THREE"];
         player = [[UIStoryboard storyboardWithName:@"Player" bundle:nil] instantiateViewControllerWithIdentifier:@"LYPlayerViewController"];
         [self presentViewController:player animated:YES completion:nil];

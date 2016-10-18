@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,14 +12,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-wK-2Xi">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="r4b-Xl-Swg"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSj-wd-2wI">
-                    <rect key="frame" x="45" y="20" width="65" height="45"/>
-                    <color key="backgroundColor" red="1" green="0.38205207634837435" blue="0.6334550477091101" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="1" green="0.38205207634837435" blue="0.6334550477091101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="f8P-xV-Ywi"/>
                         <constraint firstAttribute="width" constant="65" id="lLC-KH-PVk"/>
@@ -30,7 +29,6 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFE-Qp-k8o">
-                    <rect key="frame" x="423" y="96" width="156" height="54"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="156" id="sMF-WA-wsT"/>
                     </constraints>
@@ -39,7 +37,6 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgh-2X-roM">
-                    <rect key="frame" x="222" y="96" width="156" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="n5V-ZK-7p2"/>
                     </constraints>
@@ -48,58 +45,51 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="school_notice.png" translatesAutoresizingMaskIntoConstraints="NO" id="NYF-1N-kMU">
-                    <rect key="frame" x="280" y="85" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="cFM-Jg-lyn"/>
                         <constraint firstAttribute="width" constant="40" id="nVe-4X-06c"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_lit_flo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tyN-Df-UQf">
-                    <rect key="frame" x="91" y="85" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Isp-cC-XRt"/>
                         <constraint firstAttribute="height" constant="40" id="rec-0k-IIb"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baby_position.png" translatesAutoresizingMaskIntoConstraints="NO" id="56x-Ii-Lsw">
-                    <rect key="frame" x="469" y="85" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="UoL-WO-7to"/>
                         <constraint firstAttribute="height" constant="40" id="thM-ch-Om6"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安全定位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6O-Wi-UxY">
-                    <rect key="frame" x="458" y="125" width="63" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="63" id="I4g-wR-9dW"/>
                         <constraint firstAttribute="height" constant="21" id="eFC-bh-dfS"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学校公告" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAm-MX-dAa">
-                    <rect key="frame" x="272" y="125" width="59" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="59" id="ZOt-C7-WP7"/>
                         <constraint firstAttribute="height" constant="21" id="eOU-6Y-OE0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的小红花" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtB-Qa-JIT">
-                    <rect key="frame" x="75" y="125" width="72" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="3se-PZ-iTK"/>
                         <constraint firstAttribute="width" constant="72" id="pJm-Rw-TCt"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I8s-QP-Kdv">
-                    <rect key="frame" x="24" y="95" width="156" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="lQ1-9C-qBl"/>
                     </constraints>
@@ -108,7 +98,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="I8s-QP-Kdv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="1Zz-Pw-2bQ"/>
                 <constraint firstItem="i6O-Wi-UxY" firstAttribute="top" secondItem="56x-Ii-Lsw" secondAttribute="bottom" id="3bO-J3-s3S"/>
@@ -149,7 +139,7 @@
             <connections>
                 <outlet property="StuLoginBtn" destination="GSj-wd-2wI" id="Pcy-dn-QpY"/>
             </connections>
-            <point key="canvasLocation" x="505" y="100"/>
+            <point key="canvasLocation" x="157" y="96"/>
         </view>
     </objects>
     <resources>

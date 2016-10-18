@@ -36,6 +36,7 @@
         NSLog(@"3----  %f",currentScore);
         commentRank = currentScore;
     }];
+    
     [self.starView addSubview:starRateView3];
     
     [self.commentBtn addTarget:self action:@selector(saveCommentDetail) forControlEvents:UIControlEventTouchUpInside];

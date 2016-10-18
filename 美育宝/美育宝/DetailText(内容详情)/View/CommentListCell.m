@@ -34,6 +34,8 @@
 {
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userName  = [tools sendFileString:@"LoginData.plist" andNumber:6];
+    
+//    如果网络获取的评论人和登录的人是同一个人删除键则不隐藏，否则相反
     if ([obj.teacherName isEqualToString:userName]) {
         self.deleteBtn.hidden = NO;
     } else {

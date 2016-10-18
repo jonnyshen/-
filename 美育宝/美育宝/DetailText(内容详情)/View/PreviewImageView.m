@@ -121,19 +121,20 @@
     
     [tapGR addTarget:self action:@selector(handleTapView:)];
     [self addGestureRecognizer:tapGR];
-    
+//    显示点赞数的label
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(kZanLabelX, kZanLabelY, 30, 21)];
     self.label.text = [self numberOfZan];
-    self.label.textColor = [UIColor whiteColor];
+    self.label.textColor = [UIColor blackColor];
     self.label.font = [UIFont systemFontOfSize:20.0f];
+    self.label.backgroundColor = [UIColor redColor];
     [self addSubview:self.label];
-    
+//    点赞按钮
     CatZanButton *zanBtn=[[CatZanButton alloc] initWithFrame:CGRectMake(kZanX, kZanY, 50, 50)];
     //[zanBtn setCenter:self.view.center];
     [self addSubview:zanBtn];
     
     [zanBtn setType:CatZanButtonTypeFirework];
-    
+//    点击事件
     [zanBtn setClickHandler:^(CatZanButton *zanButton) {
         if (zanButton.isZan) {
             NSLog(@"Zan!");
@@ -217,12 +218,13 @@
 {
     //http://192.168.3.254:8082/GetDataToApp.aspx?action=zpdianzan&mxdm=a2222ed3-cec4-4927-84a9-82354774f169&usercode=
     [self getDataFilePath];
+    //点赞的url
     NSString *clickZanUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=zpdianzan&mxdm=%@&usercode=%@",_classID, _userCode];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:clickZanUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSString *str = [responseObject objectForKey:@"issuccess"];
         if ([str isEqualToString:@"true"]) {
-            
+            [self numberOfZan];
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
@@ -230,6 +232,7 @@
     
 }
 
+//获取点赞数
 - (NSString *)numberOfZan
 {
     //http://192.168.3.254:8082/GetDataToApp.aspx?action=getzpdianzans&mxdm=a2222ed3-cec4-4927-84a9-82354774f169
@@ -242,6 +245,7 @@
     [manager GET:countZanUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         zan = [responseObject objectForKey:@"date"];
+        self.label.text = zan;
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         

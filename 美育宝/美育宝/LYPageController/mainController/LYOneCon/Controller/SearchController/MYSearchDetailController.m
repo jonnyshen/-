@@ -92,13 +92,7 @@ static NSString *showContentCellIdentifier = @"MYSearchCell";
     [_contentCollectionView registerNib:[UINib nibWithNibName:@"MYSearchCell" bundle:nil]
              forCellWithReuseIdentifier:showContentCellIdentifier];
     
-//    __unsafe_unretained typeof(self) pself = self;
-//    [_contentCollectionView addLoadMoreActionHandler:^{
-//        [pself refreshAddAction];
-//    } ProgressImagesGifName:@"farmtruck@2x.gif"
-//                                LoadingImagesGifName:@"nevertoolate@2x.gif"
-//                             ProgressScrollThreshold:30
-//                               LoadingImageFrameRate:30];
+
 }
 
 

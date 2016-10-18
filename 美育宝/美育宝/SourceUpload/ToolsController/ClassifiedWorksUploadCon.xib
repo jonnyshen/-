@@ -71,13 +71,13 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="5BZ-iX-HZl" secondAttribute="trailing" constant="113" id="1WQ-UM-52q"/>
+                        <constraint firstAttribute="trailing" secondItem="5BZ-iX-HZl" secondAttribute="trailing" constant="70" id="1WQ-UM-52q"/>
                         <constraint firstItem="SHP-5E-9vw" firstAttribute="top" secondItem="x7y-it-Gbv" secondAttribute="top" constant="90" id="4me-X6-2Xf"/>
                         <constraint firstItem="SHP-5E-9vw" firstAttribute="centerX" secondItem="x7y-it-Gbv" secondAttribute="centerX" id="DKe-xl-QYG"/>
                         <constraint firstItem="5BZ-iX-HZl" firstAttribute="top" secondItem="5CC-1f-xA3" secondAttribute="bottom" constant="40" id="ImN-rH-Ldh"/>
                         <constraint firstItem="5CC-1f-xA3" firstAttribute="top" secondItem="SHP-5E-9vw" secondAttribute="bottom" constant="30" id="VqO-ri-K37"/>
                         <constraint firstItem="irw-wa-bB6" firstAttribute="top" secondItem="5CC-1f-xA3" secondAttribute="bottom" constant="40" id="Waf-sA-2le"/>
-                        <constraint firstItem="irw-wa-bB6" firstAttribute="leading" secondItem="x7y-it-Gbv" secondAttribute="leading" constant="112" id="hfD-iy-OjG"/>
+                        <constraint firstItem="irw-wa-bB6" firstAttribute="leading" secondItem="x7y-it-Gbv" secondAttribute="leading" constant="70" id="hfD-iy-OjG"/>
                         <constraint firstItem="5CC-1f-xA3" firstAttribute="centerX" secondItem="x7y-it-Gbv" secondAttribute="centerX" id="wfs-7N-gyF"/>
                         <constraint firstAttribute="height" constant="336" id="zP6-dL-z9U"/>
                     </constraints>

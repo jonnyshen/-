@@ -216,7 +216,7 @@
 //        [self.tableView headerEndRefreshing];
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        [FormValidator showAlertWithStr:@"网络错误"];
+// 暂时关闭这句   [FormValidator showAlertWithStr:@"网络错误"];
     }];
     
 }

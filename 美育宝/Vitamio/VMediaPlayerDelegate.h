@@ -2,7 +2,7 @@
 //  VMediaPlayerDelegate.h
 //  VPlayer
 //
-//  Created by erlz nuo on 7/4/13.
+//  Created by JiaYong Shen on 7/4/13.
 //
 //
 

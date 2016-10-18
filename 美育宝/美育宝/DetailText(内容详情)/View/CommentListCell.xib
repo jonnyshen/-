@@ -38,8 +38,7 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcz-Uy-OF6">
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="ar7-3u-aK3"/>
-                            <constraint firstAttribute="height" constant="30" id="f4u-xb-ciL"/>
+                            <constraint firstAttribute="width" constant="45" id="FVH-yG-LdY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="删除"/>
@@ -47,13 +46,14 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="QKN-MJ-mLp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="168-FA-n1G"/>
+                    <constraint firstAttribute="bottom" secondItem="Vcz-Uy-OF6" secondAttribute="bottom" id="9Cm-lJ-MdH"/>
                     <constraint firstItem="WcW-qt-bSd" firstAttribute="leading" secondItem="QKN-MJ-mLp" secondAttribute="trailing" constant="4" id="Ahw-fi-lJg"/>
-                    <constraint firstAttribute="trailing" secondItem="Vcz-Uy-OF6" secondAttribute="trailing" constant="10" id="bxW-aJ-9oe"/>
+                    <constraint firstAttribute="trailing" secondItem="Vcz-Uy-OF6" secondAttribute="trailing" id="LjC-Ku-fWA"/>
                     <constraint firstItem="ReQ-Hn-m2A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ehH-Oq-oER"/>
                     <constraint firstItem="ReQ-Hn-m2A" firstAttribute="leading" secondItem="QKN-MJ-mLp" secondAttribute="trailing" constant="5" id="feW-au-KWi"/>
                     <constraint firstItem="QKN-MJ-mLp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jQg-Fn-cRb"/>
                     <constraint firstItem="WcW-qt-bSd" firstAttribute="top" secondItem="ReQ-Hn-m2A" secondAttribute="bottom" constant="4" id="lz7-fT-MOW"/>
-                    <constraint firstAttribute="bottom" secondItem="Vcz-Uy-OF6" secondAttribute="bottom" constant="5" id="vYL-YR-f6E"/>
+                    <constraint firstItem="Vcz-Uy-OF6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zNV-c1-fEv"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

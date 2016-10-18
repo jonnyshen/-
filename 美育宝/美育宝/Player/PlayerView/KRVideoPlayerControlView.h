@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+ //。。。。。播放器的view
 @interface KRVideoPlayerControlView : UIView
 
 @property (nonatomic, strong, readonly) UIView *topBar;//头部视图

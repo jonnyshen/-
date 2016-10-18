@@ -508,13 +508,16 @@
             }
             
             //            获取到教材代码再执行获取单元目录
-//            if (grade == nil) {
-//                [self getUnits:nil];
-//            } else {
-                [self getUnits:bookEdition];
-//            }
+            if (grade == nil) {
+                [self.highFourBtn setTitle:[self.dictionary objectForKey:bookEdition] forState:UIControlStateNormal];
+                 [self getUnits:bookEdition];
+                
+            } else {
+                [self.highFourBtn setTitle:[self.dictionary objectForKey:self.danyuanID.firstObject] forState:UIControlStateNormal];
+               [self getUnits:self.danyuanID.firstObject];
+            }
             
-            [self.highFourBtn setTitle:[self.dictionary objectForKey:bookEdition] forState:UIControlStateNormal];
+            
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

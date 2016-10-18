@@ -53,6 +53,7 @@
     
 }
 
+// 拼接图片路径
 - (NSString *)pieceOfString:(NSString*)imageStr
 {
     MYToolsModel *tools = [[MYToolsModel alloc] init];

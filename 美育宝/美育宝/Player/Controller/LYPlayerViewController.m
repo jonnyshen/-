@@ -24,7 +24,7 @@
 #import "MYHttpRequestTools.h"
 #import "MYToolsModel.h"
 #import "JWShareView.h"
-#import "ShareCollectView.h"
+//#import "ShareCollectView.h"
 
 
 #define kView_W self.view.frame.size.width
@@ -68,7 +68,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 {
     NSString *_classID;//课程ID
     NSString *_fromVC;//来自哪一个控制器
-    NSString *_videoURL;//URLpath
+    NSString *_videoURL;//URLpath 全路径不行拼接
     CDPVideoPlayer *_player;
     
     VMediaPlayer *mplayer;
@@ -181,7 +181,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [self setupPageButton];
     
     
-    
+    //
     [self bottomBarUIAction];
     
     //播放器
@@ -192,6 +192,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [self bottomBarUIAction];
     
 }
+
 
 - (NSString *)getDataFilePath
 {
@@ -215,6 +216,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     }
     
     NSString *url = nil;
+//  TWO代表第二个控制器（课程中心）传过来
     if ([_fromVC isEqualToString:@"TWO"]) {
         url = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getgkkcinfo&kcid=%@",_classID];
     } else {
@@ -252,8 +254,6 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
                 
                 [self.tempArrB addObject:direction];
             }
-            
-            
             
             //        NSLog(@"player---%@",self.tempArrB);
             
@@ -379,6 +379,9 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     //播放器
     self.playerView = [[KRVideoPlayerControlView alloc] initWithFrame:CGRectMake(0, kPlayerY,kView_W, kPlayerH)];
     self.playerView.titleLabel.text = videoTitle;
+    
+    [self.view.layer addSublayer:self.playerView.layer];
+    
     [self.view addSubview:self.playerView];
     
     if (!mplayer) {
@@ -449,6 +452,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
         [FormValidator showAlertWithStr:@"无法播放视频"];
         return;
     }
+#warning 播放路径赋值
     [mplayer setDataSource:[NSURL URLWithString:videoString]];
     [mplayer prepareAsync];
     self.playAfterPrepared = YES;
@@ -457,6 +461,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+     //视频播放的方法。。。。
     [self playerWithVideoPath];
 }
 

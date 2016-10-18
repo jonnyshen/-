@@ -84,7 +84,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     //头部视图
     [self getTitleAndImageDataFromPlist];
     [self setUpHeaderImages];
-    
+    //获取评论数据（评论人名字，）
     [self getJudgeHttpRequest];
     
     self.tableView.delegate = self;
@@ -266,11 +266,12 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     tapGR.delaysTouchesEnded = NO;
     tapGR.numberOfTapsRequired = 1;
     tapGR.numberOfTouchesRequired = 1;
+    //添加手势，使图片放大到整个屏幕前面
     [tapGR addTarget:self action:@selector(handleTapView:)];
     [self.imageView addGestureRecognizer:tapGR];
 }
 
-
+//添加手势，使图片放大到整个屏幕前面
 - (void)handleTapView:(UIGestureRecognizer *)gestureRecognizer
 {
     UIWindow *windows = [UIApplication sharedApplication].keyWindow;
@@ -328,6 +329,28 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
 {
     return UITableViewAutomaticDimension;
 }
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    if (self.commArr) {
+        [self.commArr removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationFade)];
+        [self deleteAction:indexPath.row];
+    }
+    
+}
+
+
 
 //将评论发送到服务器
 - (void)saveJudgeHttpRequest
@@ -388,7 +411,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
         for (NSDictionary *param in responseObject[@"data"]) {
             CommListModel *model = [[CommListModel alloc] init];
             model.imageUrl = param[@"PersonImage"];
-            model.teacherName = param[@"UserName"];
+            model.teacherName = param[@"UserName"]; // 评论人的名字
             model.comment = param[@"PJMS"];
             model.commentIdentifier = param[@"ID"];
             [self.commArr addObject:model];
@@ -474,6 +497,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     
 }
 
+//删除评论操作
 - (void)deleteAction:(NSInteger)index
 {
     CommListModel *model = self.commArr[index];
@@ -482,7 +506,7 @@ static NSString *kLinkDescription = @"微信的平台化发展方向是否真的
     [manager GET:delete parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-            [self getJudgeHttpRequest];
+//            [self getJudgeHttpRequest];
             
 //            [FormValidator showAlertWithStr:@"已删除！"];
         } else {

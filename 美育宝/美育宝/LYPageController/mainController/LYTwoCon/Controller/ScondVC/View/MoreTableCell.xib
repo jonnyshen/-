@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,17 +11,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                <frame key="frameInset" width="320" height="74"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="002.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="IKG-Bp-bvJ">
-                        <rect key="frame" x="3" y="3" width="120" height="68"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="jpW-bH-bhO"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美育宝 － 美育宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBF-lw-nn9">
-                        <rect key="frame" x="128" y="10" width="187" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="46T-HZ-bO0"/>
                         </constraints>
@@ -29,7 +28,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="陈老师" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZ7-gD-3Ne">
-                        <rect key="frame" x="128" y="46" width="70" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="9DP-vM-Uj3"/>
                             <constraint firstAttribute="width" constant="70" id="t9E-NK-jyb"/>
@@ -39,14 +37,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hour_ico.png" translatesAutoresizingMaskIntoConstraints="NO" id="PIf-UG-bwW">
-                        <rect key="frame" x="203" y="46" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="ukY-HZ-KcV"/>
                             <constraint firstAttribute="height" constant="20" id="wYP-h1-8Eb"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8PQ-Tl-pvx">
-                        <rect key="frame" x="226" y="45" width="91" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="S21-UB-CzJ"/>
                         </constraints>
@@ -78,7 +74,7 @@
                 <outlet property="title" destination="fBF-lw-nn9" id="OpH-EK-Zh5"/>
                 <outlet property="userName" destination="QZ7-gD-3Ne" id="mDz-HU-ZxN"/>
             </connections>
-            <point key="canvasLocation" x="255" y="257.5"/>
+            <point key="canvasLocation" x="160" y="124"/>
         </tableViewCell>
     </objects>
     <resources>

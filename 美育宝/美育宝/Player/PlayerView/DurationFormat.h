@@ -10,7 +10,7 @@
 
 @interface DurationFormat : NSObject
 
-//传入一个NSTimeInterval类型，返回字符时间
+//传入一个NSTimeInterval类型，返回字符时间 相当于的得到视频播放的时间
 
 + (NSString *)durationTextForDuration:(NSTimeInterval)duration;
 
