@@ -1,11 +1,5 @@
-//
 //  MYWorks.m
 //  Page Demo
-//
-//  Created by apple on 16/5/26.
-//  Copyright © 2016年 JiaYong Shen. All rights reserved.
-//
-
 #import "MYWorks.h"
 #import "MYWorkImage.h"
 
@@ -19,7 +13,7 @@
     
     NSArray *imageArr = dict[@"data"];
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSDictionary *params in imageArr) {
+    for (NSDictionary * params in imageArr) {
         MYWorkImage *image = [MYWorkImage workModelWithDictionary:params];
         [arr addObject:image];
         

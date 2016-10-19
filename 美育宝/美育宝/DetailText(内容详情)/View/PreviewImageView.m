@@ -42,7 +42,7 @@
     if (self)
     {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		self.opaque = YES;
+        self.opaque = YES;
         
         self.starRectValue =  [NSValue valueWithCGRect:startFrame];
         
@@ -114,27 +114,27 @@
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];
     
     tapGR.cancelsTouchesInView = NO;
-	tapGR.delaysTouchesBegan = NO;
-	tapGR.delaysTouchesEnded = NO;
-	tapGR.numberOfTapsRequired = 1;
-	tapGR.numberOfTouchesRequired = 1;
+    tapGR.delaysTouchesBegan = NO;
+    tapGR.delaysTouchesEnded = NO;
+    tapGR.numberOfTapsRequired = 1;
+    tapGR.numberOfTouchesRequired = 1;
     
     [tapGR addTarget:self action:@selector(handleTapView:)];
     [self addGestureRecognizer:tapGR];
-//    显示点赞数的label
+    //    显示点赞数的label
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(kZanLabelX, kZanLabelY, 30, 21)];
     self.label.text = [self numberOfZan];
     self.label.textColor = [UIColor blackColor];
     self.label.font = [UIFont systemFontOfSize:20.0f];
     self.label.backgroundColor = [UIColor redColor];
     [self addSubview:self.label];
-//    点赞按钮
+    //    点赞按钮
     CatZanButton *zanBtn=[[CatZanButton alloc] initWithFrame:CGRectMake(kZanX, kZanY, 50, 50)];
     //[zanBtn setCenter:self.view.center];
     [self addSubview:zanBtn];
     
     [zanBtn setType:CatZanButtonTypeFirework];
-//    点击事件
+    //    点击事件
     [zanBtn setClickHandler:^(CatZanButton *zanButton) {
         if (zanButton.isZan) {
             NSLog(@"Zan!");
@@ -163,11 +163,11 @@
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil
-                                                            delegate:self
-                                                   cancelButtonTitle:@"取消"
-                                              destructiveButtonTitle:nil
-                                                   otherButtonTitles:@"微信好友",@"朋友圈",@"保存到相册",nil];
+        UIActionSheet *action =[[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"微信好友",@"朋友圈",@"保存到相册",nil];
         action.actionSheetStyle = UIActionSheetStyleDefault;
         action.tag = 123456;
         
@@ -187,7 +187,7 @@
         else
         {
             NSLog(@"image is nil");
-        
+            
         }
     } else if (buttonIndex == 0)
     {

@@ -60,6 +60,8 @@
     }
 }
 + (void)showAlertWithStr:(NSString *)message{
+//    UIAlertController * vo = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:<#(UIAlertControllerStyle)#>;
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil  cancelButtonTitle:nil otherButtonTitles:nil];
     [alert show];
     

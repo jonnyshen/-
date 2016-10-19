@@ -1,14 +1,14 @@
 //
 //  UploadWorksDisplayController.m
 //  美育宝
-//
-//  Created by iOS程序员 on 2016/10/13.
-//  Copyright © 2016年 JiaYong Shen. All rights reserved.
-//
-
 #import "UploadWorksDisplayController.h"
 #import "ClassifiedWorksUploadCon.h"
 #import "FormValidator.h"
+#import "WorksController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "MJRefresh.h"
 
 @interface UploadWorksDisplayController ()<NSURLSessionDelegate,UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
@@ -23,8 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UITextField *detailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *uploadBtn;
-
-
+@property(strong,nonatomic) UIImagePickerController *picker;
 
 @end
 
@@ -32,17 +31,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.title = @"作品上传";
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     
-    
-    
     [self.uploadBtn addTarget:self action:@selector(setUploadWorksBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
-//    头部视图添加点击事件
+    // 头部视图添加点击事件
     self.headerImageView.image = [UIImage imageNamed:@"001.jpg"];
     self.headerImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];
@@ -51,6 +45,7 @@
     tapGR.delaysTouchesEnded = NO;
     tapGR.numberOfTapsRequired = 1;
     tapGR.numberOfTouchesRequired = 1;
+    // 点击图片 手势触动的手势点击方法，此方法中打开 UIAlertController （手机相册，拍照，录制视频，取消）
     [tapGR addTarget:self action:@selector(handleTapViewWithAction:)];
     [self.headerImageView addGestureRecognizer:tapGR];
 }
@@ -58,16 +53,12 @@
 - (void)handleTapViewWithAction:(UIGestureRecognizer *)gesture
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"选择上传方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
-    
-    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     
     UIAlertAction *phoneAlbum = [UIAlertAction actionWithTitle:@"手机相册" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         
         [self getPhotoFromBlum];
         
-        
-       
     }];
     
     UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
@@ -89,100 +80,146 @@
 
 -(void)getPhotoFromBlum
 {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.allowsEditing = YES;
-    picker.sourceType    = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate      = self;
+    self.picker = [[UIImagePickerController alloc] init];
+    self.picker.allowsEditing = YES;
+    self.picker.sourceType    = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.picker.delegate      = self;
     
-    [self.navigationController presentViewController:picker animated:YES completion:nil];
+    [self.navigationController presentViewController:self.picker animated:YES completion:nil];
 }
 -(void)getPhotoFromCamera
 {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.allowsEditing = YES;
-    //    picker.sourceType    = UIImagePickerControllerSourceTypeCamera;
-    picker.delegate      = self;
+    self.picker = [[UIImagePickerController alloc] init];
+    self.picker.allowsEditing = YES;
+    self.picker.sourceType    = UIImagePickerControllerSourceTypeCamera;
+    self.picker.delegate      = self;
     //
     //    [self.navigationController presentViewController:picker animated:YES completion:nil];
     
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //录制视频时长，默认10s
-    picker.videoMaximumDuration = 15;
+    self.picker.videoMaximumDuration = 15;
     
     //相机类型（拍照、录像...）字符串需要做相应的类型转换
-//    NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
+        NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     if (self.isNeedMovie)
     {
-//        [arr addObject:(NSString *)kUTTypeMovie];
+        //        [arr addObject:(NSString *)kUTTypeMovie];
     }
-//    picker.mediaTypes = arr;
+    //    picker.mediaTypes = arr;
     
     //视频上传质量
     //UIImagePickerControllerQualityTypeHigh高清
     //UIImagePickerControllerQualityTypeMedium中等质量
     //UIImagePickerControllerQualityTypeLow低质量
     //UIImagePickerControllerQualityType640x480
-    picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    self.picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
     
     //设置摄像头模式（拍照，录制视频）为录像模式
-    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-    [self.navigationController presentViewController:picker animated:YES completion:nil];
+    self.picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+    [self.navigationController presentViewController:self.picker animated:YES completion:nil];
 }
 
 
-#pragma mark -
+#pragma mark - 在代理方法中处理得到的资源，保存本地并上传...
+//1,该代理方法仅适用于只选取图片时
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo {
+//    NSLog(@"选择完毕----image:%@-----info:%@",image,editingInfo);
+//}
 
+
+//2,适用获取所有媒体资源，只需判断资源类型
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
+      UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+ 
     //压缩图片
     NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
     _imageDataString = [fileData base64EncodedStringWithOptions:0];
     
     self.headerImageView.image = image;
+
     
-    /*
+     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
+     //判断资源类型
+     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]){
+     //如果是图片
+     //压缩图片
+     //NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+     
+     //不压缩图片
+     NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+     _imageDataString = [fileData base64EncodedStringWithOptions:0];
+     
+     
+     
+     //保存图片至相册
+     UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+     //        上传图片
+     
+     }else{
+     //如果是视频
+     NSURL *url = info[UIImagePickerControllerMediaURL];
+     
+     //保存视频至相册（异步线程）
+     NSString *urlStr = [url path];
+     
+     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(urlStr))
+     {
+     UISaveVideoAtPathToSavedPhotosAlbum(urlStr, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+     }
+     });
+     NSData *videoData = [NSData dataWithContentsOfURL:url];
+     //视频上传
+     _imageDataString = [videoData base64EncodedStringWithOptions:0];
+     }
+     
+ [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+/*
+//适用获取所有媒体资源，只需判断资源类型
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     //判断资源类型
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]){
         //如果是图片
+        self.headerImageView.image = info[UIImagePickerControllerEditedImage];
         //压缩图片
-        //        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
-        
-        //不压缩图片
-        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
-        _imageDataString = [fileData base64EncodedStringWithOptions:0];
-        
-        self.headerImageView.image = image;
-        
+        NSData *fileData = UIImageJPEGRepresentation(self.headerImageView.image, 1.0);
         //保存图片至相册
-        UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-        //        上传图片
+        UIImageWriteToSavedPhotosAlbum(self.headerImageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        //上传图片
+        //[self uploadImageWithData:fileData];
         
     }else{
-        //如果是视频
+ 
+        如果是视频
         NSURL *url = info[UIImagePickerControllerMediaURL];
-        
-        //保存视频至相册（异步线程）
+        播放视频
+        _moviePlayer.contentURL = url;
+        [_moviePlayer play];
+        保存视频至相册（异步线程）
         NSString *urlStr = [url path];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(urlStr))
-            {
+            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(urlStr)) {
+                
                 UISaveVideoAtPathToSavedPhotosAlbum(urlStr, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
             }
         });
         NSData *videoData = [NSData dataWithContentsOfURL:url];
-        //视频上传
-        _imageDataString = [videoData base64EncodedStringWithOptions:0];
+        视频上传
+        [self uploadVideoWithData:videoData];
+ 
     }
-
-     */
-    
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+*/
+
+
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
@@ -204,26 +241,6 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)setUploadWorksBtnAction:(UIButton *)button
 {
     if ([self.detailTextField.text isEqualToString:@""] || self.detailTextField.text == nil) {
@@ -233,20 +250,5 @@
     [self.navigationController pushViewController:worksUpload animated:YES];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

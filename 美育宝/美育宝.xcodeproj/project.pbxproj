@@ -337,8 +337,6 @@
 		1899F36C1CD99D9C00845E8B /* accessory_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1899F3681CD99D9C00845E8B /* accessory_normal@2x.png */; };
 		1899F36D1CD99D9C00845E8B /* LrdSuperMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1899F36A1CD99D9C00845E8B /* LrdSuperMenu.m */; };
 		1899F3701CD9A82E00845E8B /* LYAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1899F36F1CD9A82E00845E8B /* LYAddViewController.m */; };
-		1899F3731CD9C92400845E8B /* LYRightBarBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1899F3721CD9C92400845E8B /* LYRightBarBtn.m */; };
-		1899F3751CD9C95200845E8B /* LYRightBarBtn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1899F3741CD9C95200845E8B /* LYRightBarBtn.xib */; };
 		1899F3851CD9CCA200845E8B /* add_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1899F3771CD9CCA200845E8B /* add_btn.png */; };
 		1899F3861CD9CCA200845E8B /* date_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 1899F3781CD9CCA200845E8B /* date_time.png */; };
 		1899F3891CD9CCA200845E8B /* foot_btn02_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1899F37B1CD9CCA200845E8B /* foot_btn02_2.png */; };
@@ -1104,9 +1102,6 @@
 		1899F36A1CD99D9C00845E8B /* LrdSuperMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrdSuperMenu.m; sourceTree = "<group>"; };
 		1899F36E1CD9A82E00845E8B /* LYAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAddViewController.h; sourceTree = "<group>"; };
 		1899F36F1CD9A82E00845E8B /* LYAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAddViewController.m; sourceTree = "<group>"; };
-		1899F3711CD9C92400845E8B /* LYRightBarBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYRightBarBtn.h; sourceTree = "<group>"; };
-		1899F3721CD9C92400845E8B /* LYRightBarBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYRightBarBtn.m; sourceTree = "<group>"; };
-		1899F3741CD9C95200845E8B /* LYRightBarBtn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYRightBarBtn.xib; sourceTree = "<group>"; };
 		1899F3771CD9CCA200845E8B /* add_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_btn.png; sourceTree = "<group>"; };
 		1899F3781CD9CCA200845E8B /* date_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = date_time.png; sourceTree = "<group>"; };
 		1899F37B1CD9CCA200845E8B /* foot_btn02_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot_btn02_2.png; sourceTree = "<group>"; };
@@ -1763,7 +1758,8 @@
 				18527C831D640D7500B14293 /* DXMessageController.h */,
 				18527C841D640D7500B14293 /* DXMessageController.m */,
 			);
-			path = DaoXueMessage;
+			name = DaoXueMessage;
+			path = Controller/DaoXueMessage;
 			sourceTree = "<group>";
 		};
 		18527C9C1D6438B300B14293 /* View */ = {
@@ -2067,8 +2063,7 @@
 			children = (
 				1849E3111CF6EF3F00AEF18B /* KVNProgress */,
 				1849E2131CEC739B00AEF18B /* MJPhotoBrowser */,
-				1899F3521CD83FAD00845E8B /* FormValidator.h */,
-				1899F3531CD83FAD00845E8B /* FormValidator.m */,
+				6E9095BB1DB77F4C00D82E55 /* FormValidator */,
 				1899F3541CD83FAD00845E8B /* SHInvoker.h */,
 				1899F3551CD83FAD00845E8B /* SHInvoker.m */,
 				18243DDF1CC8954E004C9015 /* Masonry */,
@@ -2694,20 +2689,20 @@
 		1899F35B1CD986B300845E8B /* DaoXue */ = {
 			isa = PBXGroup;
 			children = (
+				18527C821D640D3200B14293 /* DaoXueMessage */,
 				1871A8541D703FC700CA0F86 /* StudentDaoXue */,
 				1838B5851CDC3498007FD585 /* Model */,
 				1899F3BE1CDAEEFB00845E8B /* Manager */,
 				1899F3661CD99D7E00845E8B /* View */,
-				1899F35C1CD986F700845E8B /* Controller */,
+				1899F35C1CD986F700845E8B /* TeacherDaoXue */,
 			);
 			name = DaoXue;
 			path = ../../../PersonalCenter/DaoXue;
 			sourceTree = "<group>";
 		};
-		1899F35C1CD986F700845E8B /* Controller */ = {
+		1899F35C1CD986F700845E8B /* TeacherDaoXue */ = {
 			isa = PBXGroup;
 			children = (
-				18527C821D640D3200B14293 /* DaoXueMessage */,
 				1899F3631CD98B7D00845E8B /* LYDaoXueTabBarViewController.h */,
 				1899F3641CD98B7D00845E8B /* LYDaoXueTabBarViewController.m */,
 				1899F35D1CD987A900845E8B /* LYDaoXueXellViewController.h */,
@@ -2719,6 +2714,7 @@
 				18527CAE1D65840400B14293 /* HomeWorkStateController.h */,
 				18527CAF1D65840400B14293 /* HomeWorkStateController.m */,
 			);
+			name = TeacherDaoXue;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -2729,9 +2725,6 @@
 				1899F3681CD99D9C00845E8B /* accessory_normal@2x.png */,
 				1899F3691CD99D9C00845E8B /* LrdSuperMenu.h */,
 				1899F36A1CD99D9C00845E8B /* LrdSuperMenu.m */,
-				1899F3711CD9C92400845E8B /* LYRightBarBtn.h */,
-				1899F3721CD9C92400845E8B /* LYRightBarBtn.m */,
-				1899F3741CD9C95200845E8B /* LYRightBarBtn.xib */,
 				1899F3E11CDB227900845E8B /* LBXellTableViewCell.h */,
 				1899F3E21CDB227900845E8B /* LBXellTableViewCell.m */,
 				1899F3E31CDB227900845E8B /* LBXellTableViewCell.xib */,
@@ -3209,6 +3202,33 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		6E9095B91DB723FA00D82E55 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6E9130151DAA15CA007D0CA1 /* WorksController.h */,
+				6E9130161DAA15CA007D0CA1 /* WorksController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		6E9095BA1DB77E4600D82E55 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6E9130121DAA15B9007D0CA1 /* SourceController.h */,
+				6E9130131DAA15B9007D0CA1 /* SourceController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		6E9095BB1DB77F4C00D82E55 /* FormValidator */ = {
+			isa = PBXGroup;
+			children = (
+				1899F3521CD83FAD00845E8B /* FormValidator.h */,
+				1899F3531CD83FAD00845E8B /* FormValidator.m */,
+			);
+			name = FormValidator;
+			sourceTree = "<group>";
+		};
 		6E91300F1DAA149B007D0CA1 /* UploadControrller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3230,8 +3250,7 @@
 			children = (
 				6E91303B1DAA6455007D0CA1 /* Model */,
 				6E91303A1DAA644E007D0CA1 /* Views */,
-				6E9130121DAA15B9007D0CA1 /* SourceController.h */,
-				6E9130131DAA15B9007D0CA1 /* SourceController.m */,
+				6E9095BA1DB77E4600D82E55 /* Controller */,
 			);
 			path = SourceUpload;
 			sourceTree = "<group>";
@@ -3241,8 +3260,7 @@
 			children = (
 				6E9130231DAA1C8E007D0CA1 /* Models */,
 				6E9130221DAA1C84007D0CA1 /* Views */,
-				6E9130151DAA15CA007D0CA1 /* WorksController.h */,
-				6E9130161DAA15CA007D0CA1 /* WorksController.m */,
+				6E9095B91DB723FA00D82E55 /* Controller */,
 			);
 			path = WorksUpload;
 			sourceTree = "<group>";
@@ -3472,12 +3490,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MY;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "JiaYong Shen";
 				TargetAttributes = {
 					D1E2A0691C93E050009F6EBF = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = HKJ84326EM;
+						DevelopmentTeam = KF3LCDMURU;
 					};
 					D1E2A0821C93E051009F6EBF = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3580,7 +3598,6 @@
 				1899F2A11CCF515700845E8B /* hour_ico.png in Resources */,
 				1849E2121CEC727600AEF18B /* 005.jpg in Resources */,
 				18D812BA1CE977E00018EF24 /* CDPSlider@3x.png in Resources */,
-				1899F3751CD9C95200845E8B /* LYRightBarBtn.xib in Resources */,
 				1849E2591CF30DD600AEF18B /* MYExerciseTableCell.xib in Resources */,
 				6E9130351DAA622A007D0CA1 /* SkimController.xib in Resources */,
 				1849E28A1CF5352700AEF18B /* MYCollectTableCell.xib in Resources */,
@@ -3794,7 +3811,6 @@
 				1899F2961CCF4DEF00845E8B /* HotClassModal.m in Sources */,
 				1849E1841CEC3EE900AEF18B /* DetailTextViewController.m in Sources */,
 				18527C861D640D7500B14293 /* DXMessageController.m in Sources */,
-				1899F3731CD9C92400845E8B /* LYRightBarBtn.m in Sources */,
 				18D812981CE5B4A40018EF24 /* HUStarView.m in Sources */,
 				6E9130141DAA15B9007D0CA1 /* SourceController.m in Sources */,
 				6E9095AA1DB618A100D82E55 /* NavigationItemView.m in Sources */,
@@ -4116,8 +4132,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4140,7 +4158,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4161,8 +4179,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4179,7 +4199,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4193,7 +4213,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = HKJ84326EM;
+				DEVELOPMENT_TEAM = KF3LCDMURU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4207,7 +4227,7 @@
 					"$(PROJECT_DIR)/FrameWork/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBao;
 				PRODUCT_NAME = "美育宝";
 			};
 			name = Debug;
@@ -4218,7 +4238,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = HKJ84326EM;
+				DEVELOPMENT_TEAM = KF3LCDMURU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4232,7 +4252,7 @@
 					"$(PROJECT_DIR)/FrameWork/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBao;
 				PRODUCT_NAME = "美育宝";
 			};
 			name = Release;

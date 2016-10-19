@@ -1,11 +1,6 @@
 //
 //  UploadSourceDisplayController.m
 //  美育宝
-//
-//  Created by iOS程序员 on 2016/10/9.
-//  Copyright © 2016年 JiaYong Shen. All rights reserved.
-//
-
 #import "UploadSourceDisplayController.h"
 #import "SourceController.h"
 #import "MYToolsModel.h"
@@ -27,6 +22,7 @@
 
 //是否可拍摄视频
 @property (nonatomic) BOOL isNeedMovie;
+
 @end
 
 @implementation UploadSourceDisplayController
@@ -43,22 +39,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.title = @"资源上传";
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
-    
-    
     
     [self.uploadBtn addTarget:self action:@selector(setUploadBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //获取系统时间戳
-    NSDate *dateTime = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYYMMddhhmmssSS"];
-    _imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
+    NSDate *dateTime = [NSDate date];//获取时间
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //用来设置时间格式
+    [dateFormatter setDateFormat:@"YYYYMMddhhmmssSS"];//设置时间格式,也是时间戳
+    NSString * date = [dateFormatter stringFromDate:dateTime];
+    _imageName = [[NSString stringWithFormat:@"%@.png",date] substringFromIndex:2];
     self.titleLabel.text = _imageName;
     
-//    头部视图添加点击事件
+    // 头部视图添加点击事件
     self.headerImageView.image = [UIImage imageNamed:@"001.jpg"];
     self.headerImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] init];
@@ -67,6 +61,7 @@
     tapGR.delaysTouchesEnded = NO;
     tapGR.numberOfTapsRequired = 1;
     tapGR.numberOfTouchesRequired = 1;
+    //点击图片 手势触动的手势点击方法，此方法中打开 UIAlertController （手机相册，拍照，录制视频，取消）
     [tapGR addTarget:self action:@selector(handleTapViewWithAction:)];
     [self.headerImageView addGestureRecognizer:tapGR];
     
@@ -78,29 +73,33 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"作品上传" message:@"请选择获取资源方式" preferredStyle:(UIAlertControllerStyleActionSheet)];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     UIAlertAction *phoneAlbum = [UIAlertAction actionWithTitle:@"手机相册" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         
-        
+         // 打开手机相册
         [self getPhotoFromBlum];
     }];
     
     UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         self.isNeedMovie = NO;
+        // 拍照
         [self getPhotoFromCamera];
     }];
     
     UIAlertAction *phoneRecord = [UIAlertAction actionWithTitle:@"录制视频" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         self.isNeedMovie = YES;
+        // 录制视频
         [self getPhotoFromCamera];
     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     
     [alertController addAction:phoneAlbum];
     [alertController addAction:takePhoto];
     [alertController addAction:phoneRecord];
     [alertController addAction:cancelAction];
+    
     [self presentViewController:alertController animated:YES completion:nil];
-
+    
 }
 
 -(void)getPhotoFromBlum
@@ -117,7 +116,7 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.allowsEditing = YES;
     picker.delegate      = self;
-//
+    //
     
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //录制视频时长，默认15s
@@ -144,12 +143,11 @@
 }
 
 
-#pragma mark -
+#pragma mark - 打开相册代理方法 （这里可以拿到点击的图片）
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
     //压缩图片
     NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
     _imageDataString = [fileData base64EncodedStringWithOptions:0];
@@ -157,14 +155,12 @@
     self.headerImageView.image = image;
     
     
-    
-    
     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     //判断资源类型
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]){
         //如果是图片
         //压缩图片
-//        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+        //        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
         
         //不压缩图片
         NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
@@ -173,29 +169,30 @@
         self.headerImageView.image = image;
         
         //保存图片至相册
-                UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
         //        上传图片
         
     }else{
         //如果是视频
         NSURL *url = info[UIImagePickerControllerMediaURL];
-       
+        
         //保存视频至相册（异步线程）
         NSString *urlStr = [url path];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(urlStr))
             {
-       UISaveVideoAtPathToSavedPhotosAlbum(urlStr, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+                UISaveVideoAtPathToSavedPhotosAlbum(urlStr, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
             }
         });
         NSData *videoData = [NSData dataWithContentsOfURL:url];
         //视频上传
         _imageDataString = [videoData base64EncodedStringWithOptions:0];
     }
-   [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+//取消 退出相册
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -221,21 +218,21 @@
 
 - (void)clickBackBtn
 {
-//    SourceController *source = [[SourceController alloc] init];
-
+    //    SourceController *source = [[SourceController alloc] init];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
     
-//    NSArray *array = self.navigationController.viewControllers;
-//    
-//    for (UIViewController *controller in array) {
-//        if ([controller isKindOfClass:[SourceController class]]) {
-//            SourceController *source = (SourceController *)controller;
-//            [self.navigationController popToViewController:source animated:YES];
-//        }
-//    }
+    //    NSArray *array = self.navigationController.viewControllers;
+    //
+    //    for (UIViewController *controller in array) {
+    //        if ([controller isKindOfClass:[SourceController class]]) {
+    //            SourceController *source = (SourceController *)controller;
+    //            [self.navigationController popToViewController:source animated:YES];
+    //        }
+    //    }
     
     
-//    [self.navigationController popToViewController:[array objectAtIndex:0] animated:YES];
+    //    [self.navigationController popToViewController:[array objectAtIndex:0] animated:YES];
     
 }
 
@@ -244,21 +241,25 @@
 {
     if (self.detailTextField.text == nil ||[self.detailTextField.text isEqualToString:@""]) {
         [FormValidator showAlertWithStr:@"您尚未输入任何内容"];
+        
         return;
     }
     
     UIAlertController *alertConroller = [UIAlertController alertControllerWithTitle:@"选择上传方式" message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     UIAlertAction *temporaryUploadAction = [UIAlertAction actionWithTitle:@"上传临时空间" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+//        上传临时空间方法
         [self uploadTemporarySpace];
-
+        
     }];
     
     UIAlertAction *detailMessageAction = [UIAlertAction actionWithTitle:@"选定目录上传" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        
         ClassifiedCatalogueController *catalogue = [[ClassifiedCatalogueController alloc] initWithImage:_imageName andImageData:_imageDataString classDecribe:self.detailTextField.text];
         [self.navigationController pushViewController:catalogue animated:YES];
     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
     
     [alertConroller addAction:temporaryUploadAction];
     [alertConroller addAction:detailMessageAction];
@@ -267,12 +268,12 @@
     
 }
 
-//上传临时空间
+// 上传临时空间
 - (void)uploadTemporarySpace
 {
-     [self createFieldName:_imageName];
+    [self createFieldName:_imageName];
     
-//
+    //
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
     
@@ -283,26 +284,33 @@
         
         NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=&kch=&nj=&zbh=&zymc=%@&filename=%@&filesize=%@&zyms=&zybh=",userCode,_imageName,_imageName,imgData_Length];
         
-    
+//        SourceController * vc = [[SourceController alloc] init];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
         [manager POST:saveUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
+//            issuccess服务器字段
             if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
                 [FormValidator showAlertWithStr:@"保存成功"];
-            } else {
-                [FormValidator showAlertWithStr:@"保存失败"];
-            }
+                
+//               [self presentViewController:vc animated:YES completion:^{
+//                   
+//               }];
+                [self.navigationController popViewControllerAnimated:YES];
+             
+           }
+//            else {
+//               [FormValidator showAlertWithStr:@"保存失败"];
+//            }
+//
             
             
         } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-            
+            [FormValidator showAlertWithStr:@"保存失败"];
         }];
         
         
         
     });
-
+    
 }
 
 
@@ -346,10 +354,10 @@
     [dataTask resume];
 }
 
-//上传数据
+//上传 图片
 - (void)imageName:(NSString *)name
 {
-    
+    //可以打印看看 这个路径
     NSString *file_Name_Url = @"http://192.168.3.254:8082/FileUp.asmx";
     
     
@@ -377,32 +385,11 @@
             else
                 NSLog(@"%@",response);
             
-            
             NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-            
-        }];
+         }];
         [appendDataTask resume];
         
     });
-    
-    
-    
-    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

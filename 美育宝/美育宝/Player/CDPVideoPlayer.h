@@ -7,7 +7,7 @@
 //
 
 //https://github.com/cdpenggod/CDPVideoPlayer
-//--------------------------------------说明---------------------------------------------------
+//------------------------------------说明---------------------------------------------------
 //如果使用切换全屏功能,且项目Targets设置中Device Orientation未开启横屏选项,则在对应的viewController里添加
 //-(BOOL)shouldAutorotate{
 //    return !_player.isSwitch;

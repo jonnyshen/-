@@ -200,7 +200,7 @@
                 <constraint firstAttribute="bottom" secondItem="0iG-VO-55X" secondAttribute="bottom" id="xTU-t6-4SL"/>
                 <constraint firstItem="0iG-VO-55X" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xze-UR-IgX"/>
             </constraints>
-            <point key="canvasLocation" x="59" y="46"/>
+            <point key="canvasLocation" x="71" y="-99"/>
         </view>
     </objects>
 </document>

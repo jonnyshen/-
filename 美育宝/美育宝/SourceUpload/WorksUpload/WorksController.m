@@ -1,15 +1,10 @@
-//
 //  WorksController.m
 //  美育宝
-//
-//  Created by iOS程序员 on 2016/10/9.
-//  Copyright © 2016年 Jiayong Shen. All rights reserved.
-//
-
 #import "WorksController.h"
 #import "WorksOneMode.h"
 #import "WorksCell.h"
 #import "AFNetworking.h"
+#import "MJRefresh.h"
 #import "MYToolsModel.h"
 #import "LrdSuperMenu.h"
 #import "SkimController.h"
@@ -66,13 +61,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"作品上传";
-//    获取uitableview数据
+    //    获取uitableview数据
     
-//    setup UITableView
-   
-    
+    //    setup UITableView
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     self.accountType = [tools sendFileString:@"LoginData.plist" andNumber:5];
     relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
@@ -83,7 +75,7 @@
         [self httpRequest:relationCode andClassIdent:self.classifyID.firstObject];
         
     } else {
-        //        self.stuHeadView.hidden = YES;
+        //   self.stuHeadView.hidden = YES;
         _menu = [[LrdSuperMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
         _menu.delegate = self;
         _menu.dataSource = self;
@@ -97,9 +89,9 @@
     
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemReply) target:self action:@selector(uploadTasksData)];
     self.navigationItem.rightBarButtonItem = rightBtn;
+    
+//    [self.tableView addHeaderWithTarget:self action:@selector(httpRequest:andClassIdent:)];
 }
-
-
 
 - (void)setUpTableView:(CGRect)frame
 {
@@ -142,9 +134,7 @@
     
 }
 
-
 #pragma mark - UITableViewDelegate
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.worksDataArr.count;
@@ -209,7 +199,7 @@
     [tools saveToPlistWithPlistName:@"SkitData.plist" andDict:dataArr];
     
     SkimController *skit = [[SkimController alloc] init];
-
+    
     [self.navigationController pushViewController:skit animated:YES];
 }
 
@@ -305,23 +295,6 @@
         
     }
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 - (NSMutableArray *)worksDataArr
 {

@@ -83,10 +83,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    获取固定不联动的条件数据
+
+    //    获取固定不联动的条件数据
     [self getFirstSightMessage];
-//    获取联动数据
+    //    获取联动数据
     [self teachingMaterial:nil];
     
     self.pickerView = [[ValuePickerView alloc] init];
@@ -101,7 +101,7 @@
     
     //上传
     [self.uploadButton addTarget:self action:@selector(uploadSourceProgressForTask) forControlEvents:UIControlEventTouchUpInside];
-   
+    
     //增加观察者，监视科目是否被点击
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectNameChange:) name:@"SUBJECT_CHANGE" object:nil];
     
@@ -117,9 +117,9 @@
 - (void)oneBtnClick:(UIButton *)button
 {
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (EducationStage *data in self.stageArr) {
-            [dataArr addObject:data.stageName];
-        }
+    for (EducationStage *data in self.stageArr) {
+        [dataArr addObject:data.stageName];
+    }
     
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"教育阶段";
@@ -130,30 +130,31 @@
     };
     
     [self.pickerView show];
-    
+
     
 }
 
 - (void)twoBtnAction:(UIButton *)button
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-   
+    
     
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (GradeEducation *data in self.gradeArr) {
-            [dataArr addObject:data.njbm];
-             [mutableDict setValue:data.bh forKey:data.njbm];
-        }
+    for (GradeEducation *data in self.gradeArr) {
+        [dataArr addObject:data.njbm];
+        [mutableDict setValue:data.bh forKey:data.njbm];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"年级";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.twoBtn setTitle:stateArr[0] forState:UIControlStateNormal];
-         [weakSelf teachingMaterial:[mutableDict objectForKey:stateArr[0]]];
+        [weakSelf teachingMaterial:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
+  
     
     
 }
@@ -162,10 +163,10 @@
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (SubjectModel *data in self.subjectArr) {
-            [dataArr addObject:data.kcmc];
-            [mutableDict setValue:data.kch forKey:data.kcmc];
-        }
+    for (SubjectModel *data in self.subjectArr) {
+        [dataArr addObject:data.kcmc];
+        [mutableDict setValue:data.kch forKey:data.kcmc];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"科目";
     __weak typeof(self) weakSelf = self;
@@ -181,26 +182,26 @@
     
     [self.pickerView show];
     
-
     
-   
+    
+    
 }
 
 - (void)fourBtnClickAction:(UIButton *)button
 {
-     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (TeachingMaterial *data in self.teachMaterialArr) {
-            [dataArr addObject:data.jcmc];
-            [mutableDict setValue:data.jcdm forKey:data.jcmc];
-        }
+    for (TeachingMaterial *data in self.teachMaterialArr) {
+        [dataArr addObject:data.jcmc];
+        [mutableDict setValue:data.jcdm forKey:data.jcmc];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"教材版本";
     __weak typeof(self) weakSelf = self;
     self.pickerView.valueDidSelect = ^(NSString *value){
         NSArray * stateArr = [value componentsSeparatedByString:@"/"];
         [weakSelf.fourBtn setTitle:stateArr[0] forState:UIControlStateNormal];
-         [weakSelf getUnits:[mutableDict objectForKey:stateArr[0]]];
+        [weakSelf getUnits:[mutableDict objectForKey:stateArr[0]]];
     };
     
     [self.pickerView show];
@@ -212,13 +213,13 @@
 - (void)fiveBtnClickAction:(UIButton *)button
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-   
+    
     
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (UnitsModel *data in self.unitsArr) {
-            [dataArr addObject:data.bt];
-             [mutableDict setValue:data.zbh forKey:data.bt];
-        }
+    for (UnitsModel *data in self.unitsArr) {
+        [dataArr addObject:data.bt];
+        [mutableDict setValue:data.zbh forKey:data.bt];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"单元";
     __weak typeof(self) weakSelf = self;
@@ -230,16 +231,16 @@
     
     [self.pickerView show];
     
-   
+    
 }
 
 - (void)sixBtnClickAction:(UIButton *)button
 {
     
     NSMutableArray *dataArr = [NSMutableArray array];
-        for (PeriodClass *data in self.periodArr) {
-            [dataArr addObject:data.bt];
-        }
+    for (PeriodClass *data in self.periodArr) {
+        [dataArr addObject:data.bt];
+    }
     self.pickerView.dataSource = dataArr;
     self.pickerView.pickerTitle = @"课时";
     __weak typeof(self) weakSelf = self;
@@ -249,9 +250,9 @@
     };
     
     [self.pickerView show];
-
     
-   
+    
+    
 }
 
 //获取动态数据的网络请求
@@ -261,7 +262,7 @@
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
     NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
-    
+    //  默认 展示 老师上什么课 显示什么 ，只需用到这个路径就好
     NSString *firstUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getuseractionrecord&ucode=%@",userCode];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -291,9 +292,10 @@
                 EducationStage *stage = [EducationStage dataWithDict:education];
                 [self.stageArr addObject:stage];
             }
+            
             [self.oneBtn setTitle:self.oneDataArr.firstObject forState:UIControlStateNormal];
         }
-     
+        
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
@@ -313,7 +315,7 @@
                 GradeEducation *stage = [GradeEducation dataWithDict:grade];
                 [self.gradeArr addObject:stage];
             }
-            
+              //.......联动。。。。。。。。。。。。。。。。。。。。
             [self.twoBtn setTitle:self.twoDataArr.firstObject forState:UIControlStateNormal];
         }
         
@@ -337,6 +339,7 @@
             }
             
             _kch = self.kemuID.firstObject;
+              //.......联动。。。。。。。。。。。。。。。。。。。。
             [self.threeBtn setTitle:self.threeDataArr.firstObject forState:UIControlStateNormal];
             
         }
@@ -345,7 +348,7 @@
         
     }];
     
-
+    
 }
 
 - (void)teachingMaterial:(NSString *)grade
@@ -359,7 +362,7 @@
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
+    
     [manager GET:teaching_Material_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         [self.danyuanID removeAllObjects];
@@ -378,11 +381,11 @@
             }
             
             // 获取到教材代码再执行获取单元目录
-           
-                [self getUnits:bookEdition];
             
+            [self getUnits:bookEdition];
             
-            [self.fourBtn setTitle:[self.dictionary objectForKey:bookEdition] forState:UIControlStateNormal];
+              //.......联动。。。。。。。。。。。。。。。。。。。。
+            [self.fourBtn setTitle:[self.dictionary objectForKey:self.danyuanID.firstObject] forState:UIControlStateNormal];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -415,10 +418,10 @@
             }
             
             //获取到zbh后再执行获取课时
-
-                [self periodClass:self.keshiID.firstObject];
-           
             
+            [self periodClass:self.keshiID.firstObject];
+            
+              //.......联动。。。。。。。。。。。。。。。。。。。。
             [self.fiveBtn setTitle:self.fiveDataArr.firstObject forState:UIControlStateNormal];
         }
         
@@ -448,6 +451,7 @@
                 PeriodClass *stage = [PeriodClass dataWithDict:grade];
                 [self.periodArr addObject:stage];
             }
+              //.......联动。。。。。。。。。。。。。。。。。。。。
             [self.sixBtn setTitle:self.sixDataArr.firstObject forState:UIControlStateNormal];
         }
         
@@ -460,13 +464,13 @@
 #pragma mark - 开始上传
 - (void)uploadSourceProgressForTask
 {
-//    http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=R000000003&jyjd=004002&kch=150101&nj=1&zbh=131&zymc=161012175945434.jpg&filename=161012175945434.jpg&filesize=1613797&zyms=
+    //    http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=R000000003&jyjd=004002&kch=150101&nj=1&zbh=131&zymc=161012175945434.jpg&filename=161012175945434.jpg&filesize=1613797&zyms=
     
     if (!_imageDataString) {
         [FormValidator showAlertWithStr:@"请选择上传的资源"];
         return;
     }
-//    后台创建文件名
+    //    后台创建文件名
     [self createFieldName:_imageName];
     
 }
@@ -541,7 +545,7 @@
                 NSLog(@"Error: %@", error);
             else
                 [self uploadMessageToContextWithServiseSource];
-                NSLog(@"%@",response);
+            NSLog(@"%@",response);
             
             
             NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
@@ -589,9 +593,10 @@
             if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
                 [FormValidator showAlertWithStr:@"保存成功"];
                 
-                //                SourceController *source = [[SourceController alloc] init];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
                 
+             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+         
+              
             } else {
                 [FormValidator showAlertWithStr:@"保存失败，请重试"];
             }
@@ -604,7 +609,7 @@
         
         
     });
-
+    
 }
 
 
@@ -615,14 +620,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (NSMutableArray *)stageArr
 {

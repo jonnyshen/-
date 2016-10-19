@@ -44,7 +44,7 @@
     UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(30, 75, self.view.frame.size.width-90, 30)];
     label.text=@"请设置新的密码";
     label.textColor=[UIColor grayColor];
-    label.textAlignment=UITextAlignmentLeft;
+    label.textAlignment= NSTextAlignmentLeft;
     label.font=[UIFont systemFontOfSize:13];
     [self.view addSubview:label];
     
@@ -61,7 +61,7 @@
     UILabel *phonelabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 12, 50, 25)];
     phonelabel.text=@"密码";
     phonelabel.textColor=[UIColor blackColor];
-    phonelabel.textAlignment=UITextAlignmentLeft;
+    phonelabel.textAlignment = NSTextAlignmentLeft ;
     phonelabel.font=[UIFont systemFontOfSize:14];
     
     

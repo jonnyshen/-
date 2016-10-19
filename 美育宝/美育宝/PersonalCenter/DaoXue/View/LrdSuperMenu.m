@@ -2,9 +2,6 @@
 //  LrdSuperMenu.m
 //  LrdSuperMenu
 //
-//  Created by 键盘上的舞者 on 4/18/16.
-//  Copyright © 2016 键盘上的舞者. All rights reserved.
-//
 
 #import "LrdSuperMenu.h"
 
@@ -573,6 +570,7 @@ typedef void(^complete)();
 #pragma mark - 方法实现
 //默认选中的index
 - (void)selectDeafultIndexPath {
+//  设置默认显示第一组的第一行数据：如导学里面的：全部班级 ，教材，单元，aoe
     [self selectIndexPath:[LrdIndexPath indexPathWithColumn:0 row:0]];
 }
 //获取IndexPath所对应的字符串

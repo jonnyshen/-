@@ -95,7 +95,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     [self getDefaultFirstSightMessage];
     [self getGroupNameAndID:nil];
     [self teachingMaterial:nil];
@@ -110,9 +109,10 @@
     
     
     [self.highViewBtn addTarget:self action:@selector(highViewLoading) forControlEvents:UIControlEventTouchUpInside];
-    /**
+    /*
      高级设置条件上传的九个button action
      */
+    
     [self.highOneBtn addTarget:self action:@selector(highoneBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.highTwoBtn addTarget:self action:@selector(hightwoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.highThreeBtn addTarget:self action:@selector(highthreeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -150,8 +150,11 @@
 - (void)highoneBtnClick:(UIButton *)button
 {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    // 阶段名称可变数组 
     NSMutableArray *dataArr = [NSMutableArray array];
+    //EducationStage   教育阶段(年级)
     for (EducationStage *data in self.stageArr) {
+    //data.stageName   阶段名称
         [dataArr addObject:data.stageName];
         [mutableDict setValue:data.stageIdentifier forKey:data.stageName];
     }
@@ -358,7 +361,7 @@
 }
 
 
-#pragma mark - 默认九个条件的上传
+#pragma mark - 默认九个条件的上传，不联动。。。
 
 - (void)getDefaultFirstSightMessage
 {
@@ -372,13 +375,19 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:firstUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
-        for (NSDictionary *first in responseObject[@"data"]) {
-            bookEdition = first[@"JCDM"];
-            _bjbh       = first[@"BH"];
-            FirstInDefault *defaultIN = [FirstInDefault dataWithDict:first];
-            [self.defaultArray addObject:defaultIN];
+        if ([responseObject[@"data"] isKindOfClass:[NSNull class]]) {
             
+        } else {
+            for (NSDictionary *first in responseObject[@"data"]) {
+                bookEdition = first[@"JCDM"];
+                _bjbh       = first[@"BH"];
+                FirstInDefault *defaultIN = [FirstInDefault dataWithDict:first];
+                [self.defaultArray addObject:defaultIN];
+                
+            }
         }
+        
+        
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
@@ -428,8 +437,6 @@
     }];
     
     //获取科目
-    
-    
     [manager GET:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbasedatakm&teachercode=&nj=" parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
@@ -441,17 +448,17 @@
                 SubjectModel *stage = [SubjectModel dataWithDict:grade];
                 [self.subjectArr addObject:stage];
             }
-            
-            
             [self.highThreeBtn setTitle:self.threeDataArr.firstObject forState:UIControlStateNormal];
-            
         }
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
     }];
     
+    
+//    获取班级信息
     NSString *classNumberURL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getmyclass&logincode=%@",userName];
+    
     [manager GET:classNumberURL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
@@ -476,7 +483,7 @@
     
     
 }
-
+#pragma mark - 默认九个条件的上传，带有联动。。。
 - (void)teachingMaterial:(NSString *)grade
 {
     //获取教材上下册
@@ -598,7 +605,6 @@
 //获取小组名
 - (void)getGroupNameAndID:(NSString *)bjbh
 {
-    
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
     NSString *units_URL = nil;
@@ -608,9 +614,7 @@
         units_URL = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=getbjxiaozu&bjbh=%@&jsgh=%@",bjbh,relationCode];
     }
     
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    __block UIViewController *weakSelf = self;
     [manager GET:units_URL parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
         [self.groupIDArr removeAllObjects];
@@ -633,7 +637,6 @@
             } else {
                 [self getMemberName:self.groupIDArr.firstObject];
             }
-            
             
             [self.highEightBtn setTitle:self.groupNameArr.firstObject forState:UIControlStateNormal];
             [self.lowOneBtn setTitle:self.groupNameArr.firstObject forState:UIControlStateNormal];
@@ -703,7 +706,7 @@
     [dateFormatter setDateFormat:@"YYYYMMddhhmmssSS"];
     _imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
     
-//    http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=R000000003&relationcode=401061992121470000&jyjd=004002&nj=1&kch=150101&zbh=131&bjbh=gz01020101&zpmc=161012180105791.jpg&wjmc=161012180108252.jpg&wjdx=1358730&zyms=&wjlx=.jpg&dxid=0&zply=3
+
     
 //    在服务器创建上传资源的文件名
     [self createFieldName:_imageName];
@@ -727,6 +730,7 @@
     
     
     NSString *create_File_Name = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><CreateFile xmlns=\"http://tempuri.org/\"><uName>%@</uName><uPwd>%@</uPwd><fileName>%@</fileName><type>%@</type></CreateFile></soap:Body></soap:Envelope>",userName, userPass,timeString, @"2"];
+    //    NSLog(@"%@",create_File_Name);
     NSString *file_Name_Url = @"http://192.168.3.254:8082/FileUp.asmx";
     
     NSString *file_Name_Length = [NSString stringWithFormat:@"%ld",create_File_Name.length];
@@ -747,12 +751,12 @@
         NSString *datastr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         NSLog(@"======>>%@",datastr);
-//        创建文件名成功后上传data
         [self imageName:timeString];
     }];
     
     [dataTask resume];
 }
+
 
 //上传数据
 - (void)imageName:(NSString *)name
@@ -783,7 +787,6 @@
             if (error)
                 NSLog(@"Error: %@", error);
             else
-//                上传完数据再上传资源的信息
                 [self uploadMessageContextWithSource];
                 NSLog(@"%@",response);
             
@@ -799,6 +802,7 @@
     
     
 }
+
 
 - (void)uploadMessageContextWithSource
 {
@@ -822,55 +826,30 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         
+        //    http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=R000000003&relationcode=401061992121470000&jyjd=004002&nj=1&kch=150101&zbh=131&bjbh=gz01020101&zpmc=161012180105791.jpg&wjmc=161012180108252.jpg&wjdx=1358730&zyms=&wjlx=.jpg&dxid=0&zply=3
+        
         NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=%@&relationcode=%@&jyjd=%@&nj=%@&kch=%@&zbh=%@&bjbh=%@&zpmc=%@&wjmc=%@&wjdx=%@&zyms=%@&wjlx=.png&dxid=0&zply=3",userCode,relationCode,jyjd,nj,_kch,zbh,_bjbh,_imageName,_imageName,imgData_Length,sourceDesribe];
         
         NSString *codeUrl  = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
-        [manager POST:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [manager GET:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
             
             if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-                [FormValidator showAlertWithStr:@"保存成功"];
-                
-                //                SourceController *source = [[SourceController alloc] init];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-                
+                [FormValidator showAlertWithStr:@"上传成功！"];
             } else {
-                [FormValidator showAlertWithStr:@"保存失败，请重试"];
+                
             }
-            
             
         } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
             
         }];
         
         
-        
     });
 
 }
-
-
-
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (NSMutableArray *)stageArr
 {

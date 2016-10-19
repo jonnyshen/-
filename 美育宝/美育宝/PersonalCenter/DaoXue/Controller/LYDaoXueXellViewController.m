@@ -7,7 +7,6 @@
 //
 
 #import "LYDaoXueXellViewController.h"
-#import "LYRightBarBtn.h"
 #import "LYAddViewController.h"
 #import "LBXellTableViewCell.h"
 #import "FormValidator.h"
@@ -40,7 +39,7 @@
     NSString *materail;
     NSString *periodID;
 }
-@property (nonatomic, strong) LYRightBarBtn *right;
+//@property (nonatomic, strong) LYRightBarBtn *right;
 @property (nonatomic, strong) NSMutableArray *arrayBT;
 @property (nonatomic, strong) NSMutableArray *arrayTextView;
 @property (nonatomic, strong) NSMutableDictionary *mutaDic;
@@ -168,13 +167,7 @@
     return _mutaDic;
 }
 
-- (LYRightBarBtn *)right
-{
-    if (!_right) {
-        _right = [[LYRightBarBtn alloc]init];
-    }
-    return _right;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -188,7 +181,7 @@
     _menu.delegate = self;
     _menu.dataSource = self;
     [self.view addSubview:_menu];
-    
+//    默认显示第一条数组的数据 ：如 全部班级，教材，单元，aoe
     [_menu selectDeafultIndexPath];
     
 //    [self httpRequest:nil teachingMaterial:nil unit:nil period:nil atIndex:0];
@@ -339,10 +332,11 @@
 
 
 #pragma mark - 顶部菜单栏
+// 这里就是显示导学列表的四个框框：全部班级，教材，单元，aoe
 - (NSInteger)numberOfColumnsInMenu:(LrdSuperMenu *)menu {
     return 4;
 }
-
+// 这里就是显示导学列表的四个框框：全部班级，教材，单元，aoe每一个框下面的对应的数据
 - (NSInteger)menu:(LrdSuperMenu *)menu numberOfRowsInColumn:(NSInteger)column {
     if (column == 0) {
         return self.classify.count;
@@ -355,6 +349,7 @@
     }
 }
 
+// 这里就是显示导学列表的四个框框默认数据：全部班级，教材，单元，aoe每一个框下面的每列展示的数据
 - (NSString *)menu:(LrdSuperMenu *)menu titleForRowAtIndexPath:(LrdIndexPath *)indexPath {
     if (indexPath.column == 0) {
         return self.classify[indexPath.row];
@@ -366,7 +361,7 @@
         return self.classes[indexPath.row];
     }
 }
-
+//这是设置 每一个列表里面的图片 但是我们是不需要图片 返回nil就好
 - (NSString *)menu:(LrdSuperMenu *)menu imageNameForRowAtIndexPath:(LrdIndexPath *)indexPath {
     if (indexPath.column == 0 || indexPath.column == 1) {
         return @"baidu";

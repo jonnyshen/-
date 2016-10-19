@@ -88,6 +88,8 @@
     
 }
 
+
+//获取问答数据
 - (void)setmessModelArr
 {
     
@@ -183,8 +185,13 @@
     return YES;
 }
 
+
+#pragma mark - 点击发送问答详情
+
 - (IBAction)sendAction:(UIButton *)sender
 {
+//  发送我的聊天消息数据到服务器。
+//    -(void)sendMess:(NSString*)messValues。。。。。。。。。。。。。。。。。。。。。。。。。。
     [self sendMess:self.inputMess.text]; //send message
 }
 

@@ -1,11 +1,6 @@
 //
 //  FindPassWordController.m
 //  美育宝
-//
-//  Created by apple on 16/8/11.
-//  Copyright © 2016年 Jiayong Shen. All rights reserved.
-//
-
 #import "FindPassWordController.h"
 #import "NewPassWordController.h"
 #import "FormValidator.h"
