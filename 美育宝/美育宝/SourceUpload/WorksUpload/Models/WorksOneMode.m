@@ -7,6 +7,7 @@
 //
 
 #import "WorksOneMode.h"
+#import "WorkTwoMode.h"
 
 @implementation WorksOneMode
 
@@ -18,12 +19,15 @@
     NSMutableArray *arr = [NSMutableArray array];
     for (NSDictionary *dict in params[@"data"]) {
         
-        oneMode.fjmc = dict[@"FJMC"];
-        oneMode.zylx = dict[@"ZYLX"];
-        oneMode.mxdm = dict[@"MXDM"];
-        oneMode.imgPath = dict[@"IMGPATH"];
-        oneMode.scsj = dict[@"SCSJ"];
-        [arr addObject:oneMode];
+//        oneMode.fjmc = dict[@"FJMC"];
+//        oneMode.zylx = dict[@"ZYLX"];
+//        oneMode.mxdm = dict[@"MXDM"];
+//        oneMode.imgPath = dict[@"IMGPATH"];
+//        oneMode.scsj = dict[@"SCSJ"];
+        
+        WorkTwoMode *twomodel = [WorkTwoMode dataWithDict:dict];
+        
+        [arr addObject:twomodel];
     }
     self.workeData  = arr;
     

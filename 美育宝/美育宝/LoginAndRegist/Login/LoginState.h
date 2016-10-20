@@ -2,8 +2,7 @@
 //  LoginState.h
 //  Login
 //
-//  Created by zhuming on 15/12/19.
-//  Copyright (c) 2015年 zhuming. All rights reserved.
+//  
 //  登录状态
 
 #import <Foundation/Foundation.h>

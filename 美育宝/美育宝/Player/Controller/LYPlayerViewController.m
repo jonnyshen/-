@@ -188,6 +188,7 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     [self createUI];
     //[_player player];
     
+//    接收播放列表的点击事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"WSTableView_FILE_PATH" object:nil];
     [self bottomBarUIAction];
     
@@ -346,7 +347,6 @@ NSString *const VPVCPlayerItemDidPlayToEndTimeNotification = @"VPVCPlayerItemDid
     NSString *documentPath = [filePath objectAtIndex:0];
     
     NSString *fileName = [documentPath stringByAppendingPathComponent:@"LoginData.plist"];
-    
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:fileName]) {
         NSArray *path = [[NSArray alloc] initWithContentsOfFile:fileName];

@@ -504,11 +504,11 @@
 		6E9095AC1DB618A100D82E55 /* searchbar_textfield_search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9095A01DB618A100D82E55 /* searchbar_textfield_search_icon@2x.png */; };
 		6E9095AD1DB618A100D82E55 /* TRTitltSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9095A21DB618A100D82E55 /* TRTitltSearchView.m */; };
 		6E9095AE1DB618A100D82E55 /* UIImage+JZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9095A41DB618A100D82E55 /* UIImage+JZ.m */; };
-		6E9095AF1DB618A100D82E55 /* UIImageView+TRRoundimage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9095A61DB618A100D82E55 /* UIImageView+TRRoundimage.m */; };
 		6E9095B31DB619CD00D82E55 /* MYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9095B11DB619CD00D82E55 /* MYSearchViewController.m */; };
 		6E9095B41DB619CE00D82E55 /* MYSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E9095B21DB619CD00D82E55 /* MYSearchViewController.xib */; };
 		6E9095B61DB61F1300D82E55 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E9095B51DB61F1300D82E55 /* Images.xcassets */; };
 		6E9095B81DB61F9100D82E55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E9095B71DB61F9100D82E55 /* Assets.xcassets */; };
+		6E9095BE1DB8936500D82E55 /* UIImageView+TRRoundimage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9095BD1DB8936500D82E55 /* UIImageView+TRRoundimage.m */; };
 		6E9130141DAA15B9007D0CA1 /* SourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9130131DAA15B9007D0CA1 /* SourceController.m */; };
 		6E9130171DAA15CA007D0CA1 /* WorksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9130161DAA15CA007D0CA1 /* WorksController.m */; };
 		6E9130201DAA1A24007D0CA1 /* UploadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E91301E1DAA1A24007D0CA1 /* UploadController.m */; };
@@ -1353,13 +1353,13 @@
 		6E9095A21DB618A100D82E55 /* TRTitltSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTitltSearchView.m; sourceTree = "<group>"; };
 		6E9095A31DB618A100D82E55 /* UIImage+JZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JZ.h"; sourceTree = "<group>"; };
 		6E9095A41DB618A100D82E55 /* UIImage+JZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JZ.m"; sourceTree = "<group>"; };
-		6E9095A51DB618A100D82E55 /* UIImageView+TRRoundimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TRRoundimage.h"; sourceTree = "<group>"; };
-		6E9095A61DB618A100D82E55 /* UIImageView+TRRoundimage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TRRoundimage.m"; sourceTree = "<group>"; };
 		6E9095B01DB619CD00D82E55 /* MYSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYSearchViewController.h; sourceTree = "<group>"; };
 		6E9095B11DB619CD00D82E55 /* MYSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYSearchViewController.m; sourceTree = "<group>"; };
 		6E9095B21DB619CD00D82E55 /* MYSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MYSearchViewController.xib; sourceTree = "<group>"; };
 		6E9095B51DB61F1300D82E55 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "美育宝/Images.xcassets"; sourceTree = "<group>"; };
 		6E9095B71DB61F9100D82E55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "美育宝/Assets.xcassets"; sourceTree = "<group>"; };
+		6E9095BC1DB8936400D82E55 /* UIImageView+TRRoundimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TRRoundimage.h"; sourceTree = "<group>"; };
+		6E9095BD1DB8936500D82E55 /* UIImageView+TRRoundimage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TRRoundimage.m"; sourceTree = "<group>"; };
 		6E9130121DAA15B9007D0CA1 /* SourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceController.h; sourceTree = "<group>"; };
 		6E9130131DAA15B9007D0CA1 /* SourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceController.m; sourceTree = "<group>"; };
 		6E9130151DAA15CA007D0CA1 /* WorksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksController.h; sourceTree = "<group>"; };
@@ -1819,13 +1819,6 @@
 			path = FrameWork;
 			sourceTree = "<group>";
 		};
-		186442D71D06A46000FFADA8 /* Vitamio */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vitamio;
-			sourceTree = "<group>";
-		};
 		186442EA1D06A56900FFADA8 /* PlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1847,7 +1840,6 @@
 			isa = PBXGroup;
 			children = (
 				186442EA1D06A56900FFADA8 /* PlayerView */,
-				186442D71D06A46000FFADA8 /* Vitamio */,
 				18D812A51CE973960018EF24 /* CDPButton.h */,
 				18D812A61CE973960018EF24 /* CDPButton.m */,
 				18D812A71CE973960018EF24 /* CDPVideoPlayer.h */,
@@ -2078,6 +2070,8 @@
 		1899EF9D1CC4AE8300845E8B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				6E9095BC1DB8936400D82E55 /* UIImageView+TRRoundimage.h */,
+				6E9095BD1DB8936500D82E55 /* UIImageView+TRRoundimage.m */,
 				6E9095971DB618A100D82E55 /* ColorAndPort.h */,
 				6E9095981DB618A100D82E55 /* img_04.png */,
 				6E9095991DB618A100D82E55 /* JZSearchBar.h */,
@@ -2092,8 +2086,6 @@
 				6E9095A21DB618A100D82E55 /* TRTitltSearchView.m */,
 				6E9095A31DB618A100D82E55 /* UIImage+JZ.h */,
 				6E9095A41DB618A100D82E55 /* UIImage+JZ.m */,
-				6E9095A51DB618A100D82E55 /* UIImageView+TRRoundimage.h */,
-				6E9095A61DB618A100D82E55 /* UIImageView+TRRoundimage.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2395,8 +2387,6 @@
 			children = (
 				D1E2A0E31C93E29F009F6EBF /* LYTwoViewController.h */,
 				D1E2A0E41C93E29F009F6EBF /* LYTwoViewController.m */,
-				1899F2211CCDB8FB00845E8B /* Modal */,
-				1899F2201CCDB8EF00845E8B /* View */,
 				1899F21F1CCDB8C700845E8B /* Controller */,
 			);
 			path = LYTwoCon;
@@ -2440,20 +2430,6 @@
 				1899F2771CCEFE5000845E8B /* ThreeVC */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		1899F2201CCDB8EF00845E8B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1899F2211CCDB8FB00845E8B /* Modal */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Modal;
 			sourceTree = "<group>";
 		};
 		1899F2341CCDD60000845E8B /* classCenter */ = {
@@ -2504,7 +2480,6 @@
 		1899F2791CCEFE8300845E8B /* FirstVC */ = {
 			isa = PBXGroup;
 			children = (
-				1899F2BA1CD1A6E300845E8B /* PopoVerMenu */,
 				1899F27B1CCEFEEF00845E8B /* Modal */,
 				1899F27A1CCEFEE500845E8B /* View */,
 				1899F2231CCDB94E00845E8B /* FirstViewController.h */,
@@ -2590,13 +2565,6 @@
 				18A213BE1CF8237E0020EC87 /* Recommand.m */,
 			);
 			path = Modal;
-			sourceTree = "<group>";
-		};
-		1899F2BA1CD1A6E300845E8B /* PopoVerMenu */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PopoVerMenu;
 			sourceTree = "<group>";
 		};
 		1899F2E71CD311A200845E8B /* LoginAndRegist */ = {
@@ -2689,12 +2657,12 @@
 		1899F35B1CD986B300845E8B /* DaoXue */ = {
 			isa = PBXGroup;
 			children = (
-				18527C821D640D3200B14293 /* DaoXueMessage */,
 				1871A8541D703FC700CA0F86 /* StudentDaoXue */,
+				1899F35C1CD986F700845E8B /* TeacherDaoXue */,
+				18527C821D640D3200B14293 /* DaoXueMessage */,
 				1838B5851CDC3498007FD585 /* Model */,
 				1899F3BE1CDAEEFB00845E8B /* Manager */,
 				1899F3661CD99D7E00845E8B /* View */,
-				1899F35C1CD986F700845E8B /* TeacherDaoXue */,
 			);
 			name = DaoXue;
 			path = ../../../PersonalCenter/DaoXue;
@@ -2994,19 +2962,11 @@
 			isa = PBXGroup;
 			children = (
 				18485E801D7D153B009DA47D /* ShareView */,
-				18CACFB71D6806650090E0CE /* NavigationBarList */,
 				18485EA51D7ED02E009DA47D /* UIImage+RoundRectImage.h */,
 				18485EA61D7ED02E009DA47D /* UIImage+RoundRectImage.m */,
 			);
 			name = MasterModel;
 			path = "美育宝/MasterModel";
-			sourceTree = "<group>";
-		};
-		18CACFB71D6806650090E0CE /* NavigationBarList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NavigationBarList;
 			sourceTree = "<group>";
 		};
 		18F0B0A91D582FB500C65D40 /* 问答详情 */ = {
@@ -3834,7 +3794,6 @@
 				1899F2051CC8631000845E8B /* UIImageView+WebCache.m in Sources */,
 				18D812CB1CEAAF8F0018EF24 /* ThrSetUpController.m in Sources */,
 				1849E2821CF4437C00AEF18B /* MYCourse.m in Sources */,
-				6E9095AF1DB618A100D82E55 /* UIImageView+TRRoundimage.m in Sources */,
 				18243DFE1CC8957D004C9015 /* MASLayoutConstraint.m in Sources */,
 				18B490731D112882005987F5 /* MoreViewController.m in Sources */,
 				18A213C81CF82AA60020EC87 /* MYSchool.m in Sources */,
@@ -3957,6 +3916,7 @@
 				18527CA01D64391F00B14293 /* MessageModel.m in Sources */,
 				18C82C851D5C5066009CACCC /* FindPassWordController.m in Sources */,
 				1897190B1D51FA76008EBAD0 /* SearchModel.m in Sources */,
+				6E9095BE1DB8936500D82E55 /* UIImageView+TRRoundimage.m in Sources */,
 				18A8F0771D1B7F5400DE9006 /* TeacherJudgeTableCell.m in Sources */,
 				1849E2851CF5341E00AEF18B /* MYCollect.m in Sources */,
 				189718EF1D51E568008EBAD0 /* MYSearchDetailController.m in Sources */,
@@ -4227,7 +4187,7 @@
 					"$(PROJECT_DIR)/FrameWork/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBa;
 				PRODUCT_NAME = "美育宝";
 			};
 			name = Debug;
@@ -4252,7 +4212,7 @@
 					"$(PROJECT_DIR)/FrameWork/WeChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guangZhouWeiDuTechnology.MeiYuBa;
 				PRODUCT_NAME = "美育宝";
 			};
 			name = Release;

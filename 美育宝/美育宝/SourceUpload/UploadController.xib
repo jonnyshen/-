@@ -40,7 +40,7 @@
                 <constraint firstItem="q7D-kh-5bN" firstAttribute="top" secondItem="O6M-km-J9M" secondAttribute="bottom" constant="30" id="3nd-aS-ptx"/>
                 <constraint firstItem="O6M-km-J9M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="5Ol-kq-RxH"/>
                 <constraint firstAttribute="trailing" secondItem="q7D-kh-5bN" secondAttribute="trailing" constant="20" id="Js3-f9-P41"/>
-                <constraint firstItem="O6M-km-J9M" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="VFa-NO-VEZ"/>
+                <constraint firstItem="O6M-km-J9M" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="VFa-NO-VEZ"/>
                 <constraint firstItem="vQe-hr-DAz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ccD-PZ-7u7"/>
                 <constraint firstAttribute="trailing" secondItem="O6M-km-J9M" secondAttribute="trailing" constant="20" id="hr9-JQ-XAd"/>
                 <constraint firstItem="q7D-kh-5bN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hxJ-gy-jzo"/>
@@ -48,6 +48,7 @@
                 <constraint firstAttribute="trailing" secondItem="vQe-hr-DAz" secondAttribute="trailing" id="tzA-cF-SCI"/>
                 <constraint firstAttribute="bottom" secondItem="vQe-hr-DAz" secondAttribute="bottom" id="xlb-JC-hFH"/>
             </constraints>
+            <point key="canvasLocation" x="11" y="8"/>
         </view>
     </objects>
     <resources>

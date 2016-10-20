@@ -1,11 +1,5 @@
-//
 //  ClassifiedWorksUploadCon.m
 //  美育宝
-//
-//  Created by iOS程序员 on 2016/10/11.
-//  Copyright © 2016年 JiaYong Shen. All rights reserved.
-//
-
 #import "ClassifiedWorksUploadCon.h"
 #import "AFNetworking.h"
 #import "MYToolsModel.h"
@@ -23,7 +17,6 @@
 #import "FormValidator.h"
 
 @interface ClassifiedWorksUploadCon ()<UIGestureRecognizerDelegate,NSURLSessionDelegate>
-
 {
     NSString *_imageDataString;//图片，视频data base64转为字符串
     NSString *_imageName;//图片名
@@ -32,7 +25,6 @@
     NSString *bookEdition;//
     
     NSString *sourceDesribe;//课程描述
-    
 }
 
 @property (weak, nonatomic) IBOutlet UIView *lowUploadView;
@@ -40,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *lowTwoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *lowUploadBtn;
 @property (weak, nonatomic) IBOutlet UIButton *highViewBtn;
-
 
 @property (nonatomic, strong) NSMutableArray *defaultArray;
 @property (nonatomic, strong) NSMutableArray *stageArr;
@@ -76,6 +67,7 @@
 @property (nonatomic, strong) NSMutableArray *highEightDataArr;
 @property (nonatomic, strong) NSMutableArray *highNineDataArr;
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
+@property (nonatomic, strong) UIBarButtonItem * item;
 
 @property (nonatomic, strong) ValuePickerView *pickerView;
 
@@ -101,18 +93,14 @@
     
     self.pickerView = [[ValuePickerView alloc] init];
     
-    /**
-     刚进入页面默认的两个条件上传button action
-     */
+//  确定上传按钮上面的两个按钮
     [self.lowOneBtn addTarget:self action:@selector(highEightBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.lowTwoBtn addTarget:self action:@selector(highNineBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    
+//  这个是存放九个按钮的view，当点击高级按钮的时候然后就显示九个按钮的highView，隐藏存放两个按钮lowUploadView
     [self.highViewBtn addTarget:self action:@selector(highViewLoading) forControlEvents:UIControlEventTouchUpInside];
-    /*
-     高级设置条件上传的九个button action
-     */
     
+//  高级设置条件上传的九个button action
     [self.highOneBtn addTarget:self action:@selector(highoneBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.highTwoBtn addTarget:self action:@selector(hightwoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.highThreeBtn addTarget:self action:@selector(highthreeBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -122,12 +110,17 @@
     [self.highSevenBtn addTarget:self action:@selector(highSevenBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.highEightBtn addTarget:self action:@selector(highEightBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.hightNineBtn addTarget:self action:@selector(highNineBtnClickAction:) forControlEvents:UIControlEventTouchUpInside];
+//   确定上传按钮
+  [self.lowUploadBtn addTarget:self action:@selector(worksUploadGoAction) forControlEvents:UIControlEventTouchUpInside];
+ 
+   self.item = [[UIBarButtonItem alloc] initWithTitle:@"上传" style:UIBarButtonItemStylePlain target:self action:@selector(worksUploadGoAction)];
     
-    [self.lowUploadBtn addTarget:self action:@selector(worksUploadGoAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItems = @[self.item];
+    
+//  高级上传
     [self.highUploadBtn addTarget:self action:@selector(worksUploadGoAction) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    //增加观察者，监视科目是否被点击
+//  增加观察者，监视科目是否被点击
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectNameChange:) name:@"SUBJECT_CHANGE" object:nil];
     
 }
@@ -138,12 +131,13 @@
 }
 
 
-#pragma mark - 默认两个条件的上传
-
+#pragma mark - 默认两个条件的上传的隐藏问题
 - (void)highViewLoading
 {
     self.highView.hidden = NO;
     self.lowUploadView.hidden = YES;
+    self.lowUploadBtn.hidden = YES;
+    self.item.accessibilityElementsHidden = YES;
 }
 
 #pragma mark - highViewButtonAction
@@ -169,8 +163,6 @@
     };
     
     [self.pickerView show];
-    
-    
 }
 
 - (void)hightwoBtnAction:(UIButton *)button
@@ -191,8 +183,6 @@
     };
     
     [self.pickerView show];
-    
-    
 }
 
 - (void)highthreeBtnClickAction:(UIButton *)button
@@ -218,10 +208,6 @@
     };
     
     [self.pickerView show];
-    
-    
-    
-    
 }
 
 - (void)highfourBtnClickAction:(UIButton *)button
@@ -242,9 +228,6 @@
     };
     
     [self.pickerView show];
-    
-    
-    
 }
 
 - (void)highfiveBtnClickAction:(UIButton *)button
@@ -287,9 +270,6 @@
     };
     
     [self.pickerView show];
-    
-    
-    
 }
 
 - (void)highSevenBtnClickAction:(UIButton *)button
@@ -362,7 +342,6 @@
 
 
 #pragma mark - 默认九个条件的上传，不联动。。。
-
 - (void)getDefaultFirstSightMessage
 {
     MYToolsModel *tools = [[MYToolsModel alloc] init];
@@ -378,16 +357,15 @@
         if ([responseObject[@"data"] isKindOfClass:[NSNull class]]) {
             
         } else {
-            for (NSDictionary *first in responseObject[@"data"]) {
+            for (NSDictionary * first in responseObject[@"data"]) {
                 bookEdition = first[@"JCDM"];
                 _bjbh       = first[@"BH"];
-                FirstInDefault *defaultIN = [FirstInDefault dataWithDict:first];
-                [self.defaultArray addObject:defaultIN];
+//              班级 教材 科目 章编号 班号
+                FirstInDefault * defaultIN = [FirstInDefault dataWithDict:first];
                 
+                [self.defaultArray addObject:defaultIN];
             }
         }
-        
-        
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
@@ -480,8 +458,6 @@
         
     }];
     
-    
-    
 }
 #pragma mark - 默认九个条件的上传，带有联动。。。
 - (void)teachingMaterial:(NSString *)grade
@@ -506,7 +482,7 @@
         if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
             
         } else {
-            for (NSDictionary *grade in responseObject[@"data"]) {
+            for (NSDictionary * grade in responseObject[@"data"]) {
                  [self.dictionary setValue:grade[@"JCMC"] forKey:grade[@"JCDM"]];
                 [self.danyuanID addObject:grade[@"JCDM"]];
                 [self.fourDataArr addObject:grade[@"JCMC"]];
@@ -514,7 +490,7 @@
                 [self.teachMaterialArr addObject:stage];
             }
             
-            //            获取到教材代码再执行获取单元目录
+            //       获取到教材代码再执行获取单元目录
             if (grade == nil) {
                 [self.highFourBtn setTitle:[self.dictionary objectForKey:bookEdition] forState:UIControlStateNormal];
                  [self getUnits:bookEdition];
@@ -599,8 +575,6 @@
         
     }];
 }
-
-
 
 //获取小组名
 - (void)getGroupNameAndID:(NSString *)bjbh
@@ -694,47 +668,36 @@
 #pragma mark - 上传数据
 - (void)worksUploadGoAction
 {
-    
     if (!_imageDataString) {
         [FormValidator showAlertWithStr:@"请选择上传的资源"];
         return;
     }
-    
-    //获取系统时间戳
+//  1，获取系统时间戳
     NSDate *dateTime = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYYMMddhhmmssSS"];
     _imageName = [[NSString stringWithFormat:@"%@.png",[dateFormatter stringFromDate:dateTime]] substringFromIndex:2];
     
-
-    
-//    在服务器创建上传资源的文件名
+//  2，发起在服务器创建存放此资源的文件夹的请求
     [self createFieldName:_imageName];
     
-    //
-   
-    
+    [self uploadMessageContextWithSource];
     
 }
 
-
-//发起上传请求，创建文件夹
+//  2，发起在服务器创建存放此资源的文件夹的请求
 - (void)createFieldName:(NSString *)timeString
 {
-    
-    
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     
     NSString *userPass = [tools sendFileString:@"LoginData.plist" andNumber:1];
     NSString *userName = [tools sendFileString:@"LoginData.plist" andNumber:6];
     
-    
     NSString *create_File_Name = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><CreateFile xmlns=\"http://tempuri.org/\"><uName>%@</uName><uPwd>%@</uPwd><fileName>%@</fileName><type>%@</type></CreateFile></soap:Body></soap:Envelope>",userName, userPass,timeString, @"2"];
-    //    NSLog(@"%@",create_File_Name);
+    //  NSLog(@"%@",create_File_Name);
+    
     NSString *file_Name_Url = @"http://192.168.3.254:8082/FileUp.asmx";
-    
     NSString *file_Name_Length = [NSString stringWithFormat:@"%ld",create_File_Name.length];
-    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:file_Name_Url]];
     [request addValue:@"text/xml;charset=utf-8" forHTTPHeaderField:@"content-type"];
@@ -743,34 +706,33 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[create_File_Name dataUsingEncoding:NSUTF8StringEncoding]];
     
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
+    
+    NSURLSessionDataTask * dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//    服务器返回的二进制数据
         NSString *datastr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
         NSLog(@"======>>%@",datastr);
+//  3，上传数据
         [self imageName:timeString];
     }];
     
+//    发起请求
     [dataTask resume];
 }
 
 
-//上传数据
+//  3，上传数据
 - (void)imageName:(NSString *)name
 {
-    
     NSString *file_Name_Url = @"http://192.168.3.254:8082/FileUp.asmx";
-    
     
     NSString *appendingStr = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><AppendToFile xmlns=\"http://tempuri.org/\"><fileName>%@</fileName><buffer>%@</buffer><type>%@</type></AppendToFile></soap:Body></soap:Envelope>",name,_imageDataString,@"2"];
     
     NSString *appending_File_Length = [NSString stringWithFormat:@"%ld",appendingStr.length];
     
-    
     NSMutableURLRequest *appendRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:file_Name_Url]];
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     [appendRequest addValue:@"text/xml;charset=utf-8" forHTTPHeaderField:@"content-type"];
@@ -778,35 +740,32 @@
     [appendRequest addValue:@"http://tempuri.org/AppendToFile" forHTTPHeaderField:@"SOAPAction"];
     [appendRequest setHTTPMethod:@"POST"];
     
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSURLSessionUploadTask *appendDataTask = [manager uploadTaskWithRequest:appendRequest fromData:[appendingStr dataUsingEncoding:NSUTF8StringEncoding] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
+        NSURLSessionUploadTask * appendDataTask = [manager uploadTaskWithRequest:appendRequest fromData:[appendingStr dataUsingEncoding:NSUTF8StringEncoding] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
             if (error)
                 NSLog(@"Error: %@", error);
             else
-                [self uploadMessageContextWithSource];
+//    4，图片在服务器的具体章节目录的关联起来
+//                [self uploadMessageContextWithSource];
                 NSLog(@"%@",response);
-            
-            
+           
             NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-            
-        }];
+       }];
+        
         [appendDataTask resume];
         
     });
     
-    
-    
-    
 }
 
-
+//    4，图片在服务器的具体章节目录的关联起来
 - (void)uploadMessageContextWithSource
 {
     MYToolsModel *tools = [[MYToolsModel alloc] init];
+    
     NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
     NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
     
@@ -816,7 +775,7 @@
     NSString *jyjd = nil;
     NSString *zbh = nil;
     
-    for (FirstInDefault *paramter in self.defaultArray) {
+    for (FirstInDefault * paramter in self.defaultArray) {
         nj = paramter.nj;
         jyjd = paramter.jyjd;
         zbh = paramter.zbh;
@@ -825,32 +784,35 @@
     __block typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        
-        //    http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=R000000003&relationcode=401061992121470000&jyjd=004002&nj=1&kch=150101&zbh=131&bjbh=gz01020101&zpmc=161012180105791.jpg&wjmc=161012180108252.jpg&wjdx=1358730&zyms=&wjlx=.jpg&dxid=0&zply=3
-        
+        //  http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=R000000003&relationcode=401061992121470000&jyjd=004002&nj=1&kch=150101&zbh=131&bjbh=gz01020101&zpmc=161012180105791.jpg&wjmc=161012180108252.jpg&wjdx=1358730&zyms=&wjlx=.jpg&dxid=0&zply=3
+//        拼接路径
         NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&xscode=%@&relationcode=%@&jyjd=%@&nj=%@&kch=%@&zbh=%@&bjbh=%@&zpmc=%@&wjmc=%@&wjdx=%@&zyms=%@&wjlx=.png&dxid=0&zply=3",userCode,relationCode,jyjd,nj,_kch,zbh,_bjbh,_imageName,_imageName,imgData_Length,sourceDesribe];
-        
+//        转路径里特殊字符串为普通字符串
         NSString *codeUrl  = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         [manager GET:codeUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-            
-            if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
-                [FormValidator showAlertWithStr:@"上传成功！"];
-            } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-            }
+                if ([responseObject[@"issuccess"] isEqualToString:@"true"]) {
+                    
+                    [FormValidator showAlertWithStr:@"上传成功！"];
+                } else {
+                    
+                }
+            });
+           
             
         } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
             
+             [FormValidator showAlertWithStr:@"上传失败！"];
         }];
         
-        
     });
-
 }
 
+#pragma mark  懒加载。。。
 - (NSMutableArray *)stageArr
 {
     if (!_stageArr) {

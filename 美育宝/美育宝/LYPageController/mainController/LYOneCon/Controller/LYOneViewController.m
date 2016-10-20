@@ -131,14 +131,10 @@
     [self.collectionView addHeaderWithTarget:self action:@selector(httpRequest)];
     [self.collectionView headerBeginRefreshing];
     
-    
 
-    
- 
 //    self.scrollCell.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headerViewClick:) name:@"FIRSTVC_HEADERVIEW_CLICK" object:nil];
     
-
 }
 
 - (void)dealloc
@@ -279,10 +275,6 @@
         return cell;
     }
     
-
-    
-
-    
 }
 //屏幕旋转
 - (BOOL)shouldAutorotate
@@ -322,7 +314,6 @@
             } else if (indexPath.section == 5 && self.tempArrF.count > 0) {
                 reusableView.name.text = self.tempArrE[indexPath.section - 1];
                 
-                
             }
             
             return reusableView;
@@ -330,6 +321,7 @@
     }
     return nil;
 }
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section >0) {
         return CGSizeMake(ScreenWidth, 40);
@@ -514,9 +506,7 @@
             [LoginViewController login:self loginType:LoginType_Normal];
         }
         
-        
-        
-    } else if (indexPath.section == 4) {
+      } else if (indexPath.section == 4) {
         if (self.tempArrD.count == 0) {
             return;
         }

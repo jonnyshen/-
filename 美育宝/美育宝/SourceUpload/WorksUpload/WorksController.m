@@ -58,9 +58,9 @@
     return _classifyID;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"作品上传";
     //    获取uitableview数据
     
@@ -84,6 +84,8 @@
         
         [self setUpTableView:TeacherTableViewFrame];
         
+        [self.tableView addHeaderWithTarget:self action:@selector(headerAction)];
+        [self.tableView headerBeginRefreshing];
         [self httpRequest:@"" andClassIdent:self.classifyID.firstObject];
     }
     
@@ -91,6 +93,12 @@
     self.navigationItem.rightBarButtonItem = rightBtn;
     
 //    [self.tableView addHeaderWithTarget:self action:@selector(httpRequest:andClassIdent:)];
+}
+
+- (void)headerAction
+{
+    [self httpRequest:@"" andClassIdent:self.classifyID.firstObject];
+    
 }
 
 - (void)setUpTableView:(CGRect)frame
@@ -121,11 +129,20 @@
         MYToolsModel *tools = [[MYToolsModel alloc] init];
         [tools saveToPlistWithPlistName:@"WorksUpload.plist" andData:imgurl];
         
-        for (NSDictionary *params in responseObject[@"aaData"]) {
-            WorksOneMode *model = [WorksOneMode dataWithDict:params];
-            [self.worksDataArr addObject:model];
+        for (NSDictionary * params in responseObject[@"aaData"]) {
+            NSMutableArray * arr = params[@"data"];
+            for (NSDictionary * dict  in arr) {
+                 WorkTwoMode * model = [WorkTwoMode dataWithDict:dict];
+                
+                [self.worksDataArr addObject:model];
+            }
+//            WorksOneMode *model = [WorksOneMode dataWithDict:params];
+           
         }
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.tableView headerEndRefreshing];
+        });
         
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -144,7 +161,7 @@
 {
     static NSString *cellID = @"WorksCell";
     WorksCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    WorksOneMode *worksData = self.worksDataArr[indexPath.row];
+    WorkTwoMode *worksData = self.worksDataArr[indexPath.row];
     cell.worksData = worksData;
     return cell;
 }

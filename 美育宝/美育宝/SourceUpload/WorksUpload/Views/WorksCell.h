@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WorksOneMode.h"
+#import "WorkTwoMode.h"
 
 @interface WorksCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *workImage;
@@ -15,6 +16,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLb;
 @property (weak, nonatomic) IBOutlet UIImageView *imgType;
 
-
-@property (nonatomic, strong) WorksOneMode *worksData;
+@property (nonatomic, strong) NSString *fjmc;
+@property (nonatomic , strong) NSString *imgPath;//图片路径
+@property (nonatomic, strong) NSString * zylx;
+@property (nonatomic , strong) NSString *mxdm;
+@property (nonatomic, strong) NSString * scsj;
+//@property (nonatomic, strong) WorksOneMode *worksData;
+@property (nonatomic, strong) WorkTwoMode *worksData;
 @end

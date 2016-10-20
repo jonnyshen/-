@@ -101,7 +101,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
-
+  // 打开手机相册
 -(void)getPhotoFromBlum
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -111,6 +111,7 @@
     
     [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
+// 拍照和录制视频
 -(void)getPhotoFromCamera
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -148,31 +149,20 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    //压缩图片
-    NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
-    _imageDataString = [fileData base64EncodedStringWithOptions:0];
-    
     self.headerImageView.image = image;
-    
     
     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     //判断资源类型
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]){
         //如果是图片
         //压缩图片
-        //        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
-        
-        //不压缩图片
-        NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
+    NSData *fileData = UIImagePNGRepresentation(info[UIImagePickerControllerEditedImage]);
         _imageDataString = [fileData base64EncodedStringWithOptions:0];
-        
-        self.headerImageView.image = image;
         
         //保存图片至相册
         UIImageWriteToSavedPhotosAlbum(info[UIImagePickerControllerEditedImage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-        //        上传图片
-        
-    }else{
+    
+   }else{
         //如果是视频
         NSURL *url = info[UIImagePickerControllerMediaURL];
         
@@ -189,6 +179,7 @@
         //视频上传
         _imageDataString = [videoData base64EncodedStringWithOptions:0];
     }
+   
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -197,7 +188,6 @@
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark 图片保存完毕的回调
 - (void) image: (UIImage *) image didFinishSavingWithError:(NSError *) error contextInfo: (void *)contextInf{
@@ -212,9 +202,6 @@
         NSLog(@"视频保存成功.");
     }
 }
-
-
-
 
 - (void)clickBackBtn
 {
@@ -236,7 +223,7 @@
     
 }
 
-
+// 上传视频或者图片
 - (void)setUploadBtnAction:(UIButton *)uploadBtn
 {
     if (self.detailTextField.text == nil ||[self.detailTextField.text isEqualToString:@""]) {
@@ -256,6 +243,7 @@
     UIAlertAction *detailMessageAction = [UIAlertAction actionWithTitle:@"选定目录上传" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
         
         ClassifiedCatalogueController *catalogue = [[ClassifiedCatalogueController alloc] initWithImage:_imageName andImageData:_imageDataString classDecribe:self.detailTextField.text];
+        
         [self.navigationController pushViewController:catalogue animated:YES];
     }];
     
@@ -271,20 +259,18 @@
 // 上传临时空间
 - (void)uploadTemporarySpace
 {
+    //发起上传请求，创建文件夹
     [self createFieldName:_imageName];
     
-    //
+    // MYToolsModel 通过它拿到对应的接口参数userCode
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *userCode = [tools sendFileString:@"LoginData.plist" andNumber:2];
-    
     NSString *imgData_Length = [NSString stringWithFormat:@"%ld",_imageDataString.length];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+           NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=&kch=&nj=&zbh=&zymc=%@&filename=%@&filesize=%@&zyms=&zybh=",userCode,_imageName,_imageName,imgData_Length];
         
-        NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savezy&usercode=%@&jyjd=&kch=&nj=&zbh=&zymc=%@&filename=%@&filesize=%@&zyms=&zybh=",userCode,_imageName,_imageName,imgData_Length];
-        
-//        SourceController * vc = [[SourceController alloc] init];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         [manager POST:saveUrl parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 //            issuccess服务器字段
@@ -300,15 +286,12 @@
 //            else {
 //               [FormValidator showAlertWithStr:@"保存失败"];
 //            }
-//
-            
+ 
             
         } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
             [FormValidator showAlertWithStr:@"保存失败"];
         }];
-        
-        
-        
+       
     });
     
 }
@@ -318,9 +301,7 @@
 //发起上传请求，创建文件夹
 - (void)createFieldName:(NSString *)timeString
 {
-    
-    
-    MYToolsModel *tools = [[MYToolsModel alloc] init];
+     MYToolsModel *tools = [[MYToolsModel alloc] init];
     
     NSString *userPass = [tools sendFileString:@"LoginData.plist" andNumber:1];
     NSString *userName = [tools sendFileString:@"LoginData.plist" andNumber:6];
@@ -387,6 +368,7 @@
             
             NSLog(@"----->%@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
          }];
+        
         [appendDataTask resume];
         
     });

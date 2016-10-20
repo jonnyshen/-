@@ -2,8 +2,8 @@
 //  LoginState.m
 //  Login
 //
-//  Created by zhuming on 15/12/19.
-//  Copyright (c) 2015年 zhuming. All rights reserved.
+//  Created by  on 16/12/19.
+//  Copyright (c) 2016年 . All rights reserved.
 //
 
 #import "LoginState.h"

@@ -98,33 +98,21 @@
     MYToolsModel *tools = [[MYToolsModel alloc] init];
     NSString *fuck = [tools sendFileString:@"Fuck.plist" andNumber:0];
     self.titleLabel.text = [NSString stringWithFormat:@"%@课前导学",fuck];
-    
+// UIActivityIndicatorView 菊花
     UIActivityIndicatorView *activeView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     self.activeView = activeView;
     [activeView setActivityIndicatorViewStyle:(UIActivityIndicatorViewStyleWhiteLarge)];
     [activeView setCenter:CGPointMake(self.view.frame.origin.x/2, self.view.frame.origin.y/2)];
+    
     [self.view addSubview:activeView];
     
-    
-}
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)addNewDaoXue {
     
 //    [self.titleLabel clearsOnBeginEditing];
     //获取系统时间戳
-    
-
-
-    
-    
+ 
 }
 
 - (void)imageName:(NSString *)name
@@ -185,9 +173,6 @@
     
 }
 
-
-
-
 //保存导学
 - (IBAction)saveDaoXue:(id)sender
 {
@@ -213,17 +198,12 @@
     NSString *relationCode = [tools sendFileString:@"LoginData.plist" andNumber:3];
     
     
-    
-
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         
         NSString *saveUrl = [NSString stringWithFormat:@"http://192.168.3.254:8082/GetDataToApp.aspx?action=savedxzp&bjbh=%@&xscode=%@&relationcode=%@&dxid=%@&zbh=%@&zpmc=%@&wjmc=%@&wjlx=.png&wjdx=1024",class_Number,userCode,relationCode,_periodID,_materail,self.YQtextView.text,imageName];
 
         
         NSString *codeUrl = [saveUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -244,24 +224,16 @@
         }];
         
         
-        
     });
-    
-    
-    
-    
     
 }
 
 - (void)createFieldName:(NSString *)timeString
 {
-   
-    
-    MYToolsModel *tools = [[MYToolsModel alloc] init];
+   MYToolsModel *tools = [[MYToolsModel alloc] init];
     
     NSString *userPass = [tools sendFileString:@"LoginData.plist" andNumber:1];
     NSString *userName = [tools sendFileString:@"LoginData.plist" andNumber:6];
-    
     
     NSString *create_File_Name = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><CreateFile xmlns=\"http://tempuri.org/\"><uName>%@</uName><uPwd>%@</uPwd><fileName>%@</fileName><type>%@</type></CreateFile></soap:Body></soap:Envelope>",userName, userPass,timeString, @"2"];
     //    NSLog(@"%@",create_File_Name);
@@ -299,20 +271,23 @@
     }
     
     NSDictionary *pushDic = [NSDictionary dictionaryWithObjectsAndKeys:self.titleLabel.text, @"BTtext", self.YQtextView.text, @"YQtextView", nil];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     [manager POST:kSAVEDAOXUEURL parameters:pushDic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
     } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         self.postSuccess = YES;
         [FormValidator showAlertWithStr:@"推送成功"];
+        
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         self.postSuccess = NO;
         [FormValidator showAlertWithStr:@"推送失败"];
+        
     }];
     
-    
-    
 }
+
 - (NSString *)getDataFilePath
 {
     NSArray *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -332,31 +307,5 @@
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

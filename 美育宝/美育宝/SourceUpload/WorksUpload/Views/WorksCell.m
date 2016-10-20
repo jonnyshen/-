@@ -9,6 +9,9 @@
 #import "WorksCell.h"
 #import "UIImageView+WebCache.h"
 #import "MYToolsModel.h"
+#import "WorkTwoMode.h"
+
+
 
 
 @implementation WorksCell
@@ -17,23 +20,14 @@
 - (void)setWorksData:(WorksOneMode *)worksData
 {
    
+   
+    
+    
     if ([self pieceOfString:worksData.imgPath]) {
         [self.workImage sd_setImageWithURL:[NSURL URLWithString:[self pieceOfString:worksData.imgPath]] placeholderImage:[UIImage imageNamed:@"loading"]];
     }
 
-    /*
-    long long time=[worksData.scsj longLongValue];
-    
-    NSDate *d = [[NSDate alloc]initWithTimeIntervalSince1970:time/1000.0];
-    
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];//格式化
-    
-    [df setDateFormat:@"yyyy-MM-dd"];
-    
-    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"] ];
-    
-    NSString * timeStr =[df stringFromDate:d];
-     */
+   
     
     NSString *timeString = [worksData.scsj substringWithRange:NSMakeRange(0, 8)];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
